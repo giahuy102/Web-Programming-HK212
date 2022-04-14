@@ -7,7 +7,7 @@ $exampleController = new ExampleController();
 
 
 $router = new Router();
-$router->get('/example', $exampleController->example());
+$router->get('/example', array($exampleController, 'example'));
 
 $router->run();
 
