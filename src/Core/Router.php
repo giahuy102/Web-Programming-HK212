@@ -13,7 +13,6 @@ class Router {
         $this->request = new Request();
         // if ($this->request->getInput('a') == null) echo 9999;
         // print_r($this->request->getInput('b'));
-        print_r($this->request->isExist('b'));
     }
 
     public function get($uri, $callback) {
@@ -61,7 +60,6 @@ class Router {
                 $callback = $handler['callback'];
             }
         }
-        echo '99999999999999999999';
         if ($callback) call_user_func($callback, $this->request);
     }
 }

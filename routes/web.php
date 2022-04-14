@@ -2,23 +2,12 @@
 
 use App\Core\Router as Router;
 
-use App\Controller\ContactController;
-$contactController = new ContactController();
+use App\Controller\ExampleController;
+$exampleController = new ExampleController();
 
 
 $router = new Router();
-$router->get('/hihi', function() {
-    echo "Hihi";
-});
-
-
-
-
-$router->get('/afaf', function() {
-    echo "Hihi";
-});
-
-$router->get('/contact', $contactController->test());
+$router->get('/example', $exampleController->example());
 
 $router->run();
 
