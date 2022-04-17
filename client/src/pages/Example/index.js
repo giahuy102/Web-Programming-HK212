@@ -10,7 +10,7 @@ export default function Example() {
 
     const [exampleData, setExampleData] = useState('');
     useEffect(() => {
-        axios.get(`http://localhost/example`)
+        axios.get(`http://localhost/example/8`)
         .then(res => {
             console.log(res.data);
             setExampleData(JSON.stringify(res.data));

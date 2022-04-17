@@ -10,6 +10,9 @@ if ($uri !== '/' && file_exists(__DIR__.'/public'.$uri)) {
     return false;
 }
 
+// $str = "/Example/90";
+// $pattern = "/^\/example\/[0-9]+$/i";
+// echo preg_match($pattern, $str);
 
 require_once __DIR__.'/public/index.php';
 

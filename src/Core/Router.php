@@ -17,6 +17,11 @@ class Router {
 
     public function get($uri, $callback) {
         $this->addHandler($uri, 'GET', $callback);
+
+        
+        // print_r($this->request->getUri());
+        
+
         // $this->handlers['GET'][$uri] = [
         //     'uri' => $uri,
         //     'method' => 'GET',
@@ -46,7 +51,6 @@ class Router {
             'method' => $method,
             'callback' => $callback
         ];
-
     }
 
     public function run() {
@@ -56,7 +60,10 @@ class Router {
         // print_r($_SERVER['REQUEST_URI']);
         $callback = null;
         foreach ($this->handlers as $handler) {
-            if ($handler['uri'] == $requestPath && $handler['method'] == $requestMethod) {
+            // if ($handler['uri'] == $requestPath && $handler['method'] == $requestMethod) {
+            //     $callback = $handler['callback'];
+            // }
+            if (preg_match($handler['uri'], $requestPath) && $handler['method'] == $requestMethod) {
                 $callback = $handler['callback'];
             }
         }
