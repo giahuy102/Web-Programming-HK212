@@ -10,7 +10,8 @@ export default function Example() {
 
     const [exampleData, setExampleData] = useState('');
     useEffect(() => {
-        axios.get(`http://localhost/example/8`)
+        // axios.get(`http://localhost/example/99?a=2`)
+        axios.get(`http://localhost/Web-Programming-HK212/index.php/example/99?a=2&b=5`)
         .then(res => {
             console.log(res.data);
             setExampleData(JSON.stringify(res.data));
@@ -20,6 +21,7 @@ export default function Example() {
         }, []);
     });
     return (
-        <p>{ exampleData }</p>
+        // <p>{ exampleData }</p>
+        <h1>Example page</h1>
     );
 }

@@ -10,6 +10,8 @@ header('Access-Control-Allow-Headers: Host, Connection, Accept, Authorization, C
 // var_dump($_SERVER);
 // print_r($_SERVER);
 
+echo "<br> nhanvo";
+
 
 // require_once __DIR__.'/../vendor/autoload.php';
 

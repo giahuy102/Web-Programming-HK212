@@ -8,6 +8,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Example from './pages/Example';
 import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
@@ -28,6 +31,7 @@ function App() {
         <Routes>
           <Route path="/example" element={<Example />} />
           <Route path="/" element={<Home />} />
+          <Route path="*" element={<Dashboard />} />
         </Routes>
       </Router>
     </div>
