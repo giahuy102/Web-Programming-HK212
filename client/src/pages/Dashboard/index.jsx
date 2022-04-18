@@ -16,7 +16,7 @@ export default class Dashboard extends React.Component {
       {/* <div className="col-lg-2">
         <SideNavBar />
       </div> */}
-      <div className="col">
+      <div className="col" style={{height: '100%'}}>
         <div className="top-nav" style={{height: 60}}>
           <h2 style={{marginBottom: 0}}>Top nav</h2>
           <div className="line" style={{height: 1, backgroundColor: '#D2D4DD', marginTop: 20}}></div>

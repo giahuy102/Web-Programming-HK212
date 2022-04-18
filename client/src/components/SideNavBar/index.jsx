@@ -21,6 +21,9 @@ export default function SideNavBar() {
   const updateSize = () => {
     const width = window.innerWidth;
     const height = window.innerHeight;
+    // console.log("height: ", height);
+    // const ele = document.getElementsByClassName("container");
+    // console.log("ele: ", ele)
     const breakpoint_lg = 992;
     if (width < breakpoint_lg) {
       setActive(false);
