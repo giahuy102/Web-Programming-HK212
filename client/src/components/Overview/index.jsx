@@ -1,6 +1,8 @@
 import "./style.css";
 export default function Overview() {
     const contentStyle = {
+      width: '90%',
+      margin: '0 auto',
       marginTop: 60, 
       backgroundColor: 'white',
       fontSize: 25,
