@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // ICONS
 import * as FaIcons from "react-icons/fa";
@@ -15,9 +15,26 @@ import "./style.css";
 
 export default function SideNavBar() {
   const [active, setActive] = useState(true);
+  const [myStyle, setStyle] = useState({
+    minHeight: window.innerHeight
+  })
+  const updateSize = () => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const breakpoint_lg = 992;
+    if (width < breakpoint_lg) {
+      setActive(false);
+    }
+    setStyle({minHeight: height});
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', updateSize());
+  });
+  
   return (
     <IconContext.Provider value={{ color: "#fff" }}>
-      <nav className={active ? "nav-bar" : "nav-bar nav-bar-inactive"}>
+      <nav style={myStyle} className={active ? "nav-bar" : "nav-bar nav-bar-inactive"}>
         
         <img style={{marginLeft: 0, marginRight: 20}} src={require("../../assets/images/logo.png")}></img>
         <Link
@@ -59,7 +76,7 @@ export default function SideNavBar() {
             <li>
                 <Link style={{textDecoration: "none"}} to="/dashboard/publicInfo">
                     <AiIcons.AiOutlineInfoCircle className="icon" />
-                    <span>Public Information</span>
+                    <span>Information</span>
                 </Link>
             </li>
         </ul>

@@ -12,10 +12,11 @@ ul {
 }
 
 .nav-bar {
-    width: 261px;
+    /* width: 261px; */
+    width: 17%;
     position: relative;
     /* height: 100vh; */
-    min-height: 750px;
+    /* min-height: 750px; */
     background-color: #122939;
     transition: all 0.3s;
 }
