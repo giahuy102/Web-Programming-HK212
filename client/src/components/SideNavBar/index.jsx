@@ -32,7 +32,8 @@ export default function SideNavBar() {
   }
 
   useEffect(() => {
-    window.addEventListener('resize', updateSize());
+    // console.log("use")
+    // window.addEventListener('resize', updateSize());
   });
   
   return (
