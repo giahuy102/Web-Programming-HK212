@@ -4,9 +4,9 @@ import SideNavBar from "../../components/SideNavBar/";
 import "./style.css";
 import Overview from "../../components/Overview";
 import Membership from "../../components/Membership"
-import Contact from "../../components/Contact";
-import Comment from "../../components/Comment";
-import PublicInfo from "../../components/PublicInfo";
+import CommentNews from "../../components/CommentNews";
+import EditMembership from "../../components/Membership/Edit";
+import DetailMembership from "../../components/Membership/Detail";
 
 export default class Dashboard extends React.Component {
 
@@ -37,26 +37,28 @@ export default class Dashboard extends React.Component {
             }
           />
           <Route
-            path="/dashboard/comment"
+            path="/dashboard/membership/edit/:id"
             element={
-              <Comment 
+              <EditMembership 
               />
             }
           />
           <Route
-            path="/dashboard/contact"
+            path="/dashboard/membership/detail/:id"
             element={
-              <Contact 
+              <DetailMembership 
               />
             }
           />
           <Route
-            path="/dashboard/publicInfo"
+            path="/dashboard/commentNews"
             element={
-              <PublicInfo 
+              <CommentNews 
               />
             }
           />
+          
+
         </Routes>
       </div>
     </div>

@@ -64,25 +64,13 @@ export default function SideNavBar() {
             </li>
 
             <li>
-                <Link style={{textDecoration: "none"}} to="/dashboard/comment">
-                    <AiIcons.AiOutlineComment className="icon" />
-                    <span>Comment</span>
+                <Link style={{textDecoration: "none"}} to="/dashboard/commentNews">
+                    <BSIcons.BsNewspaper className="icon" />
+                    <span>News Comment</span>
                 </Link>
             </li>
 
-            <li>
-                <Link style={{textDecoration: "none"}} to="/dashboard/contact">
-                    <AiIcons.AiOutlineContacts className="icon" />
-                    <span>Contact</span>
-                </Link>
-            </li>
-
-            <li>
-                <Link style={{textDecoration: "none"}} to="/dashboard/publicInfo">
-                    <AiIcons.AiOutlineInfoCircle className="icon" />
-                    <span>Information</span>
-                </Link>
-            </li>
+            
         </ul>
       </nav>
     </IconContext.Provider>

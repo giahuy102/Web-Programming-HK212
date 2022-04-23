@@ -10,7 +10,7 @@ export default function Overview() {
     }
     return (
       <div className="container" style={{maxWidth: 2000, height: '100%'}}>
-        <h1 style={{paddingTop: 60, fontWeight: "bold"}} className="title">Welcome to BKRestaurant</h1>      
+        <h1 style={{paddingTop: 60, color: '#1570EF', fontWeight:'bold'}} className="title">Welcome to BKRestaurant</h1>      
         <div className="content" style={contentStyle}>
           Many novice writers tend to make a sharp distinction between content and style, thinking that a paper 
           can be strong in one and weak in the other, but focusing on organization shows how content and style converge in deliberative 
