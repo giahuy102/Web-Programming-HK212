@@ -7,6 +7,10 @@ import Membership from "../../components/Membership"
 import CommentNews from "../../components/CommentNews";
 import EditMembership from "../../components/Membership/Edit";
 import DetailMembership from "../../components/Membership/Detail";
+import CommentProduct from "../../components/CommentProduct";
+import Contact from "../../components/Contact";
+import PublicInfo from "../../components/PublicInfo";
+import EditPublicInfo from "../../components/PublicInfo/Edit";
 
 export default class Dashboard extends React.Component {
 
@@ -57,7 +61,34 @@ export default class Dashboard extends React.Component {
               />
             }
           />
-          
+          <Route
+            path="/dashboard/commentProduct"
+            element={
+              <CommentProduct
+              />
+            }
+          />
+          <Route
+            path="/dashboard/contact"
+            element={
+              <Contact 
+              />
+            }
+          />
+          <Route
+            path="/dashboard/publicInfo"
+            element={
+              <PublicInfo 
+              />
+            }
+          />
+          <Route
+            path="/dashboard/publicInfo/edit/:id"
+            element={
+              <EditPublicInfo 
+              />
+            }
+          />
 
         </Routes>
       </div>
