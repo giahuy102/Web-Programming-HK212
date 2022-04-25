@@ -10,6 +10,7 @@
     border-radius: 50px;
     background-color: white;
     text-align: left;
+    width: 100%;
 }
 
 .changeps{
@@ -21,4 +22,17 @@
 .changeps:hover{
     color: #E0B531;
     cursor: pointer;
+}
+
+
+.updatebtn{
+    border-radius: 50px;
+    border-style: none;
+    border-color: #b38f25;
+    border-style: solid;
+    width: 55%;
+    padding: 5px 0;
+    background-color: #E0B531;
+    color: white;
+    
 }
