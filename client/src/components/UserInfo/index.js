@@ -12,56 +12,56 @@ const UserInfo = () => {
   return (
     <div className="container">
       <div className="row d-block header">Member Infomation</div>
-      <form className=''>
-        <div className="row justify-content-around my-4">
-          <div className="col-3">
+      <form className='form-box-margin  pb-2'>
+        <div className="my-4 d-md-flex">
+          <div className="col-lg-4 col-md-5">
             <div> <h5>User Name</h5></div>
             <div className="myInput">{username}</div>
           </div>
-          <div className="col-4">
+          <div className="col-md-5 mt-sm-4 mt-md-0 form-margin">
             <div>
               <h5>
                 Password
               </h5>
             </div>
-            <div className="d-flex">
-              <div className="col-8 myInput">******</div>
-              <div className='col d-flex align-items-center'>
+            <div className="d-lg-flex">
+              <div className="myInput">******</div>
+              <div className='d-flex align-items-center'>
                 <a hreft="" className=" changeps">Change password</a>
               </div>
             </div>
           </div>
         </div>
-        <div className="row justify-content-around my-4">
-          <div className="col-3">
+        <div className="my-md-4 d-md-flex">
+          <div className="col-lg-4 col-md-5">
             <label htmlFor='nameInput'> 
               <h5>Name</h5>
             </label>
             <input type="text" id="nameInput" value={name} className="myInput"></input>
           </div>
-          <div className="col-4">
+          <div className="col-lg-4 col-md-5 mt-sm-4 mt-md-0 form-margin">
             <label htmlFor='emailInput'> 
               <h5>Email</h5>
             </label>
             <input type="text" id="emailInput" value={email} className="myInput"></input>
           </div>
         </div>
-        <div className="row justify-content-around my-4">
-          <div className="col-3">
+        <div className="my-4 d-md-flex">
+          <div className="col-lg-4 col-md-5">
             <label htmlFor='phoneInput'> 
               <h5>Phone</h5>
             </label>
             <input type="text" id="phoneInput" value={phone} className="myInput"></input>
           </div>
-          <div className="col-4">
+          <div className="col-lg-4 col-md-5 mt-sm-4 mt-md-0 form-margin">
             <label htmlFor='addressInput'> 
               <h5>Address</h5>
             </label>
             <input type="text" id="addressInput" value={address} className="myInput"></input>
           </div>
         </div>
-        <div className="row d-flex my-4 justify-content-around">
-          <div className='col-3 d-flex flex-column align-items-center'>
+        <div className="row my-4">
+          <div className='col-lg-4 col-md-5 '>
             <div className='mt-4'>
               <img src={avarta} alt="" className='img-thumbnail'></img>
             </div>
@@ -69,8 +69,8 @@ const UserInfo = () => {
               <input className="" id="imgSrc" type="file" />
             </div>
           </div>
-          <div className="col-4 d-flex align-items-center">
-            <button className='updatebtn'> <h2>Update</h2></button>
+          <div className="col-lg-4 col-md-5 mt-sm-4 mt-md-0 form-margin d-flex align-items-center justify-content-sm-center justify-content-md-start">
+            <button className='updatebtn'> Update</button>
           </div>
         </div>
         

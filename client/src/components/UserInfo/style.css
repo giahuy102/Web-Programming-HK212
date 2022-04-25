@@ -1,8 +1,37 @@
+
+@media only screen and (max-width: 768px){
+    .form-box-margin{
+        margin: 0 5%;
+    }
+    .form-margin{
+        margin-left: 0%;
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .form-box-margin{
+        margin-left: 10%;
+    }
+    .form-margin{
+        margin-left: 10%;
+    }
+}
+
+@media only screen and (min-width: 992px){
+    .form-box-margin{
+        margin-left: 15%;
+    }
+    .form-margin{
+        margin-left: 15%;
+    }
+}
+
 .header{
     font-size: xx-large;
     font-weight: bold;
     text-align: center;
 }
+
 .myInput{
     padding: 10px 20px;
     display: block;
@@ -30,9 +59,9 @@
     border-style: none;
     border-color: #b38f25;
     border-style: solid;
-    width: 55%;
-    padding: 5px 0;
+    padding: 5px 40px;
     background-color: #E0B531;
     color: white;
-    
+    font-size:x-large;
+    font-weight: bold;
 }
