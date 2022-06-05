@@ -1,3 +1,4 @@
+
 <?php
 
 
@@ -18,11 +19,11 @@ if ($uri !== '/' && file_exists(__DIR__.'/public'.$uri)) {
 // $pattern = "/^\/example\/[0-9]+$/i";
 // echo preg_match($pattern, $str);
 
-echo "<br> index.php";
+// echo "<br> index.php";
 
 require_once __DIR__.'/public/index.php';
 
-echo "<br> below";
+// echo "<br> below";
 
 
 // Sample array

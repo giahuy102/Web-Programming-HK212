@@ -9,7 +9,6 @@ class Router {
     private $request;
 
     function  __construct() {
-        echo "<br> constructor in Core/Router.php";
         $this->handlers = array();
         $this->request = new Request();
         // if ($this->request->getInput('a') == null) echo 9999;
@@ -18,7 +17,6 @@ class Router {
 
     public function get($uri, $callback) {
         $this->addHandler($uri, 'GET', $callback);
-        echo "<br> get in Core/Router.php";
 
         
         // print_r($this->request->getUri());
@@ -53,14 +51,10 @@ class Router {
             'method' => $method,
             'callback' => $callback
         ];
-        echo "<br> addHandler: ";
-        print_r($this->handlers[$method . $uri]);
+        // print_r($this->handlers[$method . $uri]);
     }
 
     public function run() {
-
-        echo "<br> run in Core/Router.php";
-
         $requestPath = $this->request->getUri();
         // $requestPath = $requestUri['PATH'];
         $requestMethod = $this->request->getMethod();
@@ -71,6 +65,7 @@ class Router {
             //     $callback = $handler['callback'];
             // }
             if (preg_match($handler['uri'], $requestPath) && $handler['method'] == $requestMethod) {
+                // print_r('ffsfsf');   
                 $callback = $handler['callback'];
             }
         }
