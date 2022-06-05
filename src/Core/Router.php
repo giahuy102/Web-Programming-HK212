@@ -45,6 +45,14 @@ class Router {
         $this->addHandler($uri, 'POST', $callback);
     }
 
+    public function put($uri, $callback) {
+        $this->addHandler($uri, 'PUT', $callback);
+    }
+
+    public function delete($uri, $callback) {
+        $this->addHandler($uri, 'DELETE', $callback);
+    }
+
     private function addHandler($uri, $method, $callback) {
         $this->handlers[$method . $uri] = [
             'uri' => $uri,
