@@ -90,6 +90,27 @@ export default function SideNavBar() {
                     <span>Information</span>
                 </Link>
             </li>
+
+            <li>
+                <Link style={{textDecoration: "none"}} to="/dashboard/product">
+                    <FaIcons.FaHamburger className="icon" />
+                    <span>Product</span>
+                </Link>
+            </li>
+
+            <li>
+                <Link style={{textDecoration: "none"}} to="/dashboard/news">
+                    <FaIcons.FaPaperPlane className="icon" />
+                    <span>News</span>
+                </Link>
+            </li>
+
+            <li>
+                <Link style={{textDecoration: "none"}} to="/dashboard/image-storage">
+                    <FaIcons.FaImage className="icon" />
+                    <span>Image Storage</span>
+                </Link>
+            </li>
         </ul>
       </nav>
     </IconContext.Provider>
