@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.css'
 
-import avarta from '../../assets/images/images.jpg'
+import avatar from '../../assets/images/images.jpg'
 
 const UserInfo = () => {
   const username = "johncarter101"
@@ -63,7 +63,7 @@ const UserInfo = () => {
         <div className="row my-4">
           <div className='col-lg-4 col-md-5 '>
             <div className='mt-4'>
-              <img src={avarta} alt="" className='img-thumbnail'></img>
+              <img src={avatar} alt="" className='img-thumbnail'></img>
             </div>
             <div className='mt-3 col'>
               <input className="" id="imgSrc" type="file" />

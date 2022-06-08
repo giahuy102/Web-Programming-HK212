@@ -7,6 +7,8 @@ import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import UserInfo from '../../components/UserInfo'
+import Comment from '../../components/Comment';
+import Product from '../../components/Product';
 
 export default function Example() {
 
@@ -28,6 +30,13 @@ export default function Example() {
                         path="/userInfo"
                         element={
                         <UserInfo
+                        />
+                        }
+                    />
+                    <Route
+                        path="/product"
+                        element={
+                        <Product
                         />
                         }
                     />
