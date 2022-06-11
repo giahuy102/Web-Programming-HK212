@@ -113,6 +113,8 @@ class AdminModel {
         $connection = $this->connectDB();
         $query = "INSERT INTO image_storage(URL_IMG, POSITION, ID_ADMIN) VALUE('" . $url_img . "','" . $position . "'," . $id_admin . ")";
         $result = mysqli_query($connection, $query);
+    }
+    
     function get_public_info() {
         $connection = $this->connectDB();
         $query = "SELECT * FROM public_information";
