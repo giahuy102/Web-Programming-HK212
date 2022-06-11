@@ -16,11 +16,12 @@ export default function Contact() {
     }
     const contactStyle = {
         backgroundColor: '#F7F8FC',
+        height: '100vh'
     }
     const lastTd = {
         backgroundColor: 'white',
         fontSize: 20,
-        width: 220,
+        width: 230,
     }
 
     const each_td = {
@@ -89,7 +90,7 @@ export default function Contact() {
 
     const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
+    useEffect (() => {
         handleSearch();
         axios({
             method: 'get',

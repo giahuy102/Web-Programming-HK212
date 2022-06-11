@@ -19,8 +19,8 @@ export default function DetailMembership() {
     }
     const [member, setMember] = useState(JsonData[id_obj.id - 1]);
 
-    useEffect(() => {
-        axios({
+    useEffect( () => {
+         axios({
             method: 'get',
             url: `http://localhost/dashboard/membership/detail/${id_obj.id}`,
         }).then(function (response) {

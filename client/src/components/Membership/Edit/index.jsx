@@ -41,7 +41,7 @@ export default function EditMembership() {
 
     const [newID, setNewID] = useState();
 
-    const confirmEdit = () => {
+    const confirmEdit = async () => {
         // console.log("change: ", document.getElementById('id').value)
         // console.log("change: ", document.getElementById('username').value)
         // console.log("change: ", document.getElementById('phone_number').value)
@@ -50,7 +50,7 @@ export default function EditMembership() {
         let newUsername = document.getElementById('username').value;
         let newPhoneNumber = document.getElementById('phone_number').value;
         let newEmail = document.getElementById('email').value;
-        axios({
+        await axios({
             method: 'post',
             url: `http://localhost/dashboard/membership/edit/${id_obj.id}`,
             data: {
@@ -66,11 +66,11 @@ export default function EditMembership() {
         });
     }
 
-    useEffect(() => {
+    useEffect( () => {
         // let getMember = JsonData.filter( (member) => member.id == id_obj.id);
         // setMember(getMember[0]);
         // console.log(member);
-        axios({
+         axios({
             method: 'get',
             url: `http://localhost/dashboard/membership/detail/${id_obj.id}`,
         }).then(function (response) {

@@ -32,6 +32,34 @@ export default function Membership() {
 
         setShowDelete(false)
     }
+
+    const confirmBlock = async (e, blockOrNot) => {
+        if (blockOrNot == 0) {
+            await axios({
+                method: 'post',
+                url: `http://localhost/dashboard/membership/block/${idDeleteOrBlock}`,
+            }).then(function (response) {
+                console.log(response);
+                setMembers(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+        else {
+            await axios({
+                method: 'post',
+                url: `http://localhost/dashboard/membership/unblock/${idDeleteOrBlock}`,
+            }).then(function (response) {
+                console.log(response);
+                setMembers(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        setShowBlock(false);
+    }
+
     const handleShowDelete = (e, id) => {
         e.preventDefault();
         setShowDelete(true)
@@ -44,9 +72,14 @@ export default function Membership() {
         e.preventDefault();
         setShowBlock(false)
     };
-    const handleShowBlock = (e) => {
+
+    const [blockOrNot, setBlockOrNot] = useState();
+    const handleShowBlock = (e, id, blockOrUnblock) => {
         e.preventDefault();
-        setShowBlock(true)
+        setShowBlock(true);
+        setIdDeleteOrBlock(id);
+        setBlockOrNot(blockOrUnblock)
+        console.log("id for block: ", idDeleteOrBlock);
     };
 
     // test pagination 
@@ -81,7 +114,7 @@ export default function Membership() {
     const lastTd = {
         backgroundColor: 'white',
         fontSize: 20,
-        width: 220,
+        width: 240,
     }
 
     const each_td = {
@@ -120,10 +153,10 @@ export default function Membership() {
                             <AiIcons.AiFillDelete className="icon" />
                         </Link>
 
-                        <Link onClick={e => handleShowBlock(e)} style={{ textDecoration: "none" }} to={`#`}>
-                            <AiIcons.AiFillStop className="icon" />
+                        <Link onClick={e => handleShowBlock(e, member.ID, member._BLOCK)} style={{ textDecoration: "none", fontSize: 16, marginRight: member._BLOCK == 0 ? 20 : 2, color: "#fd4f4f", fontWeight: 'bold' }} to={`#`}>
+                            {/* <AiIcons.AiFillStop className="icon" /> */}
+                            {member._BLOCK == 0 ? "Block" : "Unblock"}
                         </Link>
-
 
 
                         {/* <Button onClick={handleShow}>
@@ -282,15 +315,15 @@ export default function Membership() {
 
                 <Modal show={showBlock} onHide={e => handleCloseBlock(e)}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Block member</Modal.Title>
+                        <Modal.Title>{blockOrNot == 0 ? "Block" : "Unblock"} member</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Are you sure to block this member?</Modal.Body>
+                    <Modal.Body>Are you sure to {blockOrNot == 0 ? "block" : "unblock"} this member?</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={e => handleCloseBlock(e)}>
                             Cancel
                         </Button>
-                        <Button variant="primary" onClick={e => handleCloseBlock(e)}>
-                            Block
+                        <Button variant="primary" onClick={e => confirmBlock(e, blockOrNot)}>
+                            {blockOrNot == 0 ? "Block" : "Unblock"}
                         </Button>
                     </Modal.Footer>
                 </Modal>
