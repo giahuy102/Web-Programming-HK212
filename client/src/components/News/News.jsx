@@ -219,7 +219,8 @@ export default function News() {
 
                 {/* test pagination */}
                 {/* {displayUsers}*/}
-                {pageCount > 1 && <div className="paginate" style={pagination}>
+                {/* {pageCount > 1 && <div className="paginate" style={pagination}> */}
+                {pageCount > 1 && <div className="paginate">
                     <ReactPaginate
                         nextLabel="Next"
                         onPageChange={changePage}
