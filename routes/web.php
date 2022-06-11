@@ -19,9 +19,10 @@ $router->get("/^\/dashboard\/membership\/detail\/[0-9]+$/", array($adminControll
 $router->post("/^\/dashboard\/membership\/edit\/[0-9]+$/", array($adminController, 'edit_one_membership'));
 $router->post("/^\/dashboard\/membership\/delete\/[0-9]+$/", array($adminController, 'delete_one_membership'));
 $router->get("/^\/dashboard\/contact$/", array($adminController, 'get_all_contact'));
+
+$router->get("/^\/dashboard\/image-storage\/[0-9]+$/", array($adminController, 'get_image_of_admin'));
+$router->post("/^\/dashboard\/image-storage\/create$/", array($adminController, 'create_one_image'));
+
 $router->run();
-<<<<<<< HEAD
-=======
 
 
->>>>>>> origin/NhanVoNguyen

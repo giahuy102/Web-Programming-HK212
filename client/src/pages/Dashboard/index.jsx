@@ -174,7 +174,7 @@ export default class Dashboard extends React.Component {
             }
           />
           <Route
-            path="/dashboard/image-storage/create"
+            path="/dashboard/image-storage/:id_admin/create"
             element={
               <CreateImageStorage 
               />

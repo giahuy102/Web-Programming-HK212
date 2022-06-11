@@ -49,7 +49,7 @@ export default function ImageStorage() {
     // const [totalLike, setTotalLike] = useState(0);
     // const [idCategory, setIdCategory] = useState(0);
 
-    const id_admin = 1;                 // get admin id
+    const id_admin = 1;                                                                  // get admin id ???????
     const initData = JsonData.filter( (image) => image.id_admin === id_admin).slice(0);
     const [image, setImage] = useState(initData);
     const [pageNumber, setPageNumber] = useState(0);
@@ -60,7 +60,19 @@ export default function ImageStorage() {
 
     useEffect(() => {
         handleSearch();
-    }, [searchTerm]);
+
+        axios({
+            method: 'get',
+            url: `http://localhost/dashboard/image-storage/${id_admin}`
+        })
+        .then(function(response) {
+            console.log("Image data: ", response);
+            setImage(response.data);
+        })
+        .catch (function (err) {
+            console.log(err);
+        })
+    }, [searchTerm, showDelete]);
 
     const handleCloseDelete = () => setShowDelete(false);
     const handleShowDelete = () => setShowDelete(true);
@@ -151,7 +163,12 @@ export default function ImageStorage() {
     };
 
 
-    const displayImage = (imageList) => imageList
+    const displayImage = (imageList) => { console.log("Image list = ", imageList.length)
+        if (imageList.length === 0) {
+            console.log("No image");
+            return (<></>);
+        }
+        imageList
         .slice(imageVisited, imageVisited + imagePerPage)
         .map((image) => {
             return (
@@ -175,6 +192,7 @@ export default function ImageStorage() {
 
             );
         });
+    }
 
     return (
         <div className="container" style={{ maxWidth: 2000, height: '100vh' }}>
@@ -197,12 +215,12 @@ export default function ImageStorage() {
                         <tr>
                             <th>ID</th>
                             <th style={{ textAlign: 'center'}}>Url</th>
-                            <th>Position</th>
+                            <th style={{ textAlign: 'center'}}>Position</th>
                             <th style={{ textAlign: 'center'}}>Admin ID</th>
                             <th style={{ textAlign: 'center'}}>
                                 <Link 
                                     style={{ textDecoration: "none", color: 'green', fontSize: '25px' }} 
-                                    to="/dashboard/image-storage/create" title='Create'
+                                    to={`/dashboard/image-storage/${id_admin}/create`} title='Create'
                                 >
                                     <AiIcons.AiFillPlusCircle className="icon" />
                                 </Link>

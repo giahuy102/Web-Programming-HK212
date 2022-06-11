@@ -68,4 +68,21 @@ class AdminModel {
         }
         return $contact_list;
     }
+
+    function get_image_of_admin($id_admin) {
+        $connection = $this->connectDB();
+        $query = "SELECT * FROM image_storage WHERE ID_ADMIN = " . $id_admin;
+        $result = mysqli_query($connection, $query);
+        $image_list = array();
+        while($image = mysqli_fetch_assoc($result)) {
+            $image_list[] = $image;
+        }
+        return $image_list;
+    }
+
+    function create_one_image($url_img, $position, $id_admin) {
+        $connection = $this->connectDB();
+        $query = "INSERT INTO image_storage(URL_IMG, POSITION, ID_ADMIN) VALUE('" . $url_img . "','" . $position . "'," . $id_admin . ")";
+        $result = mysqli_query($connection, $query);
+    }
 }

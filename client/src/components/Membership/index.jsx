@@ -180,7 +180,7 @@ export default function Membership() {
 
     useEffect(() => {
         handleSearch();
-
+  
         axios({
             method: 'get',
             url: 'http://localhost/dashboard/membership',
