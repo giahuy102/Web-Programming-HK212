@@ -130,10 +130,13 @@ class AdminModel {
     }
 
     function get_all_news_comment() {
-        // $connection = $this->connectDB();
-        // $query = "UPDATE public_information SET NAME_COMPANY = '" . $newCompanyName . "' , ADDRESS_COMPANY = '" . $newAddress . "' , EMAIL = '" . $newEmail . "' , PHONENUMBER = '" . $newPhoneNumber . "' WHERE TAX_ID = " . $taxID;
-        // $result = mysqli_query($connection, $query);
-        // return $result;
-        return "get all news comment";
+        $connection = $this->connectDB();
+        $query = "SELECT * FROM MANAGES_COMMENT_NEWS_USER";
+        $result = mysqli_query($connection, $query);
+        $news_comment_list = array();
+        while($member = mysqli_fetch_assoc($result)){
+            $$news_comment_list[] = $member;
+        }
+        return $news_comment_list;
     }
 }
