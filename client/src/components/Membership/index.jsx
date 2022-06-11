@@ -150,6 +150,7 @@ export default function Membership() {
 
     useEffect(() => {
         handleSearch();
+        
     }, [searchTerm]);
 
     return (
