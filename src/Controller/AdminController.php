@@ -58,8 +58,46 @@ class AdminController
         echo json_encode($result);
     }
 
+    function block_one_membership($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->block_one_membership($id);
+        echo json_encode($result);
+    }
+
+    function unblock_one_membership($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->unblock_one_membership($id);
+        echo json_encode($result);
+    }
+
     function get_all_contact($request) {
         $result = $this->modelAdmin->get_all_contact();
+        echo json_encode($result);
+    }
+
+    function get_public_info($request) {
+        $result = $this->modelAdmin->get_public_info();
+        echo json_encode($result);
+    }
+    
+    function edit_public_info($request) {
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $taxID = $_POST['tax_id'];
+        $newCompanyName = $_POST['company_name'];
+        $newAddress = $_POST['address'];
+        $newEmail = $_POST['email'];
+        $newPhoneNumber = $_POST['phone_number'];
+
+        $result = $this->modelAdmin->edit_public_info($newCompanyName, $newAddress, $newEmail, $newPhoneNumber, $taxID);
+        echo json_encode($result);
+    }
+
+    function get_all_news_comment($request) {
+        $result = $this->modelAdmin->get_all_news_comment();
         echo json_encode($result);
     }
 
