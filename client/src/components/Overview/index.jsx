@@ -6,7 +6,8 @@ export default function Overview() {
       marginTop: 60, 
       backgroundColor: 'white',
       fontSize: 25,
-      textAlign: 'justify'
+      textAlign: 'justify',
+      height: "100vh"
     }
     return (
       <div className="container" style={{maxWidth: 2000, height: '100%'}}>

@@ -13,12 +13,41 @@ import Button from 'react-bootstrap/Button';
 export default function Membership() {
     // modal pop up when delete
     const [showDelete, setShowDelete] = useState(false);
-    const handleCloseDelete = () => setShowDelete(false);
-    const handleShowDelete = () => setShowDelete(true);
+    const [idDeleteOrBlock, setIdDeleteOrBlock] = useState();
+    const handleCloseDelete = (e) => {
+        e.preventDefault();
+        setShowDelete(false)
+    };
+    const confirmDelete = async (e) => {
+        // console.log("confirm delete id: ", idDeleteOrBlock);
+
+        await axios({
+            method: 'post',
+            url: `http://localhost/dashboard/membership/delete/${idDeleteOrBlock}`,
+        }).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+        setShowDelete(false)
+    }
+    const handleShowDelete = (e, id) => {
+        e.preventDefault();
+        setShowDelete(true)
+        setIdDeleteOrBlock(id);
+        console.log("id for delete: ", idDeleteOrBlock);
+    };
 
     const [showBlock, setShowBlock] = useState(false);
-    const handleCloseBlock = () => setShowBlock(false);
-    const handleShowBlock = () => setShowBlock(true);
+    const handleCloseBlock = (e) => {
+        e.preventDefault();
+        setShowBlock(false)
+    };
+    const handleShowBlock = (e) => {
+        e.preventDefault();
+        setShowBlock(true)
+    };
 
     // test pagination 
     // const [users, setUsers] = useState(JsonData.slice(0, 200));
@@ -46,6 +75,7 @@ export default function Membership() {
 
     const memberStyle = {
         backgroundColor: '#F7F8FC',
+        height: "100vh"
     };
 
     const lastTd = {
@@ -58,7 +88,7 @@ export default function Membership() {
         lineHeight: 2,
     }
 
-    const initData = JsonData.slice(0,30);
+    const initData = JsonData.slice(0, 30);
     const [members, setMembers] = useState(initData);
     const [pageNumber, setPageNumber] = useState(0);
     // let membersPerPage = 10;
@@ -66,47 +96,47 @@ export default function Membership() {
     // let membersVisited = pageNumber * membersPerPage;
     const [membersVisited, setMembersVisited] = useState(pageNumber * membersPerPage);
     const displayMembers = (membersList) => membersList.
-                        slice(membersVisited, membersVisited + membersPerPage).
-                        map( (member) => {
-                            return (
-                                
-                                    <tr key={member.id}>
-                                        <td style={each_td}> {member.id} </td>
-                                        <td style={each_td}> {member.name} </td>
-                                        <td style={each_td}> {member.email} </td>
-                                        <td style={each_td}> {member.phone_number} </td>
-                                        
-                                        <td style={lastTd}>
+        slice(membersVisited, membersVisited + membersPerPage).
+        map((member, idx) => {
+            return (
 
-                                            <Link style={{textDecoration: "none", color:'none'}} to={`/dashboard/membership/edit/${member.id}`}>
-                                                <AiIcons.AiFillEdit className="icon" />
-                                            </Link>
+                <tr key={idx}>
+                    <td style={each_td}> {member.ID} </td>
+                    <td style={each_td}> {member.USERNAME} </td>
+                    <td style={each_td}> {member.EMAIL} </td>
+                    <td style={each_td}> {member.PHONENUMBER} </td>
 
-                                            <Link style={{textDecoration: "none"}} to={`/dashboard/membership/detail/${member.id}`}>
-                                                <AiIcons.AiFillInfoCircle className="icon" />
-                                            </Link>
+                    <td style={lastTd}>
 
-                                            <Link onClick={handleShowDelete} style={{textDecoration: "none"}} to={`#`}>
-                                                <AiIcons.AiFillDelete className="icon" />
-                                            </Link>
+                        <Link style={{ textDecoration: "none", color: 'none' }} to={`/dashboard/membership/edit/${member.ID}`}>
+                            <AiIcons.AiFillEdit className="icon" />
+                        </Link>
 
-                                            <Link onClick={handleShowBlock} style={{textDecoration: "none"}} to={`#`}>
-                                                <AiIcons.AiFillStop className="icon" />
-                                            </Link>
+                        <Link style={{ textDecoration: "none" }} to={`/dashboard/membership/detail/${member.ID}`}>
+                            <AiIcons.AiFillInfoCircle className="icon" />
+                        </Link>
+
+                        <Link onClick={e => handleShowDelete(e, member.ID)} style={{ textDecoration: "none" }} to={`#`}>
+                            <AiIcons.AiFillDelete className="icon" />
+                        </Link>
+
+                        <Link onClick={e => handleShowBlock(e)} style={{ textDecoration: "none" }} to={`#`}>
+                            <AiIcons.AiFillStop className="icon" />
+                        </Link>
 
 
-                                            
-                                            {/* <Button onClick={handleShow}>
+
+                        {/* <Button onClick={handleShow}>
                                                 <AiIcons.AiFillDelete  className="icon" />
                                             </Button> */}
 
-                                        </td>
-                                    </tr>
-                                
-                            );
-                        });
-                    
-                        
+                    </td>
+                </tr>
+
+            );
+        });
+
+
     const pageCount = Math.ceil(members.length / membersPerPage);
     const changePage = ({ selected }) => {
         console.log("selected: ", selected);
@@ -122,12 +152,12 @@ export default function Membership() {
                 filterData[count++] = initData[i];
             }
         }
-        filterData.sort(function comp (a, b) {if (a.id < b.id) {return -1;}} );
+        filterData.sort(function comp(a, b) { if (a.ID < b.ID) { return -1; } });
         console.log(filterData);
         console.log("page selected: ", pageNumber);
 
         if (searchTerm.length > 0) {
-            if (pageNumber ==  0) {
+            if (pageNumber == 0) {
                 setMembers(filterData.slice(0, count));
             }
             else {
@@ -150,34 +180,59 @@ export default function Membership() {
 
     useEffect(() => {
         handleSearch();
-    }, [searchTerm]);
+
+        axios({
+            method: 'get',
+            url: 'http://localhost/dashboard/membership',
+        }).then(function (response) {
+            console.log(response);
+            setMembers(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+        // axios({
+        //     method: 'post',
+        //     url: 'http://localhost/dashboard/membership',
+        //     data: {
+        //         name: 'asdasdasdsa',
+        //         age: 20,
+        //         cc: "vo nhan",
+        //     }
+        // }).then(function (response) {
+        //     console.log(response);
+        // }).catch(function (error) {
+        //     console.log(error);
+        // });
+
+    }, [searchTerm, showDelete, idDeleteOrBlock]);
 
     return (
-        <div className="container" style={{maxWidth: 2000, height: '100%'}}>
+        <div className="container" style={{ maxWidth: 2000, height: '100%' }}>
             <div className='path' style={pathStyle}>
-                <h1 style={{color: '#1570EF', fontWeight:'bold'}}>Membership Management</h1>
+                <h1 style={{ color: '#1570EF', fontWeight: 'bold' }}>Membership Management</h1>
             </div>
             <div className="content" style={memberStyle}>
 
-                <div style={{width:400, margin:'0 auto', marginTop:40}} className="input-group mb-3">
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        placeholder="Search..." 
+                <div style={{ width: 400, margin: '0 auto', marginTop: 40 }} className="input-group mb-3">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search..."
                         onChange={(event) => {
                             setSearchTerm(event.target.value);
                         }}
                     />
                 </div>
 
-                <Table style={{width:1100, margin:'0 auto'}} responsive>
+                <Table style={{ width: 1100, margin: '0 auto' }} responsive>
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone number</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -189,60 +244,60 @@ export default function Membership() {
                 {/* test pagination */}
                 {/* {displayUsers}*/}
                 <div className="paginate">
-                <ReactPaginate
-                    nextLabel="Next"
-                    onPageChange={changePage}
-                    pageCount={pageCount}
-                    previousLabel="Previous"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    breakLabel="..."
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    containerClassName="pagination"
-                    activeClassName="active"
-                /> 
+                    <ReactPaginate
+                        nextLabel="Next"
+                        onPageChange={changePage}
+                        pageCount={pageCount}
+                        previousLabel="Previous"
+                        pageClassName="page-item"
+                        pageLinkClassName="page-link"
+                        previousClassName="page-item"
+                        previousLinkClassName="page-link"
+                        nextClassName="page-item"
+                        nextLinkClassName="page-link"
+                        breakLabel="..."
+                        breakClassName="page-item"
+                        breakLinkClassName="page-link"
+                        containerClassName="pagination"
+                        activeClassName="active"
+                    />
                 </div>
 
 
 
-            <Modal show={showDelete} onHide={handleCloseDelete}>
-                <Modal.Header closeButton>
-                <Modal.Title>Delete member</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure to delete this member?</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseDelete}>
-                    Cancel
-                </Button>
-                <Button variant="primary" onClick={handleCloseDelete}>
-                    Delete
-                </Button>
-                </Modal.Footer>
-            </Modal>
-            
-            <Modal show={showBlock} onHide={handleCloseBlock}>
-                <Modal.Header closeButton>
-                <Modal.Title>Block member</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure to block this member?</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseBlock}>
-                    Cancel
-                </Button>
-                <Button variant="primary" onClick={handleCloseBlock}>
-                    Block
-                </Button>
-                </Modal.Footer>
-            </Modal>
+                <Modal show={showDelete} onHide={e => handleCloseDelete(e)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete member</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure to delete this member?</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={e => handleCloseDelete(e)}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={e => confirmDelete(e)}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal show={showBlock} onHide={e => handleCloseBlock(e)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Block member</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure to block this member?</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={e => handleCloseBlock(e)}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={e => handleCloseBlock(e)}>
+                            Block
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
 
 
 
             </div>
-      </div>
+        </div>
     );
 }

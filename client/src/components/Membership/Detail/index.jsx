@@ -10,6 +10,7 @@ import JsonData from "../STATIC_DATA.json"
 
 export default function DetailMembership() {
     const id_obj = useParams();
+    console.log("params: ", id_obj)
     const spanStyle = {
         width:130,
         display: 'flex',
@@ -17,6 +18,18 @@ export default function DetailMembership() {
         fontWeight: 'bold',
     }
     const [member, setMember] = useState(JsonData[id_obj.id - 1]);
+
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: `http://localhost/dashboard/membership/detail/${id_obj.id}`,
+        }).then(function (response) {
+            console.log(response);
+            setMember(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }, [])
 
     return (
         <div className="container" style={{maxWidth: 2000, height: '100vh'}}>
@@ -27,22 +40,22 @@ export default function DetailMembership() {
             <div className='input-content' style={{width: 800, margin: '0 auto', marginTop: 30}}>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">ID</span>
-                    <input defaultValue={member.id} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
+                    <input defaultValue={member.ID} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
                 </div>
 
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Fullname</span>
-                    <input defaultValue={member.name} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
+                    <input defaultValue={member.USERNAME} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
                 </div>
 
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Phone number</span>
-                    <input defaultValue={member.email} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
+                    <input defaultValue={member.EMAIL} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
                 </div>
 
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Email</span>
-                    <input defaultValue={member.phone_number} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
+                    <input defaultValue={member.PHONENUMBER} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
                 </div>
             </div>
             
