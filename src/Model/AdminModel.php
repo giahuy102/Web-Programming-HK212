@@ -169,9 +169,9 @@ class AdminModel {
         return mysqli_fetch_assoc($result);
     }
 
-    function update_user_db_by_id($user_id, $email, $phone){
+    function update_user_db_by_id($user_id, $name, $email, $phone, $address){
         $connection = $this->connectDB();
-        $query = "UPDATE _user SET EMAIL = '". $email ."', PHONENUMBER = '". $phone."' WHERE ID = ". $user_id;
+        $query = "UPDATE _user SET _NAME = '". $name ."',EMAIL = '". $email ."', PHONENUMBER = '". $phone."', _ADDRESS = '". $address."' WHERE ID = ". $user_id;
         $result = mysqli_query($connection, $query);
         return $this->get_user_db_by_id($user_id);
     }

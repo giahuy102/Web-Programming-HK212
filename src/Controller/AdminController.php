@@ -164,12 +164,14 @@ class AdminController
 
     function update_user_by_id($request){
         $_POST = json_decode(file_get_contents("php://input"), true);
+        $name = $_POST['name'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
+        $address = $_POST['address'];
         $uri = $_SERVER['REQUEST_URI'];
         $split_uri = explode("/", $uri);
         $user_id = (int)($split_uri[count($split_uri) - 1]);
-        $result = $this->modelAdmin->update_user_db_by_id($user_id, $email, $phone);
+        $result = $this->modelAdmin->update_user_db_by_id($user_id, $name, $email, $phone, $address);
         echo json_encode($result);
     }
 }

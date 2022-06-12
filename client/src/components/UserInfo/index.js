@@ -22,10 +22,11 @@ const UserInfo = () => {
     }).then(function (response) {
         let user = response.data;
         
-        setUserName(user.USERNAME)
-        // setName(user.NAME);
+        setUserName(user.USERNAME);
+        setName(user._NAME);
         setEmail(user.EMAIL);
         setPhone(user.PHONENUMBER);
+        setAddress(user._ADDRESS);
 
     }).catch(function (error) {
         console.log(error);
@@ -39,15 +40,18 @@ const UserInfo = () => {
         method: 'post',
         url: `http://localhost/home/user/${this_member_id}`,
         data: {
+          name: name,
           email: email,
+          address: address,
           phone: phone
         }
     }).then(function (response) {
         let user = response.data;
-        console.log(user)
-        // setName(user.NAME);
-        setEmail(user.EMAIL)
-        setPhone(user.PHONENUMBER)
+        setUserName(user.USERNAME);
+        setName(user._NAME);
+        setEmail(user.EMAIL);
+        setPhone(user.PHONENUMBER);
+        setAddress(user._ADDRESS);
     }).catch(function (error) {
         console.log(error);
     });
@@ -77,17 +81,11 @@ const UserInfo = () => {
           </div>
         </div>
         <div className="my-md-4 d-md-flex">
-          {/* <div className="col-lg-4 col-md-5">
+          <div className="col-lg-4 col-md-5">
             <label htmlFor='nameInput'> 
               <h5>Name</h5>
             </label>
-            <input type="text" id="nameInput" value={name} className="myInput"></input>
-          </div> */}
-          <div className="col-lg-4 col-md-5">
-            <label htmlFor='phoneInput'> 
-              <h5>Phone</h5>
-            </label>
-            <input type="text" id="phoneInput" value={phone} className="myInput" onChange={(e) => setPhone(e.target.value)}></input>
+            <input type="text" id="nameInput" value={name} className="myInput" onChange={(e) => setName(e.target.value)}></input>
           </div>
           <div className="col-lg-4 col-md-5 mt-sm-4 mt-md-0 form-margin">
             <label htmlFor='emailInput'> 
@@ -97,18 +95,18 @@ const UserInfo = () => {
           </div>
         </div>
         <div className="my-4 d-md-flex">
-          {/* <div className="col-lg-4 col-md-5">
+          <div className="col-lg-4 col-md-5">
             <label htmlFor='phoneInput'> 
               <h5>Phone</h5>
             </label>
-            <input type="text" id="phoneInput" value={phone} className="myInput"></input>
-          </div> */}
-          {/* <div className="col-lg-4 col-md-5 mt-sm-4 mt-md-0 form-margin">
+            <input type="text" id="phoneInput" value={phone} className="myInput" onChange={(e) => setPhone(e.target.value)}></input>
+          </div>
+          <div className="col-lg-4 col-md-5 mt-sm-4 mt-md-0 form-margin">
             <label htmlFor='addressInput'> 
               <h5>Address</h5>
             </label>
-            <input type="text" id="addressInput" value={address} className="myInput"></input>
-          </div> */}
+            <input type="text" id="addressInput" value={address} className="myInput" onChange={(e) => setAddress(e.target.value)}></input>
+          </div>
         </div>
         <div className="row my-4">
           <div className='col-lg-4 col-md-5 '>
