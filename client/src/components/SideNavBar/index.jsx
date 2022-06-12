@@ -14,10 +14,16 @@ import { Link } from "react-router-dom";
 import "./style.css";
 
 export default function SideNavBar() {
-  const [active, setActive] = useState(true);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [active, setActive] = useState(!isSmallScreen);
   const [myStyle, setStyle] = useState({
     minHeight: window.innerHeight
   })
+
+  
+  const [className, setClassName] = useState('');
+
+
   const updateSize = () => {
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -34,11 +40,38 @@ export default function SideNavBar() {
   useEffect(() => {
     // console.log("use")
     // window.addEventListener('resize', updateSize());
+
+    if (window.innerWidth <= 768) {
+      setIsSmallScreen(false);
+      setActive(true);
+      setClassName('nav-bar inactive-small-screen');
+    }
+    else {
+      setIsSmallScreen(true);
+      setActive(false);
+      setClassName('nav-bar');
+    }
+    // if (active) setClassName('nav-bar');
+    // else {
+    //   if (window.innerWidth  <= 768) {
+    //     setIsSmallScreen(true);
+        
+    //   }
+    //   else {
+    //     setIsSmallScreen(false);
+    //     setClassName('nav-bar nav-bar-inactive');
+    //   }
+    // }
+  }, []);
+
+  useEffect(() => {
+    
   });
   
   return (
     <IconContext.Provider value={{ color: "#fff" }}>
-      <nav style={myStyle} className={active ? "nav-bar" : "nav-bar nav-bar-inactive"}>
+      {/* <nav style={myStyle} className={active ? "nav-bar inactive-small-screen" : "nav-bar inactive-small-screen nav-bar-inactive"}> */}
+      <nav style={myStyle} className={className}>
         
         <img style={{marginLeft: 0, marginRight: 20}} src={require("../../assets/images/logo.png")}></img>
         <Link

@@ -34,6 +34,11 @@ $router->post("/^\/dashboard\/news\/delete\/[0-9]+$/", array($adminController, '
 
 $router->get("/^\/dashboard\/publicInfo$/", array($adminController, 'get_public_info'));
 $router->post("/^\/dashboard\/publicInfoEdit$/", array($adminController, 'edit_public_info'));
+
+$router->get("/^\/home\/product\/[0-9]+\/comment$/", array($adminController, 'get_product_comment'));
+$router->post("/^\/home\/product\/[0-9]+\/comment$/", array($adminController, 'add_product_comment'));
+$router->get("/^\/home\/user\/[0-9]+$/", array($adminController, 'get_user_by_id'));
+$router->post("/^\/home\/user\/[0-9]+$/", array($adminController, 'update_user_by_id'));
 $router->run();
 
 

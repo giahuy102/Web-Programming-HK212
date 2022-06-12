@@ -21,6 +21,14 @@ class Router {
         $this->addHandler($uri, 'POST', $callback);
     }
 
+    public function put($uri, $callback) {
+        $this->addHandler($uri, 'PUT', $callback);
+    }
+
+    public function delete($uri, $callback) {
+        $this->addHandler($uri, 'DELETE', $callback);
+    }
+
     private function addHandler($uri, $method, $callback) {
         $this->handlers[$method . $uri] = [
             'uri' => $uri,
@@ -36,6 +44,7 @@ class Router {
         $callback = null;
         foreach ($this->handlers as $handler) {
             if (preg_match($handler['uri'], $requestPath) && $handler['method'] == $requestMethod) {
+                // print_r('ffsfsf');   
                 $callback = $handler['callback'];
             }
         }

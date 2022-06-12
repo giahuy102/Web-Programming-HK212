@@ -105,3 +105,13 @@ ul {
     display: flex;
     justify-content: center;
 }
+
+.inactive-small-screen {
+    width: 0
+}
+
+/* @media only screen and (max-width: 768px) {
+    .responsive {
+        width: 0
+    }
+} */
