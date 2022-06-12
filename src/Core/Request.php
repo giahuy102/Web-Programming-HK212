@@ -4,16 +4,14 @@ namespace App\Core;
 
 class Request {
     function __construct() {
+
     }
 
     public function getUri() {
-        // $requestUri = parse_url($_SERVER['REQUEST_URI']);
-        // echo "<br>" . $_SERVER['REQUEST_URI'];
         return $_SERVER['REQUEST_URI'];
     }
 
     public function getMethod() {
-        // echo "<br>" . $_SERVER['REQUEST_METHOD'];
         return $_SERVER['REQUEST_METHOD'];
     }
 
