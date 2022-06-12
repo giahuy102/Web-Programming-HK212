@@ -10,7 +10,7 @@ import JsonData from "../STATIC_DATA.json"
 
 export default function DetailMembership() {
     const id_obj = useParams();
-    console.log("params: ", id_obj)
+    // console.log("params: ", id_obj)
     const spanStyle = {
         width:130,
         display: 'flex',

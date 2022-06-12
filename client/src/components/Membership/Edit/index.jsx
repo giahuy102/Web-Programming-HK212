@@ -36,7 +36,7 @@ export default function EditMembership() {
         //     }
         // }))
         await setNewID(event.target.value);
-        console.log("new id: ", newID);
+        // console.log("new id: ", newID);
     }
 
     const [newID, setNewID] = useState();
@@ -60,7 +60,7 @@ export default function EditMembership() {
                 email: newEmail
             }
         }).then(function (response) {
-            console.log(response);
+            // console.log(response);
         }).catch(function (error) {
             console.log(error);
         });

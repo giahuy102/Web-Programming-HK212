@@ -14,6 +14,8 @@ import EditPublicInfo from "../../components/PublicInfo/Edit";
 import * as AiIcons from "react-icons/ai";
 import * as BiIcons from "react-icons/bi";
 import Dropdown from 'react-bootstrap/Dropdown'
+import OrderMember from "../../components/OrderMember";
+import DetailOrderMember from "../../components/OrderMember/Detail";
 
 export default class Dashboard extends React.Component {
 
@@ -28,16 +30,17 @@ export default class Dashboard extends React.Component {
         <div className="top-nav" style={{ height: 60, textAlign: 'right' }}>
           {/* <h2 style={{marginBottom: 0}}>Top nav</h2> */}
           {/* <BiIcons.BiUserCircle style={{ fontSize: 35, marginTop: 10, marginRight: 10 }} className="icon" /> */}
+          {/* background: 'transparent', border: '0px transparent' */}
           <Dropdown>
-            <Dropdown.Toggle style={{background: 'transparent', border: '0px transparent'}} variant="success" id="dropdown-basic">
-              <BiIcons.BiUserCircle style={{  }} className="icon" />
+            <Dropdown.Toggle style={{ background: 'transparent', border: '0px transparent' }} variant="success" id="dropdown-basic" className="btn-primary">
+              <BiIcons.BiUserCircle style={{ color: 'black', fontSize: 35, marginTop: 10 }} className="icon" />
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
               <Dropdown.Item href="http://localhost:3000/">Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <div className="line" style={{ height: 1, backgroundColor: '#D2D4DD', marginTop: 10 }}></div>
+          <div className="line" style={{ height: 1, backgroundColor: '#D2D4DD', marginTop: 0 }}></div>
         </div>
 
         <Routes>
@@ -111,7 +114,20 @@ export default class Dashboard extends React.Component {
               />
             }
           />
-
+          <Route
+            path="/dashboard/orderMember"
+            element={
+              <OrderMember
+              />
+            }
+          />
+          <Route
+            path="/dashboard/orderMember/detail/:id"
+            element={
+              <DetailOrderMember
+              />
+            }
+          />
         </Routes>
       </div>
     </div>

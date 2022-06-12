@@ -63,7 +63,7 @@ export default function CommentNews() {
                 method: 'post',
                 url: `http://localhost/dashboard/newsComment/unblock/${id_comment}/${id_news}`,
             }).then(function (response) {
-                console.log("unblock: ", response);
+                // console.log("unblock: ", response);
                 setMembers(response.data);
             }).catch(function (error) {
                 console.log(error);
@@ -120,7 +120,7 @@ export default function CommentNews() {
 
     const handleSearch = () => {
 
-        console.log("search term: ", searchTerm);
+        // console.log("search term: ", searchTerm);
         var filterData = [];
         let count = 0;
         for (let i = 0; i < tempMembers.length; i++) {
@@ -129,7 +129,7 @@ export default function CommentNews() {
             }
         }
         // filterData.sort(function comp(a, b) { if (a.ID < b.ID) { return 1; } });
-        console.log('filter data: ', filterData);
+        // console.log('filter data: ', filterData);
         // console.log("page selected: ", pageNumber);
 
         // setMembers(filterData.slice(0, count));

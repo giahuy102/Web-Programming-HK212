@@ -33,6 +33,12 @@ $router->post("/^\/dashboard\/productComment\/unblock\/[0-9]+\/[0-9]+$/", array(
 $router->get("/^\/dashboard\/contact$/", array($adminController, 'get_all_contact'));
 $router->get("/^\/dashboard\/publicInfo$/", array($adminController, 'get_public_info'));
 $router->post("/^\/dashboard\/publicInfoEdit$/", array($adminController, 'edit_public_info'));
+// $router->get("/^\/dashboard\/orderMember$/", array($adminController, 'get_all_order_member'));
+$router->get("/^\/dashboard\/orderMemberPrice$/", array($adminController, 'get_all_order_member_total_price'));
+$router->post("/^\/dashboard\/orderMember\/delete\/[0-9]+$/", array($adminController, 'delete_one_order'));
+$router->get("/^\/dashboard\/orderMember\/detail\/[0-9]+$/", array($adminController, 'get_one_order'));
+// for total price in detail order page
+$router->get("/^\/dashboard\/orderMember\/total_price\/[0-9]+$/", array($adminController, 'get_one_order_member_total_price'));
 $router->run();
 
 

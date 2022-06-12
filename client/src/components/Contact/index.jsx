@@ -55,7 +55,7 @@ export default function Contact() {
 
     const pageCount = Math.ceil(members.length / membersPerPage);
     const changePage = ({ selected }) => {
-        console.log("selected: ", selected);
+        // console.log("selected: ", selected);
         setPageNumber(selected);
         setMembersVisited(selected * membersPerPage);   // myself
     };
@@ -63,7 +63,7 @@ export default function Contact() {
     const [tempMembers, setTempMembers] = useState([]);
 
     const handleSearch = () => {
-        console.log("search term: ", searchTerm);
+        // console.log("search term: ", searchTerm);
         var filterData = [];
         let count = 0;
         for (let i = 0; i < tempMembers.length; i++) {
@@ -72,7 +72,7 @@ export default function Contact() {
             }
         }
         // filterData.sort(function comp(a, b) { if (a.ID < b.ID) { return 1; } });
-        console.log('filter data: ', filterData);
+        // console.log('filter data: ', filterData);
         // console.log("page selected: ", pageNumber);
 
         // setMembers(filterData.slice(0, count));

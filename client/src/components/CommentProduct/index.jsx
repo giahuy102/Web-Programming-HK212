@@ -62,7 +62,7 @@ export default function CommentProduct() {
                 method: 'post',
                 url: `http://localhost/dashboard/productComment/unblock/${id_comment}/${id_product}`,
             }).then(function (response) {
-                console.log("unblock: ", response);
+                // console.log("unblock: ", response);
                 setMembers(response.data);
             }).catch(function (error) {
                 console.log(error);
@@ -107,7 +107,7 @@ export default function CommentProduct() {
 
     const pageCount = Math.ceil(members.length / membersPerPage);
     const changePage = ({ selected }) => {
-        console.log("selected: ", selected);
+        // console.log("selected: ", selected);
         setPageNumber(selected);
         setMembersVisited(selected * membersPerPage);   // myself
     };
@@ -116,7 +116,7 @@ export default function CommentProduct() {
 
     const handleSearch = () => {
 
-        console.log("search term: ", searchTerm);
+        // console.log("search term: ", searchTerm);
         var filterData = [];
         let count = 0;
         for (let i = 0; i < tempMembers.length; i++) {
@@ -125,7 +125,7 @@ export default function CommentProduct() {
             }
         }
         // filterData.sort(function comp(a, b) { if (a.ID < b.ID) { return 1; } });
-        console.log('filter data: ', filterData);
+        // console.log('filter data: ', filterData);
         // console.log("page selected: ", pageNumber);
 
         // setMembers(filterData.slice(0, count));

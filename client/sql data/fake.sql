@@ -166,3 +166,24 @@ CREATE TRIGGER update_total_price_member BEFORE INSERT ON contains_member_produc
     set NEW.TOTAL_PRICE_MEMBER = (select @tempprice) * NEW.QUANTITY;
 END//
 DELIMITER ;
+
+
+
+
+
+
+-- old version
+
+CREATE TRIGGER `update_total_price_member` BEFORE INSERT ON `contains_member_product`
+ FOR EACH ROW 
+ BEGIN
+	-- set @tempprice = 0;
+    
+	-- select DISTINCT price into @tempprice from contains_member_product, product where NEW.ID_PRODUCT = product.ID;
+    
+    -- set NEW.TOTAL_PRICE_MEMBER = (select @tempprice) * NEW.QUANTITY;
+    
+    set @tempprice = 0;
+    select DISTINCT price into @tempprice from product where PRODUCT.ID = NEW.ID_PRODUCT ;
+    set NEW.TOTAL_PRICE_MEMBER = (select @tempprice) * NEW.QUANTITY;
+END

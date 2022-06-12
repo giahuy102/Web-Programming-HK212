@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-export default function Membership() {
+export default function OrderMember() {
 
 
     // modal pop up when delete
@@ -21,11 +21,11 @@ export default function Membership() {
         setShowDelete(false)
     };
     const confirmDelete = async (e) => {
-        // console.log("confirm delete id: ", idDeleteOrBlock);
+        console.log("confirm delete id: ", idDeleteOrBlock);
 
         await axios({
             method: 'post',
-            url: `http://localhost/dashboard/membership/delete/${idDeleteOrBlock}`,
+            url: `http://localhost/dashboard/orderMember/delete/${idDeleteOrBlock}`,
         }).then(function (response) {
             // console.log(response);
             setMembers(response.data);
@@ -66,11 +66,12 @@ export default function Membership() {
         setShowBlock(false);
     }
 
-    const handleShowDelete = (e, id) => {
+    const handleShowDelete = async (e, id) => {
         e.preventDefault();
         setShowDelete(true)
-        setIdDeleteOrBlock(id);
-        // console.log("id for delete: ", idDeleteOrBlock);
+        await setIdDeleteOrBlock(id);
+        // console.log("test id: ", id);
+        // console.log("order id for delete: ", idDeleteOrBlock);
     };
 
     const [showBlock, setShowBlock] = useState(false);
@@ -127,7 +128,7 @@ export default function Membership() {
         lineHeight: 2,
     }
 
-    // var initData = JsonData.slice(0, 30);
+    // const initData = JsonData.slice(0, 30);
     const initData = [];
     const [members, setMembers] = useState(initData);
     const [pageNumber, setPageNumber] = useState(0);
@@ -141,29 +142,28 @@ export default function Membership() {
             return (
 
                 <tr key={idx}>
-                    <td style={each_td}> {member.ID} </td>
+                    <td style={each_td}> {member.ID_ORDER_MEMBER} </td>
                     <td style={each_td}> {member.USERNAME} </td>
-                    <td style={each_td}> {member.EMAIL} </td>
-                    <td style={each_td}> {member.PHONENUMBER} </td>
+                    {/* <td style={each_td}> {member.CREATED_AT} </td> */}
+                    <td style={each_td}> {member.TOTAL_PRICE_MEMBER} </td>
 
                     <td style={lastTd}>
-
+{/* 
                         <Link style={{ textDecoration: "none", color: 'none' }} to={`/dashboard/membership/edit/${member.ID}`}>
                             <AiIcons.AiFillEdit className="icon" />
-                        </Link>
+                        </Link> */}
 
-                        <Link style={{ textDecoration: "none" }} to={`/dashboard/membership/detail/${member.ID}`}>
+                        <Link style={{ textDecoration: "none" }} to={`/dashboard/orderMember/detail/${member.ID_ORDER_MEMBER}`}>
                             <AiIcons.AiFillInfoCircle className="icon" />
                         </Link>
 
-                        <Link onClick={e => handleShowDelete(e, member.ID)} style={{ textDecoration: "none" }} to={`#`}>
+                        <Link onClick={e => handleShowDelete(e, member.ID_ORDER_MEMBER)} style={{ textDecoration: "none" }} to={`#`}>
                             <AiIcons.AiFillDelete className="icon" />
                         </Link>
 
-                        <Link onClick={e => handleShowBlock(e, member.ID, member._BLOCK)} style={{ textDecoration: "none", fontSize: 16, marginRight: member._BLOCK == 0 ? 20 : 2, color: "#fd4f4f", fontWeight: 'bold' }} to={`#`}>
-                            {/* <AiIcons.AiFillStop className="icon" /> */}
+                        {/* <Link onClick={e => handleShowBlock(e, member.ID, member._BLOCK)} style={{ textDecoration: "none", fontSize: 16, marginRight: member._BLOCK == 0 ? 20 : 2, color: "#fd4f4f", fontWeight: 'bold' }} to={`#`}>
                             {member._BLOCK == 0 ? "Block" : "Unblock"}
-                        </Link>
+                        </Link> */}
 
 
                         {/* <Button onClick={handleShow}>
@@ -187,7 +187,7 @@ export default function Membership() {
     const [tempMembers, setTempMembers] = useState([]);
 
     const handleSearch = () => {
-        // console.log("search term: ", searchTerm);
+        console.log("search term: ", searchTerm);
         var filterData = [];
         let count = 0;
         for (let i = 0; i < tempMembers.length; i++) {
@@ -196,7 +196,7 @@ export default function Membership() {
             }
         }
         filterData.sort(function comp(a, b) { if (a.ID < b.ID) { return 1; } });
-        // console.log('filter data: ', filterData);
+        console.log('filter data: ', filterData);
         // console.log("page selected: ", pageNumber);
         
         if (searchTerm.length > 0) {
@@ -241,7 +241,6 @@ export default function Membership() {
 
     useEffect(() => {
 
-
         // async function fetchData()  {
         //     await axios({
         //         method: 'get',
@@ -258,7 +257,7 @@ export default function Membership() {
         if (firstFetch) {
             axios({
                 method: 'get',
-                url: 'http://localhost/dashboard/membership',
+                url: 'http://localhost/dashboard/orderMemberPrice',
             }).then(function (response) {
                 console.log("response: ", response);
                 setMembers(response.data);
@@ -296,7 +295,7 @@ export default function Membership() {
     return (
         <div className="container" style={{ maxWidth: 2000, height: '100%' }}>
             <div className='path' style={pathStyle}>
-                <h1 style={{ color: '#1570EF', fontWeight: 'bold' }}>Membership Management</h1>
+                <h1 style={{ color: '#1570EF', fontWeight: 'bold' }}>Member's Order Management</h1>
             </div>
             <div className="content" style={memberStyle}>
 
@@ -314,10 +313,10 @@ export default function Membership() {
                 <Table style={{ width: 1100, margin: '0 auto' }} responsive>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone number</th>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            {/* <th>Created at</th> */}
+                            <th>Total (USD)</th>
 
                         </tr>
                     </thead>
@@ -353,9 +352,9 @@ export default function Membership() {
 
                 <Modal show={showDelete} onHide={e => handleCloseDelete(e)}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Delete member</Modal.Title>
+                        <Modal.Title>Delete order</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Are you sure to delete this member?</Modal.Body>
+                    <Modal.Body>Are you sure to delete this order?</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={e => handleCloseDelete(e)}>
                             Cancel
