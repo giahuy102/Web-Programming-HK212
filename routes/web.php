@@ -28,6 +28,9 @@ $router->post("/^\/dashboard\/image-storage\/create$/", array($adminController, 
 
 $router->get("/^\/dashboard\/publicInfo$/", array($adminController, 'get_public_info'));
 $router->post("/^\/dashboard\/publicInfoEdit$/", array($adminController, 'edit_public_info'));
+
+$router->get("/^\/home\/product\/[0-9]+\/comment$/", array($adminController, 'get_product_comment'));
+$router->post("/^\/home\/product\/[0-9]+\/comment$/", array($adminController, 'add_product_comment'));
 $router->run();
 
 

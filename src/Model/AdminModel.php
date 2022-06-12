@@ -139,4 +139,26 @@ class AdminModel {
         }
         return $news_comment_list;
     }
+
+    function get_comment_by_product_id($product_id){
+        $connection = $this->connectDB();
+        $query = "SELECT ID, ID_MEMBER, CONTENT FROM manages_comment_product_user JOIN _comment ON ID_COMMENT = ID WHERE (manages_comment_product_user.ID_PRODUCT = ". $product_id. ")";
+        $result = mysqli_query($connection, $query);
+        $comment_list = array();
+        while($member = mysqli_fetch_assoc($result)){
+            $comment_list[] = $member;
+        }
+        return $comment_list;
+    }
+
+    function add_comment($product_id, $member_id, $content){
+        $connection = $this->connectDB();
+        $query = "INSERT INTO _comment(CONTENT, TOTAL_LIKES) VALUES ('". $content. "', 0);";
+        $result = mysqli_query($connection, $query);
+        $last_comment_id = mysqli_insert_id($connection);
+        $value = "" . $last_comment_id . "," . $product_id . ","  . $member_id;
+        $query = "INSERT INTO manages_comment_product_user VALUES (" . $value .");";
+        $result = mysqli_query($connection, $query);
+        return $this->get_comment_by_product_id($product_id);
+    }
 }

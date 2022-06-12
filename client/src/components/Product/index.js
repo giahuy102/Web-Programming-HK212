@@ -6,7 +6,7 @@ const Product = () => {
   return (
     <div className='container'>
         <div className='detail'>
-            <Comment/>
+            <Comment product_id={1}/>
         </div>
     </div>
   )

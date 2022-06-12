@@ -1,53 +1,61 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './style.css'
+import axios from 'axios'
 
 import avatar from '../../assets/images/images.jpg'
 import Single_comment from './Single_comment'
 
-const Comment = () => {
-  const [comment_lst, setComment_lst] = useState([
-    {
-      id: 1,
-      image: avatar,
-      comment: 'abcalkdfj aosd iasodjf ',
-    },
-    {
-      id: 2,
-      image: avatar,
-      comment: 'abcalkdfj aosd iasodjf ',
-    },
-    {
-      id: 3,
-      image: avatar,
-      comment: 'abcalkdfj aosd iasodjf ',
-    },
-    {
-      id: 4,
-      image: avatar,
-      comment: 'abcalkdfj aosd iasodjf ',
-    },
-  ])
+const Comment = ({product_id}) => {
+  const this_member_id = 1
+  const [comment_lst, setComment_lst] = useState([])
+  const [new_comment, setNewComment] = useState([])
 
-  const addComment = () => {
-    setComment_lst([...comment_lst, {
-      id: 5,
-      image: avatar,
-      comment: 'New comment !!!!!!!!!!asdkfj asldkjfl askdjf;sl kdfjas;l dkfasjd; flksdjf; aslkdf j;asdlkf jas;dflk asdjfl;k sjdf;slkdjf'
-    }])
+  useEffect( () => {
+      axios({
+        method: 'get',
+        url: `http://localhost/home/product/${product_id}/comment`,
+      }).then(function (response) {
+          // console.log(response);
+          setComment_lst(response.data);
+      }).catch(function (error) {
+          console.log(error);
+      });
+  }, [])
+
+  const addComment = async () => {
+    await axios({
+        method: 'post',
+        url: `http://localhost/home/product/${product_id}/comment`,
+        data: {
+            member_id: this_member_id,
+            content: new_comment
+        }
+    }).then(function (response) {
+        setComment_lst(response.data)
+    }).catch(function (error) {
+        console.log(error);
+    });
   }
 
   return (
     <div className='container'>
       {comment_lst.map((usercomment) => (
         <Single_comment usercomment={usercomment}/>
+        // <h3>{usercomment.CONTENT}</h3>
       ))}
       <div className='row py-md-4 py-sm-3'>
         <div className='d-none d-md-block col-md-2 '>
           <img src={avatar} className='img-thumbnail my-image' ></img>
         </div>
         <div className='col-md'>
-          <textarea className='form-control' rows="3" placeholder='Add comment' id='commentInput'></textarea>
+          <textarea 
+            className='form-control' 
+            rows="3" 
+            placeholder='Add comment' 
+            value={new_comment} 
+            onChange={(e) => setNewComment(e.target.value)}
+          ></textarea>
         </div>
       </div>
       <div className='row'>
