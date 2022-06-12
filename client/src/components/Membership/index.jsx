@@ -11,6 +11,8 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 export default function Membership() {
+
+
     // modal pop up when delete
     const [showDelete, setShowDelete] = useState(false);
     const [idDeleteOrBlock, setIdDeleteOrBlock] = useState();
@@ -26,6 +28,8 @@ export default function Membership() {
             url: `http://localhost/dashboard/membership/delete/${idDeleteOrBlock}`,
         }).then(function (response) {
             console.log(response);
+            setMembers(response.data);
+            setTempMembers(response.data);
         }).catch(function (error) {
             console.log(error);
         });
@@ -41,6 +45,7 @@ export default function Membership() {
             }).then(function (response) {
                 console.log(response);
                 setMembers(response.data);
+                setTempMembers(response.data);
             }).catch(function (error) {
                 console.log(error);
             });
@@ -52,6 +57,7 @@ export default function Membership() {
             }).then(function (response) {
                 console.log(response);
                 setMembers(response.data);
+                setTempMembers(response.data);
             }).catch(function (error) {
                 console.log(error);
             });
@@ -64,7 +70,7 @@ export default function Membership() {
         e.preventDefault();
         setShowDelete(true)
         setIdDeleteOrBlock(id);
-        console.log("id for delete: ", idDeleteOrBlock);
+        // console.log("id for delete: ", idDeleteOrBlock);
     };
 
     const [showBlock, setShowBlock] = useState(false);
@@ -79,7 +85,7 @@ export default function Membership() {
         setShowBlock(true);
         setIdDeleteOrBlock(id);
         setBlockOrNot(blockOrUnblock)
-        console.log("id for block: ", idDeleteOrBlock);
+        // console.log("id for block: ", idDeleteOrBlock);
     };
 
     // test pagination 
@@ -121,7 +127,8 @@ export default function Membership() {
         lineHeight: 2,
     }
 
-    const initData = JsonData.slice(0, 30);
+    // var initData = JsonData.slice(0, 30);
+    const initData = [];
     const [members, setMembers] = useState(initData);
     const [pageNumber, setPageNumber] = useState(0);
     // let membersPerPage = 10;
@@ -172,57 +179,98 @@ export default function Membership() {
 
     const pageCount = Math.ceil(members.length / membersPerPage);
     const changePage = ({ selected }) => {
-        console.log("selected: ", selected);
+        // console.log("selected: ", selected);
         setPageNumber(selected);
         setMembersVisited(selected * membersPerPage);   // myself
     };
 
+    const [tempMembers, setTempMembers] = useState([]);
+
     const handleSearch = () => {
+        console.log("search term: ", searchTerm);
         var filterData = [];
         let count = 0;
-        for (let i = 0; i < initData.length; i++) {
-            if (initData[i].name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                filterData[count++] = initData[i];
+        for (let i = 0; i < tempMembers.length; i++) {
+            if (tempMembers[i].USERNAME.toLowerCase().includes(searchTerm.toLowerCase())) {
+                filterData[count++] = tempMembers[i];
             }
         }
-        filterData.sort(function comp(a, b) { if (a.ID < b.ID) { return -1; } });
-        console.log(filterData);
-        console.log("page selected: ", pageNumber);
-
+        filterData.sort(function comp(a, b) { if (a.ID < b.ID) { return 1; } });
+        console.log('filter data: ', filterData);
+        // console.log("page selected: ", pageNumber);
+        
         if (searchTerm.length > 0) {
             if (pageNumber == 0) {
                 setMembers(filterData.slice(0, count));
             }
             else {
-                console.log("page number != 0");
+                // console.log("page number != 0");
                 setMembersVisited(0);
                 setMembers(filterData.slice(0, count));
                 // setMembersVisited(10);
             }
+            // setMembers(filterData.slice(0, count));
         }
         else {
-            console.log("searchTerm.length != 0: ", pageNumber);
+            // console.log("searchTerm.length != 0: ", pageNumber);
             // setMembers(initData.slice(pageNumber*membersPerPage, pageNumber*membersPerPage + membersPerPage));
             // setMembersVisited(0);   
-            setMembersPerPage(10);
-            setMembers(initData);
+            // setMembersPerPage(10);
+            setMembers(tempMembers);
         }
     };
 
     const [searchTerm, setSearchTerm] = useState("");
 
+
+    const getMembership = async () => {
+        // await axios({
+        //     method: 'get',
+        //     url: 'http://localhost/dashboard/membership',
+        // }).then(function (response) {
+        //     console.log(response);
+        //     setMembers(response.data);
+        // }).catch(function (error) {
+        //     console.log(error);
+        // });
+        const temp = await axios.get('http://localhost/dashboard/membership');
+        setMembers(temp.data)
+    }
+
+    const [firstFetch, setFirstFetch] = useState(true);
+
     useEffect(() => {
+
+
+        // async function fetchData()  {
+        //     await axios({
+        //         method: 'get',
+        //         url: 'http://localhost/dashboard/membership',
+        //     }).then(function (response) {
+        //         console.log(response);
+        //         setMembers(response.data);
+        //     }).catch(function (error) {
+        //         console.log(error);
+        //     });
+        // }
         handleSearch();
 
-        axios({
-            method: 'get',
-            url: 'http://localhost/dashboard/membership',
-        }).then(function (response) {
-            console.log(response);
-            setMembers(response.data);
-        }).catch(function (error) {
-            console.log(error);
-        });
+        if (firstFetch) {
+            axios({
+                method: 'get',
+                url: 'http://localhost/dashboard/membership',
+            }).then(function (response) {
+                console.log("response: ", response);
+                setMembers(response.data);
+                setTempMembers(response.data);
+                // this.initData = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+
+            setFirstFetch(false);
+            // console.log("first fetch: ", firstFetch);
+        }
 
         // axios({
         //     method: 'post',
@@ -237,8 +285,13 @@ export default function Membership() {
         // }).catch(function (error) {
         //     console.log(error);
         // });
+        // handleSearch();
+
 
     }, [searchTerm, showDelete, idDeleteOrBlock]);
+    // , idDeleteOrBlock
+
+
 
     return (
         <div className="container" style={{ maxWidth: 2000, height: '100%' }}>

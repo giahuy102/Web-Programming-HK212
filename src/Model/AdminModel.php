@@ -55,7 +55,15 @@ class AdminModel {
         $connection = $this->connectDB();
         $query = " DELETE FROM _user WHERE ID = " . $id;
         $result = mysqli_query($connection, $query);
-        return $result;
+
+        $query = "SELECT * FROM _user";
+        $result = mysqli_query($connection, $query);
+        $members_list = array();
+        while($member = mysqli_fetch_assoc($result)){
+            $members_list[] = $member;
+        }
+        return $members_list;
+        // return $result;
     }
 
     function block_one_membership($id) {
@@ -114,11 +122,78 @@ class AdminModel {
 
     function get_all_news_comment() {
         $connection = $this->connectDB();
-        $query = "SELECT * FROM MANAGES_COMMENT_NEWS_USER";
+        $query = "SELECT * FROM MANAGES_COMMENT_NEWS_USER, _COMMENT, NEWS, _MEMBER, _USER WHERE ID_COMMENT = _COMMENT.ID AND ID_NEWS = NEWS.ID AND ID_MEMBER = _MEMBER.ID AND _MEMBER.ID = _USER.ID";
         $result = mysqli_query($connection, $query);
         $news_comment_list = array();
         while($member = mysqli_fetch_assoc($result)){
-            $$news_comment_list[] = $member;
+            $news_comment_list[] = $member;
+        }
+        return $news_comment_list;
+    }
+
+    function get_all_product_comment() {
+        $connection = $this->connectDB();
+        $query = "SELECT * FROM MANAGES_COMMENT_PRODUCT_USER, _COMMENT, PRODUCT, _MEMBER, _USER WHERE ID_COMMENT = _COMMENT.ID AND ID_PRODUCT = PRODUCT.ID AND ID_MEMBER = _MEMBER.ID AND _MEMBER.ID = _USER.ID";
+        $result = mysqli_query($connection, $query);
+        $news_comment_list = array();
+        while($member = mysqli_fetch_assoc($result)){
+            $news_comment_list[] = $member;
+        }
+        return $news_comment_list;
+    }
+
+    function block_news_comment($id_comment, $id_news) {
+        $connection = $this->connectDB();
+        $query = " UPDATE manages_comment_news_user SET VISIBLE = " . 0 . " WHERE ID_COMMENT = " . $id_comment . " AND ID_NEWS = " . $id_news;
+        $result = mysqli_query($connection, $query);
+
+        $query = "SELECT * FROM MANAGES_COMMENT_NEWS_USER, _COMMENT, NEWS, _MEMBER, _USER WHERE ID_COMMENT = _COMMENT.ID AND ID_NEWS = NEWS.ID AND ID_MEMBER = _MEMBER.ID AND _MEMBER.ID = _USER.ID";
+        $result = mysqli_query($connection, $query);
+        $news_comment_list = array();
+        while($member = mysqli_fetch_assoc($result)){
+            $news_comment_list[] = $member;
+        }
+        return $news_comment_list;
+    }
+
+    function unblock_news_comment($id_comment, $id_news) {
+        $connection = $this->connectDB();
+        $query = " UPDATE manages_comment_news_user SET VISIBLE = " . 1 . " WHERE ID_COMMENT = " . $id_comment . " AND ID_NEWS = " . $id_news;
+        $result = mysqli_query($connection, $query);
+
+        $query = "SELECT * FROM MANAGES_COMMENT_NEWS_USER, _COMMENT, NEWS, _MEMBER, _USER WHERE ID_COMMENT = _COMMENT.ID AND ID_NEWS = NEWS.ID AND ID_MEMBER = _MEMBER.ID AND _MEMBER.ID = _USER.ID";
+        $result = mysqli_query($connection, $query);
+        $news_comment_list = array();
+        while($member = mysqli_fetch_assoc($result)){
+            $news_comment_list[] = $member;
+        }
+        return $news_comment_list;
+    }
+
+    function block_product_comment($id_comment, $id_product) {
+        $connection = $this->connectDB();
+        $query = " UPDATE manages_comment_product_user SET VISIBLE = " . 0 . " WHERE ID_COMMENT = " . $id_comment . " AND ID_PRODUCT = " . $id_product;
+        $result = mysqli_query($connection, $query);
+
+        $query = "SELECT * FROM MANAGES_COMMENT_PRODUCT_USER, _COMMENT, PRODUCT, _MEMBER, _USER WHERE ID_COMMENT = _COMMENT.ID AND ID_PRODUCT = PRODUCT.ID AND ID_MEMBER = _MEMBER.ID AND _MEMBER.ID = _USER.ID";
+        $result = mysqli_query($connection, $query);
+        $news_comment_list = array();
+        while($member = mysqli_fetch_assoc($result)){
+            $news_comment_list[] = $member;
+        }
+        return $news_comment_list;
+    }
+
+    function unblock_product_comment($id_comment, $id_product) {
+        $connection = $this->connectDB();
+        $query = " UPDATE manages_comment_product_user SET VISIBLE = " . 1 . " WHERE ID_COMMENT = " . $id_comment . " AND ID_PRODUCT = " . $id_product;
+        $result = mysqli_query($connection, $query);
+        
+        $query = "SELECT * FROM MANAGES_COMMENT_PRODUCT_USER, _COMMENT, PRODUCT, _MEMBER, _USER WHERE ID_COMMENT = _COMMENT.ID AND ID_PRODUCT = PRODUCT.ID AND ID_MEMBER = _MEMBER.ID AND _MEMBER.ID = _USER.ID";
+        $result = mysqli_query($connection, $query);
+        $news_comment_list = array();
+        while($member = mysqli_fetch_assoc($result)){
+            $news_comment_list[] = $member;
         }
         return $news_comment_list;
     }
