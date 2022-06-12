@@ -21,6 +21,15 @@ $router->post("/^\/dashboard\/membership\/delete\/[0-9]+$/", array($adminControl
 $router->post("/^\/dashboard\/membership\/block\/[0-9]+$/", array($adminController, 'block_one_membership'));
 $router->post("/^\/dashboard\/membership\/unblock\/[0-9]+$/", array($adminController, 'unblock_one_membership'));
 $router->get("/^\/dashboard\/newsComment$/", array($adminController, 'get_all_news_comment'));
+// dashboard/newsComment/block/1/2      ---> 1 is id_comment, 2 is id_news
+$router->post("/^\/dashboard\/newsComment\/block\/[0-9]+\/[0-9]+$/", array($adminController, 'block_news_comment'));
+// dashboard/newsComment/unblock/1/2      ---> 1 is id_comment, 2 is id_news
+$router->post("/^\/dashboard\/newsComment\/unblock\/[0-9]+\/[0-9]+$/", array($adminController, 'unblock_news_comment'));
+$router->get("/^\/dashboard\/productComment$/", array($adminController, 'get_all_product_comment'));
+// dashboard/productComment/block/1/2      ---> 1 is id_comment, 2 is id_product
+$router->post("/^\/dashboard\/productComment\/block\/[0-9]+\/[0-9]+$/", array($adminController, 'block_product_comment'));
+// dashboard/productComment/unblock/1/2      ---> 1 is id_comment, 2 is id_product
+$router->post("/^\/dashboard\/productComment\/unblock\/[0-9]+\/[0-9]+$/", array($adminController, 'unblock_product_comment'));
 $router->get("/^\/dashboard\/contact$/", array($adminController, 'get_all_contact'));
 
 $router->get("/^\/dashboard\/image-storage\/[0-9]+$/", array($adminController, 'get_image_of_admin'));

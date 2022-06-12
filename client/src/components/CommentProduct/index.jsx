@@ -18,6 +18,7 @@ export default function CommentProduct() {
     }
     const commentStyle = {
         backgroundColor: '#F7F8FC',
+        height: '100vh'
     }
 
     const memberStyle = {
@@ -34,15 +35,39 @@ export default function CommentProduct() {
         lineHeight: 2,
     }
 
-    const initData = JsonData.slice(0,30);
+    // const initData = JsonData.slice(0, 30);
+    const initData = [];
     const [members, setMembers] = useState(initData);
     const [pageNumber, setPageNumber] = useState(0);
     const [membersPerPage, setMembersPerPage] = useState(10);
     const [membersVisited, setMembersVisited] = useState(pageNumber * membersPerPage);
-    
+
     const [showComment, setShowComment] = useState(true);
-    const handleComment = () => {
-        setShowComment(!showComment);
+    const handleComment = async (e, id_comment, id_product, visible) => {
+        // setShowComment(!showComment);]
+        e.preventDefault();
+
+        if (visible == 1) {      // will call block
+            await axios({
+                method: 'post',
+                url: `http://localhost/dashboard/productComment/block/${id_comment}/${id_product}`,
+            }).then(function (response) {
+                console.log(response);
+                setMembers(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        } else {            // will call unblock
+            await axios({
+                method: 'post',
+                url: `http://localhost/dashboard/productComment/unblock/${id_comment}/${id_product}`,
+            }).then(function (response) {
+                console.log("unblock: ", response);
+                setMembers(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
     };
     const openComment = {
         display: 'inline-block',
@@ -52,31 +77,34 @@ export default function CommentProduct() {
     }
 
     const displayMembers = (membersList) => membersList.
-                        slice(membersVisited, membersVisited + membersPerPage).
-                        map( (member) => {
-                            return (
-                                
-                                    <tr key={member.id}>
-                                        <td style={each_td}> {member.id} </td>
-                                        <td style={each_td}> {member.comment} </td>
-                                        <td style={each_td}> {member.name} </td>
-                                        <td style={each_td}> {member.id} </td>
-                                        <td style={each_td}> {member.updated_at} </td>
-                                
-                                        <td style={lastTd}>
+        slice(membersVisited, membersVisited + membersPerPage).
+        map((member, idx) => {
+            return (
 
-                                            <Link style={{textDecoration: "none", color:'none'}} to={`#`}>
+                <tr key={idx}>
+                    <td style={each_td}> {member.ID_PRODUCT} </td>
+                    <td style={each_td}> {member.CONTENT_COMMENT} </td>
+                    <td style={each_td}> {member.USERNAME} </td>
+                    <td style={each_td}> {member.ID_MEMBER} </td>
+                    <td style={each_td}> {member.CREATED_AT} </td>
+
+                    <td style={lastTd}>
+                        <Link style={{ textDecoration: "none", color: 'none' }} to={`#`}>
+                            {member.VISIBLE == 1 ? <AiIcons.AiFillEye onClick={e => handleComment(e, member.ID_COMMENT, member.ID_PRODUCT, member.VISIBLE)} className="icon" /> : <AiIcons.AiFillEyeInvisible onClick={e => handleComment(e, member.ID_COMMENT, member.ID_PRODUCT, member.VISIBLE)} className="icon" />}
+                        </Link>
+
+                        {/* <Link style={{textDecoration: "none", color:'none'}} to={`#`}>
                                                 <AiIcons.AiFillEye style={showComment? openComment : closeComment} onClick={handleComment} className="icon" />
                                                 <AiIcons.AiFillEyeInvisible style={!showComment? openComment : closeComment} onClick={handleComment} className="icon" />
-                                            </Link>
+                                            </Link> */}
 
-                                        </td>
-                                    </tr>
-                                
-                            );
-                        });
-                    
-                        
+                    </td>
+                </tr>
+
+            );
+        });
+
+
     const pageCount = Math.ceil(members.length / membersPerPage);
     const changePage = ({ selected }) => {
         console.log("selected: ", selected);
@@ -84,70 +112,124 @@ export default function CommentProduct() {
         setMembersVisited(selected * membersPerPage);   // myself
     };
 
+    const [tempMembers, setTempMembers] = useState([]);
+
     const handleSearch = () => {
+
+        console.log("search term: ", searchTerm);
         var filterData = [];
         let count = 0;
-        for (let i = 0; i < initData.length; i++) {
-            if (initData[i].name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                filterData[count++] = initData[i];
+        for (let i = 0; i < tempMembers.length; i++) {
+            if (tempMembers[i].CONTENT_COMMENT.toLowerCase().includes(searchTerm.toLowerCase())) {
+                filterData[count++] = tempMembers[i];
             }
         }
-        filterData.sort(function comp (a, b) {if (a.id < b.id) {return -1;}} );
-        console.log(filterData);
-        console.log("page selected: ", pageNumber);
+        // filterData.sort(function comp(a, b) { if (a.ID < b.ID) { return 1; } });
+        console.log('filter data: ', filterData);
+        // console.log("page selected: ", pageNumber);
 
+        // setMembers(filterData.slice(0, count));
         if (searchTerm.length > 0) {
-            if (pageNumber ==  0) {
+            if (pageNumber == 0) {
                 setMembers(filterData.slice(0, count));
             }
             else {
-                console.log("page number != 0");
+                // console.log("page number != 0");
                 setMembersVisited(0);
                 setMembers(filterData.slice(0, count));
                 // setMembersVisited(10);
             }
+            // setMembers(filterData.slice(0, count));
         }
         else {
-            console.log("searchTerm.length != 0: ", pageNumber);
+            // console.log("searchTerm.length != 0: ", pageNumber);
             // setMembers(initData.slice(pageNumber*membersPerPage, pageNumber*membersPerPage + membersPerPage));
-            // setMembersVisited(0);   
+            setMembersVisited(0);
             setMembersPerPage(10);
-            setMembers(initData);
+            setMembers(tempMembers);
         }
+
+
+
+
+
+        // var filterData = [];
+        // let count = 0;
+        // for (let i = 0; i < initData.length; i++) {
+        //     if (initData[i].name.toLowerCase().includes(searchTerm.toLowerCase())) {
+        //         filterData[count++] = initData[i];
+        //     }
+        // }
+        // filterData.sort(function comp(a, b) { if (a.id < b.id) { return -1; } });
+        // console.log(filterData);
+        // console.log("page selected: ", pageNumber);
+
+        // if (searchTerm.length > 0) {
+        //     if (pageNumber == 0) {
+        //         setMembers(filterData.slice(0, count));
+        //     }
+        //     else {
+        //         console.log("page number != 0");
+        //         setMembersVisited(0);
+        //         setMembers(filterData.slice(0, count));
+        //         // setMembersVisited(10);
+        //     }
+        // }
+        // else {
+        //     console.log("searchTerm.length != 0: ", pageNumber);
+        //     // setMembers(initData.slice(pageNumber*membersPerPage, pageNumber*membersPerPage + membersPerPage));
+        //     // setMembersVisited(0);   
+        //     setMembersPerPage(10);
+        //     setMembers(initData);
+        // }
     };
 
     const [searchTerm, setSearchTerm] = useState("");
-
+    const [firstFetch, setFirstFetch] = useState(true);
     useEffect(() => {
         handleSearch();
+
+        if (firstFetch) {
+            axios({
+                method: 'get',
+                url: 'http://localhost/dashboard/productComment',
+            }).then(function (response) {
+                console.log(response);
+                setMembers(response.data);
+                setTempMembers(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+            setFirstFetch(false);
+        }
     }, [searchTerm]);
 
     return (
-        <div className="container" style={{maxWidth: 2000, height: '100%'}}>
+        <div className="container" style={{ maxWidth: 2000, height: '100%' }}>
             <div className='path' style={pathStyle}>
-                <h1 style={{color: '#1570EF', fontWeight:'bold'}}>Comment Product Management</h1>
+                <h1 style={{ color: '#1570EF', fontWeight: 'bold' }}>Comment Product Management</h1>
             </div>
             <div className="content" style={commentStyle}>
-                <div style={{width:400, margin:'0 auto', marginTop:40}} className="input-group mb-3">
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        placeholder="Search..." 
+                <div style={{ width: 400, margin: '0 auto', marginTop: 40 }} className="input-group mb-3">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search..."
                         onChange={(event) => {
                             setSearchTerm(event.target.value);
                         }}
                     />
                 </div>
 
-                <Table style={{width:1100, margin:'0 auto'}} responsive>
+                <Table style={{ width: 1100, margin: '0 auto' }} responsive>
                     <thead>
                         <tr>
-                            <th>Porduct ID</th>
+                            <th>Product ID</th>
                             <th>Comment</th>
                             <th>Author</th>
                             <th>Author ID</th>
                             <th>Updated at</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -159,25 +241,25 @@ export default function CommentProduct() {
                 {/* test pagination */}
                 {/* {displayUsers}*/}
                 <div className="paginate">
-                <ReactPaginate
-                    nextLabel="Next"
-                    onPageChange={changePage}
-                    pageCount={pageCount}
-                    previousLabel="Previous"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    breakLabel="..."
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    containerClassName="pagination"
-                    activeClassName="active"
-                /> 
+                    <ReactPaginate
+                        nextLabel="Next"
+                        onPageChange={changePage}
+                        pageCount={pageCount}
+                        previousLabel="Previous"
+                        pageClassName="page-item"
+                        pageLinkClassName="page-link"
+                        previousClassName="page-item"
+                        previousLinkClassName="page-link"
+                        nextClassName="page-item"
+                        nextLinkClassName="page-link"
+                        breakLabel="..."
+                        breakClassName="page-item"
+                        breakLinkClassName="page-link"
+                        containerClassName="pagination"
+                        activeClassName="active"
+                    />
                 </div>
             </div>
-      </div>
+        </div>
     );
 }

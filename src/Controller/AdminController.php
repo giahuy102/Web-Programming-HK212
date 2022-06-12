@@ -101,6 +101,47 @@ class AdminController
         echo json_encode($result);
     }
 
+    function get_all_product_comment($request) {
+        $result = $this->modelAdmin->get_all_product_comment();
+        echo json_encode($result);
+    }
+
+    function block_news_comment($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id_comment = (int) $split_uri[count($split_uri) - 2];
+        $id_news = (int) $split_uri[count($split_uri) - 1];
+        $result = $this->modelAdmin->block_news_comment($id_comment, $id_news);
+        echo json_encode($result);
+    }
+
+    function unblock_news_comment($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id_comment = (int) $split_uri[count($split_uri) - 2];
+        $id_news = (int) $split_uri[count($split_uri) - 1];
+        $result = $this->modelAdmin->unblock_news_comment($id_comment, $id_news);
+        echo json_encode($result);
+    }
+
+    function block_product_comment($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id_comment = (int) $split_uri[count($split_uri) - 2];
+        $id_product = (int) $split_uri[count($split_uri) - 1];
+        $result = $this->modelAdmin->block_product_comment($id_comment, $id_product);
+        echo json_encode($result);
+    }
+
+    function unblock_product_comment($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id_comment = (int) $split_uri[count($split_uri) - 2];
+        $id_product = (int) $split_uri[count($split_uri) - 1];
+        $result = $this->modelAdmin->unblock_product_comment($id_comment, $id_product);
+        echo json_encode($result);
+    }
+
     function create($request) {
         // $arr = array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5);
         // header('Content-type: application/json');

@@ -132,9 +132,9 @@ export default function PublicInfo() {
 
             <Modal show={showBlock} onHide={e => handleCloseBlock(e)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Update sucessfully!</Modal.Title>
+                    <Modal.Title>Update successfully!</Modal.Title>
                 </Modal.Header>
-                {/* <Modal.Body>Are you sure to {blockOrNot == 0 ? "block" : "unblock"} this member?</Modal.Body> */}
+                <Modal.Body>You have updated public information successfully!</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={e => handleCloseBlock(e)}>
                         OK
