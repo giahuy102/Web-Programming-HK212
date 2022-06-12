@@ -42,6 +42,10 @@
     width: 100%;
 }
 
+.gray{
+    color:rgb(148, 148, 148)
+}
+
 .changeps{
     color: #E0B531;
     font-size: small;

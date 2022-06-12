@@ -161,4 +161,18 @@ class AdminModel {
         $result = mysqli_query($connection, $query);
         return $this->get_comment_by_product_id($product_id);
     }
+
+    function get_user_db_by_id($user_id){
+        $connection = $this->connectDB();
+        $query = "SELECT * FROM _USER WHERE ID = ". $user_id;
+        $result = mysqli_query($connection, $query);
+        return mysqli_fetch_assoc($result);
+    }
+
+    function update_user_db_by_id($user_id, $email, $phone){
+        $connection = $this->connectDB();
+        $query = "UPDATE _user SET EMAIL = '". $email ."', PHONENUMBER = '". $phone."' WHERE ID = ". $user_id;
+        $result = mysqli_query($connection, $query);
+        return $this->get_user_db_by_id($user_id);
+    }
 }
