@@ -130,4 +130,46 @@ class AdminController
         $result = $this->modelAdmin->create_one_image($newUrl_Image, $newPosition, (int) $newId_Admin);
         echo json_encode($result);
     }
+
+    function get_all_news($request) {
+        $result = $this->modelAdmin->get_all_news();
+        echo json_encode($result);
+    }
+
+    function get_one_news($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_news($id);
+        echo json_encode($result);
+    }
+
+    function create_one_news($request) {
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $newTitle = $_POST['title'];
+        $newContent = $_POST['content'];
+        $newId_Admin = $_POST['id_admin'];
+
+        $result = $this->modelAdmin->create_one_news($newTitle, $newContent, (int) $newId_Admin);
+        echo json_encode($result);
+    }
+
+    function edit_one_news($request) {
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $id = $_POST['id'];
+        $newTitle = $_POST['title'];
+        $newContent = $_POST['content'];
+        // $newId_Admin = $_POST['id_admin'];
+
+        $result = $this->modelAdmin->edit_one_news($id, $newTitle, $newContent);
+        echo json_encode($result);
+    }
+
+    function delete_one_news ($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->delete_one_news($id);
+        echo json_encode($result);
+    }
 }

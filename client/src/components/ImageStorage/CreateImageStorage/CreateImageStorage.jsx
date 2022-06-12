@@ -35,16 +35,14 @@ export default function CreateImageStorage() {
     //     return time.slice(8, 10) + ":" + time.slice(10, 12) + ":" + time.slice(12) + "\t" + time.slice(6, 8) + "-" + time.slice(4, 6) + "-" + time.slice(0, 4);
     // }
 
-    const id_admin = useParams().id_admin; console.log("ID admin: ", id_admin);
+    const id_admin = Number(useParams().id_admin); console.log("ID admin: ", id_admin);
 
+    const [file, setFile] = useState(null);
     const [url, setUrl] = useState("");
     const [position, setPosition] = useState("");
 
-    const handleChangeUrl = (value) => {
-        setUrl(value);
-    }
-    const handleChangePosition = (value) => {
-        setPosition(value);
+    const handleChangeFile = (file) => {
+        setFile(file);
     }
 
     const handleClickDone = () => {
@@ -78,17 +76,26 @@ export default function CreateImageStorage() {
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Url</span>
                     <input 
-                        type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
-                        onChange={(event) => handleChangeUrl(event.target.value)}
+                        type="file" accept='image/*' className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
+                        onChange={ (event) => handleChangeFile(event.target.files[0])}
                     />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Position</span>
-                    <textarea 
+                    {/* <textarea 
                         className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
                         onChange={(event) => handleChangePosition(event.target.value)}
-                    />
+                    /> */}
+                    <select type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <option value="home">Home</option>
+                        <option value="about">About</option>
+                        <option value="menu">Menu</option>
+                        <option value="contact">Contact</option>
+                        <option value="news">News</option>
+                        <option value="cart">Cart</option>
+                        <option value="member">Member Information</option>
+                    </select>
                     <br />
                 </div>
                 <div className='groupButton' style={{ margin: '50 auto auto auto', textAlign: 'center' }}>

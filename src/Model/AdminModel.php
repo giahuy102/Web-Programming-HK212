@@ -114,7 +114,7 @@ class AdminModel {
         $query = "INSERT INTO image_storage(URL_IMG, POSITION, ID_ADMIN) VALUE('" . $url_img . "','" . $position . "'," . $id_admin . ")";
         $result = mysqli_query($connection, $query);
     }
-    
+
     function get_public_info() {
         $connection = $this->connectDB();
         $query = "SELECT * FROM public_information";
@@ -138,5 +138,42 @@ class AdminModel {
             $$news_comment_list[] = $member;
         }
         return $news_comment_list;
+    }
+
+    function get_all_news() {
+        $connection = $this->connectDB();
+        $query = "SELECT * FROM NEWS";
+        $result = mysqli_query($connection, $query);
+        $news_list = array();
+        while($news = mysqli_fetch_assoc($result)) {
+            $news_list[] = $news;
+        }
+        return $news_list;
+    }
+
+    function get_one_news($id) {
+        $connection = $this->connectDB();
+        $query = "SELECT * FROM NEWS WHERE ID=$id";
+        $result = mysqli_query($connection, $query);
+        return mysqli_fetch_assoc($result);
+    }
+
+    function create_one_news($title, $content, $id_admin) {
+        $connection = $this->connectDB();
+        $query = "INSERT INTO NEWS(TITLE, CONTENT, CREATED_AT, ID_ADMIN) VALUE('" . $title . "', '" . $content . "', NOW(), '" . $id_admin . "')";
+        $result = mysqli_query($connection, $query);
+    }
+
+    function edit_one_news($id, $title, $content) {
+        $connection = $this->connectDB();
+        $query = "UPDATE NEWS SET TITLE = '" . $title . "', CONTENT = '" . $content . "' WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+    }
+
+    function delete_one_news ($id) {
+        $connection = $this->connectDB();
+        $query = "DELETE FROM NEWS WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+        return $result;
     }
 }

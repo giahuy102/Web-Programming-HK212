@@ -152,7 +152,7 @@ export default class Dashboard extends React.Component {
             }
           />
           <Route
-            path="/dashboard/news/create"
+            path="/dashboard/news/:id_admin/create"
             element={
               <CreateNews 
               />

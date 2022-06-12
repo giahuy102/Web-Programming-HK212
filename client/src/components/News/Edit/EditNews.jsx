@@ -25,15 +25,38 @@ export default function EditNews() {
     const objId = useParams();
 
     useEffect(() => {
-        let news = JsonData.filter((news) => news.id == objId.id)[0];
-        setNews(news);
-    });
+        // let news = JsonData.filter((news) => news.id == objId.id)[0];
+        // setNews(news);
+        axios({
+            method: 'get',
+            url: `http://localhost/dashboard/news/detail/${objId.id}`,
+        }).then(function (response) {
+            console.log("News list: ", response.data);
+            setNews(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }, []);
 
-    // function displayTimestamp (time) {  console.log("Time: ", time)  //  time -> YYYYMMDDHHMMSS
-    //     if (time === "")
-    //         return "";
-    //     return time.slice(8, 10) + ":" + time.slice(10, 12) + ":" + time.slice(12) + "\t" + time.slice(6, 8) + "-" + time.slice(4, 6) + "-" + time.slice(0, 4);
-    // }
+    const handleClickDone = async () => {
+        let title = document.getElementById('news_edit_title').value; 
+        let content = document.getElementById('news_edit_content').value;
+        await axios({
+            method: 'post',
+            url: `http://localhost/dashboard/news/edit`,
+            data: {
+                id: news.ID,
+                title: title,
+                content: content
+                // id_admin: news.ID_ADMIN
+            }
+        })
+        .then(function (response) {
+            console.log("Response edit news: ", response);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
 
     return (
         <div className="container" style={{ maxWidth: 2000, height: '100vh' }}>
@@ -47,35 +70,40 @@ export default function EditNews() {
             <div className='input-content' style={{ width: 800, margin: '0 auto', marginTop: 30 }}>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">ID</span>
-                    <input defaultValue={news.id} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={news.ID} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Title</span>
-                    <input defaultValue={news.title} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input id='news_edit_title' defaultValue={news.TITLE} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Content</span>
-                    <textarea defaultValue={news.content} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <textarea id='news_edit_content' defaultValue={news.CONTENT} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Created at</span>
                     <input
-                        defaultValue={news.created_at}
+                        defaultValue={news.CREATED_AT}
                         disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                     />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">ID Admin</span>
-                    <input defaultValue={news.id_admin} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={news.ID_ADMIN} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className='groupButton' style={{ margin: '50 auto auto auto', textAlign: 'center' }}>
                     <Link style={{ textDecoration: "none" }} to={`/dashboard/news/`}>
-                        <button style={{ width: 100 }} type="button" className="btn btn-primary">Done</button>
+                        <button 
+                            style={{ width: 100 }} type="button" className="btn btn-primary"
+                            onClick={handleClickDone}
+                        >
+                            Done
+                        </button>
                     </Link>
                 </div>
             </div>

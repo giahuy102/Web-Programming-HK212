@@ -37,16 +37,7 @@ export default function News() {
 
     // modal pop up when delete
     const [showDelete, setShowDelete] = useState(false);
-    // const [showCreate, setShowCreate] = useState(false);
-
-    // const [id, setId] = useState(0);
-    // const [name, setName] = useState("");
-    // const [price, setPrice] = useState(0);
-    // const [description, setDescription] = useState("");
-    // const [image, setImage] = useState("");
-    // const [createAt, setCreateAt] = useState("");
-    // const [totalLike, setTotalLike] = useState(0);
-    // const [idCategory, setIdCategory] = useState(0);
+    const [idDelete, setIdDelete] = useState();
 
     const id_admin = 2;                 // get admin id
     const initData = JsonData.filter( (news) => news.id_admin === id_admin).slice(0);
@@ -59,58 +50,44 @@ export default function News() {
 
     useEffect(() => {
         handleSearch();
-    }, [searchTerm]);
 
-    const handleCloseDelete = () => setShowDelete(false);
-    const handleShowDelete = () => setShowDelete(true);
+        axios({
+            method: 'get',
+            url: 'http://localhost/dashboard/news',
+        })
+        .then(function (response) {
+            console.log("News list: ", response.data);
+            setNews(response.data);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    }, [searchTerm, showDelete, idDelete]);
 
-    // const handleCloseCreate = () => setShowCreate(false);
-    // const handleShowCreate = () => {
-    //     setShowCreate(true);
-    //     setName("");
-    //     setPrice(0);
-    //     setDescription("");
-    //     setImage("");
-    //     setCreateAt("");
-    //     setTotalLike(0);
-    //     setIdCategory(0);
-    // }
-    // const handleCreateOK = () => {
-    //     let d = new Date();
-    //     let create_at = d.getFullYear().toString();
-    //     if (d.getMonth() < 9)
-    //         create_at += "0" + (d.getMonth() + 1).toString();
-    //     else
-    //         create_at += (d.getMonth() + 1).toString();
-    //     if (d.getDate() < 9)
-    //         create_at += "0" + (d.getDate() + 1).toString();
-    //     else
-    //         create_at += (d.getDate() + 1).toString();
-    //     if (d.getHours() < 9)
-    //         create_at += "0" + (d.getHours() + 1).toString();
-    //     else
-    //         create_at += (d.getHours() + 1).toString();
-    //     if (d.getMinutes() < 9)
-    //         create_at += "0" + (d.getMinutes() + 1).toString();
-    //     else
-    //         create_at += (d.getMinutes() + 1).toString();
-    //     if (d.getSeconds() < 9)
-    //         create_at += "0" + (d.getSeconds() + 1).toString();
-    //     else
-    //         create_at += (d.getSeconds() + 1).toString();
+    const handleCloseDelete = (e) => {
+        e.preventDefault();
+        setShowDelete(false);
+    }
+    const handleShowDelete = (e, id) => {
+        e.preventDefault();
+        setIdDelete(id);
+        setShowDelete(true);
+    }
 
-    //     let newnew = {
-    //         name: name,
-    //         price: price,
-    //         description: description,
-    //         image: image,
-    //         createAt: create_at,
-    //         totalLike: totalLike,
-    //         idCategory: idCategory,
-    //     }
+    const handleDelete = async (e) => {
+        await axios({
+            method: 'post',
+            url: `http://localhost/dashboard/news/delete/${idDelete}`,
+        })
+        .then(function (response) {
+            console.log("Delete news: ", response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 
-    //     setShowCreate(false);
-    // }
+        setShowDelete(false)
+    }
 
     const pageCount = Math.ceil(news.length / newsPerPage);
     const changePage = ({ selected }) => {
@@ -149,28 +126,23 @@ export default function News() {
         }
     };
 
-    const displayTimestamp = (time) => {   //  time -> YYYYMMDDHHMMSS
-        if (time === "")
-            return "";
-        return time.slice(8, 10) + ":" + time.slice(10, 12) + ":" + time.slice(12) + "\t" + time.slice(6, 8) + "-" + time.slice(4, 6) + "-" + time.slice(0, 4);
-    }
-
     const displayNews = (newsList) => newsList
         .slice(newsVisited, newsVisited + newsPerPage)
-        .map((news) => {
+        .map((news, idx) => {
             return (
-                <tr key={news.id}>
-                    <td style={each_td}> {news.id} </td>
-                    <td style={each_td}> {news.title} </td>
-                    <td style={each_td}> {displayTimestamp(news.created_at)} </td>
+                <tr key={idx}>
+                    <td style={each_td}> {news.ID} </td>
+                    <td style={each_td}> {news.TITLE} </td>
+                    {/* <td style={each_td}> {displayTimestamp(news.CREATED_AT)} </td> */}
+                    <td style={each_td}> {news.CREATED_AT} </td>
                     <td style={lastTd}>
-                        <Link style={{ textDecoration: "none", color: 'none' }} to={`/dashboard/news/edit/${news.id}`} title='Edit'>
+                        <Link style={{ textDecoration: "none", color: 'none' }} to={`/dashboard/news/edit/${news.ID}`} title='Edit'>
                             <AiIcons.AiFillEdit className="icon" />
                         </Link>
-                        <Link style={{ textDecoration: "none" }} to={`/dashboard/news/detail/${news.id}`} title='Detail'>
+                        <Link style={{ textDecoration: "none" }} to={`/dashboard/news/detail/${news.ID}`} title='Detail'>
                             <AiIcons.AiFillInfoCircle className="icon" />
                         </Link>
-                        <Link onClick={handleShowDelete} style={{ textDecoration: "none" }} to={`#`} title='Delete'>
+                        <Link onClick={e => handleShowDelete(e, news.ID)} style={{ textDecoration: "none" }} to={`#`} title='Delete'>
                             <AiIcons.AiFillDelete className="icon" />
                         </Link>
                     </td>
@@ -204,7 +176,7 @@ export default function News() {
                             <th style={{ textAlign: 'center'}}>
                                 <Link 
                                     style={{ textDecoration: "none", color: 'green', fontSize: '25px' }} 
-                                    to="/dashboard/news/create" title='Create'
+                                    to={`/dashboard/news/${id_admin}/create`} title='Create'
                                 >
                                     <AiIcons.AiFillPlusCircle className="icon" />
                                 </Link>
@@ -249,7 +221,7 @@ export default function News() {
                         <Button variant="outline-secondary" onClick={handleCloseDelete}>
                             Cancel
                         </Button>
-                        <Button variant="danger" onClick={handleCloseDelete}>
+                        <Button variant="danger" onClick={handleDelete}>
                             Delete
                         </Button>
                     </Modal.Footer>
