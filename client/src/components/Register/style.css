@@ -1,0 +1,24 @@
+.wrapper-container {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.home_form {
+    width: 65%;
+    background-color: white;
+    padding: 50px;
+}
+
+.my-btn {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #E0B531 !important;
+}
+
+.my-alert {
+    width: 30%;
+}

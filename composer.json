@@ -11,5 +11,7 @@
             "App\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "firebase/php-jwt": "^6.2"
+    }
 }
