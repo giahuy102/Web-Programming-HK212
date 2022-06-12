@@ -1,0 +1,11 @@
+.small-updatebtn{
+    border-radius: 10px;
+    border-style: none;
+    border-color: #b38f25;
+    border-style: solid;
+    padding: 5px 15px;
+    background-color: #E0B531;
+    color: white;
+    font-size:small;
+    font-weight: bold;
+}

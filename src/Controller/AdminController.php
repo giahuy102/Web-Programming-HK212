@@ -174,4 +174,54 @@ class AdminController
         $result = $this->modelAdmin->update_user_db_by_id($user_id, $name, $email, $phone, $address);
         echo json_encode($result);
     }
+
+    function upload_image($request){
+        $response = array();
+        $upload_dir = 'uploads/image/';
+        $server_url = 'http://localhost';
+
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri);
+        $user_id = (int)($split_uri[count($split_uri) - 2]);
+        
+        if($_FILES['avatar'])
+        {
+            $avatar_name = $_FILES["avatar"]["name"];
+            $avatar_tmp_name = $_FILES["avatar"]["tmp_name"];
+            $error = $_FILES["avatar"]["error"];
+
+            if($error > 0){
+                $response = array(
+                    "status" => "error",
+                    "error" => true,
+                    "message" => "Error uploading the file!"
+                );
+            }else 
+            {
+                $random_name = rand(1000,1000000)."-".$avatar_name;
+                $this->modelAdmin->update_avatar_source($user_id, $random_name);
+                $upload_name = $upload_dir.strtolower($random_name);
+                $upload_name = preg_replace('/\s+/', '-', $upload_name);
+            
+                if(move_uploaded_file($avatar_tmp_name , $upload_name)) {
+                    $response = $random_name;
+                }else
+                {
+                    $response = array(
+                        "status" => "error",
+                        "error" => true,
+                        "message" => "Error uploading the file!"
+                    );
+                }
+            }
+        }else{
+            $response = array(
+                "status" => "error",
+                "error" => true,
+                "message" => "No file was sent!"
+            );
+        }
+
+        echo json_encode($response);
+    }
 }

@@ -3,8 +3,10 @@ import './style.css'
 
 import { useEffect, useState } from 'react'
 
-import avatar from '../../assets/images/images.jpg'
+// import avatar from '../../assets/images/images.jpg'
 import axios from 'axios'
+
+import FileUploadForm from '../FileUploadForm'
 
 const UserInfo = () => {
   const [username,setUserName] = useState("")
@@ -12,8 +14,9 @@ const UserInfo = () => {
   const [email,setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [address, setAddress] = useState("")
+  const [avatar, setAvatar] = useState("no_avatar.png")
 
-  const this_member_id = 1;
+  const this_member_id = 3;
 
   useEffect( () => {
     axios({
@@ -21,12 +24,13 @@ const UserInfo = () => {
         url: `http://localhost/home/user/${this_member_id}`,
     }).then(function (response) {
         let user = response.data;
-        
+        console.log(user)
         setUserName(user.USERNAME);
         setName(user._NAME);
         setEmail(user.EMAIL);
         setPhone(user.PHONENUMBER);
         setAddress(user._ADDRESS);
+        setAvatar(user.AVATAR);
 
     }).catch(function (error) {
         console.log(error);
@@ -111,13 +115,14 @@ const UserInfo = () => {
         <div className="row my-4">
           <div className='col-lg-4 col-md-5 '>
             <div className='mt-4'>
-              <img src={avatar} alt="" className='img-thumbnail'></img>
+              <img src={`http://localhost/uploads/image/${avatar}`} alt="" className='img-thumbnail'></img>
             </div>
-            <div className='mt-3 col'>
+            {/* <div className='mt-3 col'>
               <input className="" id="imgSrc" type="file" />
-            </div>
+            </div> */}
+            <FileUploadForm this_member_id={this_member_id} setAvatar={setAvatar}/>
           </div>
-          <div className="col-lg-4 col-md-5 mt-sm-4 mt-md-0 form-margin d-flex align-items-center justify-content-sm-center justify-content-md-start">
+          <div className="col-lg-4 col-md-5 mt-sm-4 mt-md-0 form-margin d-flex align-items-center justify-content-center justify-content-md-start">
             <button className='updatebtn' onClick={updateUserInfo}> Update</button>
           </div>
         </div>

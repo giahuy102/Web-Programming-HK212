@@ -175,4 +175,11 @@ class AdminModel {
         $result = mysqli_query($connection, $query);
         return $this->get_user_db_by_id($user_id);
     }
+
+    function update_avatar_source($user_id, $avatar){
+        $connection = $this->connectDB();
+        $query = "UPDATE _user SET AVATAR = '". $avatar ."' WHERE ID = ". $user_id;
+        $result = mysqli_query($connection, $query);
+        return $this->get_user_db_by_id($user_id);
+    }
 }
