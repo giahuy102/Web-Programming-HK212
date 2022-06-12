@@ -108,4 +108,26 @@ class AdminController
         $_POST = json_decode(file_get_contents("php://input"), true);
         echo $_POST['name'] . $_POST['age'] . $_POST['cc'];
     }
+
+    function get_image_of_admin($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id_admin = (int) ($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_image_of_admin($id_admin);
+        echo json_encode($result);
+    }
+
+    function create_one_image($request) {
+        // $uri = $_SERVER['REQUEST_URI'];
+        // $split_uri = explode("/", $uri, 10);
+        // $id_admin = (int) ($split_uri[count($split_uri) - 2]);
+        
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $newUrl_Image = $_POST['url_img'];
+        $newPosition = $_POST['position'];
+        $newId_Admin = $_POST['id_admin'];
+
+        $result = $this->modelAdmin->create_one_image($newUrl_Image, $newPosition, (int) $newId_Admin);
+        echo json_encode($result);
+    }
 }

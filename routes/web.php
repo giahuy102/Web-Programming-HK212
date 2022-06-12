@@ -22,6 +22,10 @@ $router->post("/^\/dashboard\/membership\/block\/[0-9]+$/", array($adminControll
 $router->post("/^\/dashboard\/membership\/unblock\/[0-9]+$/", array($adminController, 'unblock_one_membership'));
 $router->get("/^\/dashboard\/newsComment$/", array($adminController, 'get_all_news_comment'));
 $router->get("/^\/dashboard\/contact$/", array($adminController, 'get_all_contact'));
+
+$router->get("/^\/dashboard\/image-storage\/[0-9]+$/", array($adminController, 'get_image_of_admin'));
+$router->post("/^\/dashboard\/image-storage\/create$/", array($adminController, 'create_one_image'));
+
 $router->get("/^\/dashboard\/publicInfo$/", array($adminController, 'get_public_info'));
 $router->post("/^\/dashboard\/publicInfoEdit$/", array($adminController, 'edit_public_info'));
 $router->run();
