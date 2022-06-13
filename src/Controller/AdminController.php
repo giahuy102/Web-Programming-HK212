@@ -224,4 +224,28 @@ class AdminController
 
         echo json_encode($response);
     }
+
+    function change_password($request){
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $oldpassword = $_POST['oldpassword'];
+        $newpassword = $_POST['newpassword'];
+        $renewpassword = $_POST['renewpassword'];
+
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri);
+        $user_id = (int)($split_uri[count($split_uri) - 2]);
+        
+        $oldpassword_db = $this->modelAdmin->get_password_by_user_id($user_id);
+
+        if ($oldpassword != $oldpassword_db['USER_PASSWORD'])
+            echo "Wrong password!";
+        else {
+            if ($newpassword != $renewpassword)
+                echo "New password does not match!";
+            else {
+                $this->modelAdmin->update_password_by_user_id($user_id, $newpassword);
+                echo "Success!";
+            }
+        }
+    }
 }

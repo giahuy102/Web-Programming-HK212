@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserInfo from '../../components/UserInfo'
 import Comment from '../../components/Comment';
 import Product from '../../components/Product';
+import ChangePassword from '../../components/ChangePassword';
 
 export default function Example() {
 
@@ -37,6 +38,13 @@ export default function Example() {
                         path="/product"
                         element={
                         <Product
+                        />
+                        }
+                    />
+                    <Route
+                        path="/userInfo/changePassword"
+                        element={
+                        <ChangePassword
                         />
                         }
                     />

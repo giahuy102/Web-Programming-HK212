@@ -182,4 +182,18 @@ class AdminModel {
         $result = mysqli_query($connection, $query);
         return $this->get_user_db_by_id($user_id);
     }
+
+    function get_password_by_user_id($user_id){
+        $connection = $this->connectDB();
+        $query = "SELECT USER_PASSWORD FROM _USER WHERE ID = ". $user_id;
+        $result = mysqli_query($connection, $query);
+        return mysqli_fetch_assoc($result);
+    }
+
+    function update_password_by_user_id($user_id, $newpassword){
+        $connection = $this->connectDB();
+        $query = "UPDATE _user SET USER_PASSWORD = '". $newpassword ."' WHERE ID = ". $user_id;
+        $result = mysqli_query($connection, $query);
+        return $result;
+    }
 }

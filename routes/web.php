@@ -35,6 +35,7 @@ $router->get("/^\/home\/user\/[0-9]+$/", array($adminController, 'get_user_by_id
 $router->post("/^\/home\/user\/[0-9]+$/", array($adminController, 'update_user_by_id'));
 
 $router->post("/^\/home\/user\/[0-9]+\/imageUpload$/", array($adminController, 'upload_image'));
+$router->post("/^\/home\/user\/[0-9]+\/changePassword$/", array($adminController, 'change_password'));
 $router->run();
 
 
