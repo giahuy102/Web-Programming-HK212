@@ -30,7 +30,7 @@ export default function News() {
     }
     const pagination = {
         marginLeft: "auto",
-        marginRight: "auto",
+        marginRight: "0",
         marginTop: "40px",
         width: "fit-content",
     }
@@ -40,16 +40,20 @@ export default function News() {
     const [idDelete, setIdDelete] = useState();
 
     const id_admin = 2;                 // get admin id
-    const initData = JsonData.filter( (news) => news.id_admin === id_admin).slice(0);
+    // const initData = JsonData.filter((news) => news.id_admin === id_admin).slice(0);
+    const initData = [];
     const [news, setNews] = useState(initData);
     const [pageNumber, setPageNumber] = useState(0);
     const [newsPerPage, setNewsPerPage] = useState(10);
     const [newsVisited, setNewsVisited] = useState(pageNumber * newsPerPage);
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [fisrtFetch, setFirstFetch] = useState(true);
+    const [tempNews, setTempNews] = useState([]);
 
     useEffect(() => {
         handleSearch();
+
 
         axios({
             method: 'get',
@@ -58,6 +62,10 @@ export default function News() {
         .then(function (response) {
             console.log("News list: ", response.data);
             setNews(response.data);
+            if (fisrtFetch) {
+                setTempNews(response.data);
+                setFirstFetch(false);
+            }
         })
         .catch(function (err) {
             console.log(err);
@@ -79,12 +87,12 @@ export default function News() {
             method: 'post',
             url: `http://localhost/dashboard/news/delete/${idDelete}`,
         })
-        .then(function (response) {
-            console.log("Delete news: ", response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                console.log("Delete news: ", response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
         setShowDelete(false)
     }
@@ -98,12 +106,12 @@ export default function News() {
     const handleSearch = () => {
         var filterData = [];
         let count = 0;
-        for (let i = 0; i < initData.length; i++) {
-            if (initData[i].title.toLowerCase().includes(searchTerm.toLowerCase())) {
-                filterData[count++] = initData[i];
+        for (let i = 0; i < tempNews.length; i++) {
+            if (tempNews[i].TITLE.toLowerCase().includes(searchTerm.toLowerCase())) {
+                filterData[count++] = tempNews[i];
             }
         }
-        filterData.sort(function comp(a, b) { if (a.id < b.id) { return -1; } });
+        filterData.sort(function comp(a, b) { if (a.ID < b.ID) { return 1; } });
         // console.log("page selected: ", pageNumber);
 
         if (searchTerm.length > 0) {
@@ -121,8 +129,8 @@ export default function News() {
             // console.log("searchTerm.length != 0: ", pageNumber);
             // setMembers(initData.slice(pageNumber*membersPerPage, pageNumber*membersPerPage + membersPerPage));
             // setMembersVisited(0);   
-            setNewsPerPage(10);
-            setNews(initData);
+            // setNewsPerPage(10);
+            setNews(tempNews);
         }
     };
 
@@ -173,9 +181,9 @@ export default function News() {
                             <th>ID</th>
                             <th>Title</th>
                             <th>Created at</th>
-                            <th style={{ textAlign: 'center'}}>
-                                <Link 
-                                    style={{ textDecoration: "none", color: 'green', fontSize: '25px' }} 
+                            <th style={{ textAlign: 'center' }}>
+                                <Link
+                                    style={{ textDecoration: "none", color: 'green', fontSize: '25px' }}
                                     to={`/dashboard/news/${id_admin}/create`} title='Create'
                                 >
                                     <AiIcons.AiFillPlusCircle className="icon" />
@@ -191,8 +199,8 @@ export default function News() {
 
                 {/* test pagination */}
                 {/* {displayUsers}*/}
-                {/* {pageCount > 1 && <div className="paginate" style={pagination}> */}
-                {pageCount > 1 && <div className="paginate">
+                {pageCount > 1 && <div className="paginate" style={pagination}>
+                {/* {pageCount > 1 && <div className="paginate"> */}
                     <ReactPaginate
                         nextLabel="Next"
                         onPageChange={changePage}

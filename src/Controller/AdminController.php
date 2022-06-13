@@ -215,43 +215,38 @@ class AdminController
         $id = (int)($split_uri[count($split_uri) - 1]);
         $result = $this->modelAdmin->delete_one_news($id);
     }
-    
-    function get_product_comment($request){
-        $uri = $_SERVER['REQUEST_URI'];
-        $split_uri = explode("/", $uri);
-        $product_id = (int)($split_uri[count($split_uri) - 2]);
-        $result = $this->modelAdmin->get_comment_by_product_id($product_id);
+
+    function get_all_category($request) {
+        $result = $this->modelAdmin->get_all_category();
         echo json_encode($result);
     }
 
-    function add_product_comment($request){
+    function delete_one_category ($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->delete_one_category($id);
+    }
+
+    function create_one_category($request) {
         $_POST = json_decode(file_get_contents("php://input"), true);
-        $member_id = $_POST['member_id'];
-        $content = $_POST['content'];
+        $newName = $_POST['name'];
 
-        $uri = $_SERVER['REQUEST_URI'];
-        $split_uri = explode("/", $uri);
-        $product_id = (int)($split_uri[count($split_uri) - 2]);
-        $result = $this->modelAdmin->add_comment($product_id, $member_id, $content);
+        $result = $this->modelAdmin->create_one_category($newName);
         echo json_encode($result);
     }
 
-    function get_user_by_id($request){
-        $uri = $_SERVER['REQUEST_URI'];
-        $split_uri = explode("/", $uri);
-        $user_id = (int)($split_uri[count($split_uri) - 1]);
-        $result = $this->modelAdmin->get_user_db_by_id($user_id);
-        echo json_encode($result);
-    }
-
-    function update_user_by_id($request){
+    function edit_one_category($request) {
         $_POST = json_decode(file_get_contents("php://input"), true);
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $uri = $_SERVER['REQUEST_URI'];
-        $split_uri = explode("/", $uri);
-        $user_id = (int)($split_uri[count($split_uri) - 1]);
-        $result = $this->modelAdmin->update_user_db_by_id($user_id, $email, $phone);
+        $id = $_POST['id'];
+        $newName = $_POST['name'];
+
+        $result = $this->modelAdmin->edit_one_category($id, $newName);
+        echo json_encode($result);
+    }
+
+    function get_all_product_join_category($request) {
+        $result = $this->modelAdmin->get_all_product_join_category();
         echo json_encode($result);
     }
 }

@@ -41,6 +41,14 @@ $router->post("/^\/dashboard\/news\/create$/", array($adminController, 'create_o
 $router->post("/^\/dashboard\/news\/edit$/", array($adminController, 'edit_one_news'));
 $router->post("/^\/dashboard\/news\/delete\/[0-9]+$/", array($adminController, 'delete_one_news'));
 
+$router->get("/^\/dashboard\/category$/", array($adminController, 'get_all_category'));
+$router->post("/^\/dashboard\/category\/delete\/[0-9]+$/", array($adminController, 'delete_one_category'));
+$router->post("/^\/dashboard\/category\/create$/", array($adminController, 'create_one_category'));
+$router->post("/^\/dashboard\/category\/edit$/", array($adminController, 'edit_one_category'));
+
+$router->get("/^\/dashboard\/product$/", array($adminController, 'get_all_product_join_category'));
+
+
 $router->get("/^\/dashboard\/publicInfo$/", array($adminController, 'get_public_info'));
 $router->post("/^\/dashboard\/publicInfoEdit$/", array($adminController, 'edit_public_info'));
 

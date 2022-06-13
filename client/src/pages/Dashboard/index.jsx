@@ -22,6 +22,7 @@ import CreateNews from "../../components/News/Create/CreateNews";
 import ImageStorage from "../../components/ImageStorage/ImageStorage";
 import EditImageStorage from "../../components/ImageStorage/EditImageStorage/EditImageStorage";
 import CreateImageStorage from "../../components/ImageStorage/CreateImageStorage/CreateImageStorage";
+import Category from "../../components/Category/Category";
 import * as AiIcons from "react-icons/ai";
 import * as BiIcons from "react-icons/bi";
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -199,6 +200,14 @@ export default class Dashboard extends React.Component {
             path="/dashboard/image-storage/:id_admin/create"
             element={
               <CreateImageStorage 
+              />
+            }
+          />
+
+          <Route
+            path="/dashboard/category"
+            element={
+              <Category 
               />
             }
           />

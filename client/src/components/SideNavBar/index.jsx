@@ -144,6 +144,13 @@ export default function SideNavBar() {
                     <span>Image Storage</span>
                 </Link>
             </li>
+
+            <li>
+                <Link style={{textDecoration: "none"}} to="/dashboard/category">
+                    <FaIcons.FaList className="icon" />
+                    <span>Category</span>
+                </Link>
+            </li>
         </ul>
       </nav>
     </IconContext.Provider>

@@ -229,33 +229,6 @@ class AdminModel {
     function get_one_news($id) {
         $connection = $this->connectDB();
         $query = "SELECT * FROM NEWS WHERE ID=$id";
-    }
-    
-    function get_comment_by_product_id($product_id){
-        $connection = $this->connectDB();
-        $query = "SELECT ID, ID_MEMBER, CONTENT FROM manages_comment_product_user JOIN _comment ON ID_COMMENT = ID WHERE (manages_comment_product_user.ID_PRODUCT = ". $product_id. ")";
-        $result = mysqli_query($connection, $query);
-        $comment_list = array();
-        while($member = mysqli_fetch_assoc($result)){
-            $comment_list[] = $member;
-        }
-        return $comment_list;
-    }
-
-    function add_comment($product_id, $member_id, $content){
-        $connection = $this->connectDB();
-        $query = "INSERT INTO _comment(CONTENT, TOTAL_LIKES) VALUES ('". $content. "', 0);";
-        $result = mysqli_query($connection, $query);
-        $last_comment_id = mysqli_insert_id($connection);
-        $value = "" . $last_comment_id . "," . $product_id . ","  . $member_id;
-        $query = "INSERT INTO manages_comment_product_user VALUES (" . $value .");";
-        $result = mysqli_query($connection, $query);
-        return $this->get_comment_by_product_id($product_id);
-    }
-
-    function get_user_db_by_id($user_id){
-        $connection = $this->connectDB();
-        $query = "SELECT * FROM _USER WHERE ID = ". $user_id;
         $result = mysqli_query($connection, $query);
         return mysqli_fetch_assoc($result);
     }
@@ -279,10 +252,44 @@ class AdminModel {
         return $result;
     }
 
-    function update_user_db_by_id($user_id, $email, $phone){
+    function get_all_category() {
         $connection = $this->connectDB();
-        $query = "UPDATE _user SET EMAIL = '". $email ."', PHONENUMBER = '". $phone."' WHERE ID = ". $user_id;
+        $query = "SELECT * FROM CATEGORY ORDER BY ID";
         $result = mysqli_query($connection, $query);
-        return $this->get_user_db_by_id($user_id);
+        $category_list = array();
+        while($category = mysqli_fetch_assoc($result)) {
+            $category_list[] = $category;
+        }
+        return $category_list;
+    }
+
+    function delete_one_category ($id) {
+        $connection = $this->connectDB();
+        $query = "DELETE FROM CATEGORY WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+        return $result;
+    }
+
+    function create_one_category($name) {
+        $connection = $this->connectDB();
+        $query = "INSERT INTO CATEGORY(NAME) VALUE('" . $name . "')";
+        $result = mysqli_query($connection, $query);
+    }
+
+    function edit_one_category($id, $name) {
+        $connection = $this->connectDB();
+        $query = "UPDATE CATEGORY SET NAME = '" . $name . "' WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+    }
+
+    function get_all_product_join_category() {
+        $connection = $this->connectDB();
+        $query = "SELECT PRODUCT.ID, PRODUCT.NAME, PRICE, IMAGE, _DESCRIPTION, TOTAL_LIKES_PRODUCT, CREATE_AT, ID_CATEGORY, CATEGORY.NAME AS NAME_CATEGORY FROM PRODUCT LEFT JOIN CATEGORY ORDER BY ID";
+        $result = mysqli_query($connection, $query);
+        $category_list = array();
+        while($category = mysqli_fetch_assoc($result)) {
+            $category_list[] = $category;
+        }
+        return $category_list;
     }
 }
