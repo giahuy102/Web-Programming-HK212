@@ -13,8 +13,8 @@ $adminController = new AdminController();
 use App\Controller\AuthController;
 $authController = new AuthController();
 
-use App\Controller\UtilityController;
-$utilityController = new UtilityController();
+// use App\Controller\UtilityController;
+// $utilityController = new UtilityController();
 
 
 $router = new Router();
@@ -35,8 +35,8 @@ $router->post("/^\/user\/register$/", array($authController, 'register'));
 $router->post("/^\/user\/login$/", array($authController, 'login'));
 
 
-$router->get("/^\/dashboard\/news$/", array($utilityControler, 'get_all_news'));
-$router->get("/^\/dashboard\/news\/detail\/[0-9]+$/", array($utilityControler, 'get_one_news'));
+// $router->get("/^\/dashboard\/news$/", array($utilityControler, 'get_all_news'));
+// $router->get("/^\/dashboard\/news\/detail\/[0-9]+$/", array($utilityControler, 'get_one_news'));
 
 
 $router->post("/^\/admin\/create$/", array($adminController, 'create'));

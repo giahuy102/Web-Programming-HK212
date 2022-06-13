@@ -1,3 +1,4 @@
+import "./style.css";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import JsonData from "./STATIC_DATA.json";
