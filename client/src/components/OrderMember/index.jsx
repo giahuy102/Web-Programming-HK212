@@ -122,6 +122,7 @@ export default function OrderMember() {
         backgroundColor: 'white',
         fontSize: 20,
         width: 240,
+        paddingLeft: '6%'
     }
 
     const each_td = {

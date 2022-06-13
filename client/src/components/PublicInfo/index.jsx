@@ -122,7 +122,7 @@ export default function PublicInfo() {
                     </div>
                 </div>
                 
-                <div className='groupButton' style={{marginTop: 50}}>
+                <div className='groupButton' style={{marginTop: 50, width:'fit-content', margin: '0 auto'}}>
                     {/* <Link style={{textDecoration: "none", marginRight:80}} to={`/dashboard/membership/`}> */}
                         <button onClick={confirmEdit} type="button" className="btn btn-primary">Confirm edit</button>
                     {/* </Link>    */}
