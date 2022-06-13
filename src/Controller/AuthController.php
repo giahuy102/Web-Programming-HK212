@@ -36,8 +36,7 @@ class AuthController {
 
         if ($result && $data->password == $result['USER_PASSWORD']) {
 
-
-
+            
             $secret_key = "legiahuy09122001";
             $issuer_claim = "THE_ISSUER"; // this can be the servername
             $audience_claim = "THE_AUDIENCE";
@@ -80,6 +79,11 @@ class AuthController {
         }
     }
 
+
+    function get_all_news($request) {
+        $result = $this->modelAdmin->get_all_news();
+        echo json_encode($result);
+    }
 }
 
 

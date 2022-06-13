@@ -1,0 +1,29 @@
+.news_list {
+    margin: auto;
+    width: 85%;
+}
+
+.news_list_item {
+    /* border-style: solid; */
+    border-radius: 20px;
+    border-color: hsl(0, 4%, 68%);
+    width: 26%;
+    height: 350px;
+    background-color: #FFF6F6;
+    margin-top: 50px;
+
+}
+
+.news_list_item span {
+    color: #AFAFAF;
+}
+
+.news_list_item img {
+    border-radius: 20px;
+    object-fit: cover;
+    width: 100%;
+    height: 255px;
+    display: inline-block;
+
+}
+
