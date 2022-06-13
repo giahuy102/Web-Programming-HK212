@@ -145,7 +145,7 @@ export default function Product() {
                 <tr key={idx}>
                     <td style={each_td}> {product.ID} </td>
                     <td style={each_td}> {product.NAME} </td>
-                    <td style={each_td}> {product.PRICE} <i><u>VND</u></i> </td>
+                    <td style={each_td}> {product.PRICE} <i><u>USD</u></i> </td>
                     <td style={each_td}> {product.NAME_CATEGORY} </td>
                     <td style={each_td}> {product.CREATE_AT} </td>
                     <td style={lastTd}>
