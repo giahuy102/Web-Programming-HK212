@@ -11,7 +11,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { useTransition } from 'react';
 
-export default function DetailOrderMember() {
+export default function DetailOrderCustomer() {
     const id_obj = useParams();
     console.log("params: ", id_obj)
 
@@ -266,7 +266,7 @@ export default function DetailOrderMember() {
         if (firstFetch) {
             axios({
                 method: 'get',
-                url: `http://localhost/dashboard/orderMember/detail/${id_obj.id}`,
+                url: `http://localhost/dashboard/orderCustomer/detail/${id_obj.id}`,
             }).then(function (response) {
                 console.log("response: ", response.data );
                 setMembers(response.data);
@@ -278,10 +278,10 @@ export default function DetailOrderMember() {
 
             axios({
                 method: 'get',
-                url: `http://localhost/dashboard/orderMember/total_price/${id_obj.id}`,
+                url: `http://localhost/dashboard/orderCustomer/total_price/${id_obj.id}`,
             }).then(function (response) {
-                console.log("response for total price detail: ", response.data.TOTAL_PRICE_MEMBER );
-                setTotalPrice(response.data.TOTAL_PRICE_MEMBER)
+                console.log("response for total price detail: ", response.data.TOTAL_PRICE_CUSTOMER );
+                setTotalPrice(response.data.TOTAL_PRICE_CUSTOMER)
                 console.log("bug: ", totalPrice);
                 // this.initData = response.data;
             }).catch(function (error) {
@@ -324,7 +324,7 @@ export default function DetailOrderMember() {
                 <div style={{  margin: '0 auto', marginTop: 40 }} className="input-group mb-3">
 
 
-                    <Link style={{ textDecoration: "none" }} to={`/dashboard/orderMember`}>
+                    <Link style={{ textDecoration: "none" }} to={`/dashboard/orderCustomer`}>
                         <Button variant="warning">
                                 Go back
                         </Button>

@@ -104,6 +104,13 @@ export default function SideNavBar() {
               <span>Order Member</span>
             </Link>
           </li>
+
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/orderCustomer">
+              <AiIcons.AiOutlineDollarCircle className="icon" />
+              <span>Order Customer</span>
+            </Link>
+          </li>
         </ul>
       </nav>
     </IconContext.Provider>

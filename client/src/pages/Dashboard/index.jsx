@@ -16,6 +16,8 @@ import * as BiIcons from "react-icons/bi";
 import Dropdown from 'react-bootstrap/Dropdown'
 import OrderMember from "../../components/OrderMember";
 import DetailOrderMember from "../../components/OrderMember/Detail";
+import OrderCustomer from "../../components/OrderCustomer";
+import DetailOrderCustomer from "../../components/OrderCustomer/Detail";
 
 export default class Dashboard extends React.Component {
 
@@ -125,6 +127,20 @@ export default class Dashboard extends React.Component {
             path="/dashboard/orderMember/detail/:id"
             element={
               <DetailOrderMember
+              />
+            }
+          />
+          <Route
+            path="/dashboard/orderCustomer"
+            element={
+              <OrderCustomer
+              />
+            }
+          />
+          <Route
+            path="/dashboard/orderCustomer/detail/:id"
+            element={
+              <DetailOrderCustomer
               />
             }
           />

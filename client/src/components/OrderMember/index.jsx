@@ -314,7 +314,7 @@ export default function OrderMember() {
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Customer</th>
+                            <th>Member</th>
                             {/* <th>Created at</th> */}
                             <th>Total (USD)</th>
 

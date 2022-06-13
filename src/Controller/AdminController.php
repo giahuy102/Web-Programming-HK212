@@ -154,11 +154,58 @@ class AdminController
         echo json_encode($result);
     }
 
-    function delete_one_order($request) {
+    function delete_one_order_member($request) {
         $uri = $_SERVER['REQUEST_URI'];
         $split_uri = explode("/", $uri, 10);
         $id = (int)($split_uri[count($split_uri) - 1]);
-        $result = $this->modelAdmin->delete_one_order($id);
+        $result = $this->modelAdmin->delete_one_order_member($id);
+        echo json_encode($result);
+    }
+
+    
+    function get_one_order_member($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_order_member($id);
+        echo json_encode($result);
+    }
+    
+    function get_one_order_member_total_price($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_order_member_total_price($id);
+        echo json_encode($result);
+    }
+
+    function get_all_order_customer_total_price($request) {
+        
+        $result = $this->modelAdmin->get_all_order_customer_total_price();
+        echo json_encode($result);
+    }
+
+    function delete_one_order_customer($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->delete_one_order_customer($id);
+        echo json_encode($result);
+    }
+
+    function get_one_order_customer($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_order_customer($id);
+        echo json_encode($result);
+    }
+
+    function get_one_order_customer_total_price($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_order_customer_total_price($id);
         echo json_encode($result);
     }
 
@@ -168,21 +215,5 @@ class AdminController
         // echo json_encode($arr);
         $_POST = json_decode(file_get_contents("php://input"), true);
         echo $_POST['name'] . $_POST['age'] . $_POST['cc'];
-    }
-
-    function get_one_order($request) {
-        $uri = $_SERVER['REQUEST_URI'];
-        $split_uri = explode("/", $uri, 10);
-        $id = (int)($split_uri[count($split_uri) - 1]);
-        $result = $this->modelAdmin->get_one_order($id);
-        echo json_encode($result);
-    }
-
-    function get_one_order_member_total_price($request) {
-        $uri = $_SERVER['REQUEST_URI'];
-        $split_uri = explode("/", $uri, 10);
-        $id = (int)($split_uri[count($split_uri) - 1]);
-        $result = $this->modelAdmin->get_one_order_member_total_price($id);
-        echo json_encode($result);
     }
 }

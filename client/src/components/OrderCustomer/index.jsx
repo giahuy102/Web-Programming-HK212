@@ -2,29 +2,20 @@ import './style.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
-import JsonData from "../STATIC_DATA.json";
+import JsonData from "./STATIC_DATA.json";
 import ReactPaginate from "react-paginate";
 import Table from 'react-bootstrap/Table';
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { useTransition } from 'react';
 
-export default function DetailOrderMember() {
-    const id_obj = useParams();
-    console.log("params: ", id_obj)
+export default function OrderCustomer() {
 
-
-
-    const [totalPrice, setTotalPrice] = useState("0");
 
     // modal pop up when delete
     const [showDelete, setShowDelete] = useState(false);
     const [idDeleteOrBlock, setIdDeleteOrBlock] = useState();
-
-
-    
     const handleCloseDelete = (e) => {
         e.preventDefault();
         setShowDelete(false)
@@ -34,7 +25,7 @@ export default function DetailOrderMember() {
 
         await axios({
             method: 'post',
-            url: `http://localhost/dashboard/orderMember/delete/${idDeleteOrBlock}`,
+            url: `http://localhost/dashboard/orderCustomer/delete/${idDeleteOrBlock}`,
         }).then(function (response) {
             // console.log(response);
             setMembers(response.data);
@@ -151,24 +142,24 @@ export default function DetailOrderMember() {
             return (
 
                 <tr key={idx}>
-                    <td style={each_td}> {member.ID_PRODUCT} </td>
-                    <td style={each_td}> {member.NAME_PRODUCT} </td>
-                    <td style={each_td}> {member.QUANTITY} </td>
-                    <td style={each_td}> {member.PRICE} </td>
+                    <td style={each_td}> {member.ID_ORDER_CUSTOMER} </td>
+                    <td style={each_td}> {member.CUSNAME} </td>
+                    {/* <td style={each_td}> {member.CREATED_AT} </td> */}
+                    <td style={each_td}> {member.TOTAL_PRICE_CUSTOMER} </td>
 
-                    {/* <td style={lastTd}> */}
+                    <td style={lastTd}>
 {/* 
                         <Link style={{ textDecoration: "none", color: 'none' }} to={`/dashboard/membership/edit/${member.ID}`}>
                             <AiIcons.AiFillEdit className="icon" />
                         </Link> */}
-{/* 
-                        <Link style={{ textDecoration: "none" }} to={`/dashboard/orderMember/detail/${member.ID_ORDER_MEMBER}`}>
+
+                        <Link style={{ textDecoration: "none" }} to={`/dashboard/orderCustomer/detail/${member.ID_ORDER_CUSTOMER}`}>
                             <AiIcons.AiFillInfoCircle className="icon" />
                         </Link>
 
-                        <Link onClick={e => handleShowDelete(e, member.ID_ORDER_MEMBER)} style={{ textDecoration: "none" }} to={`#`}>
+                        <Link onClick={e => handleShowDelete(e, member.ID_ORDER_CUSTOMER)} style={{ textDecoration: "none" }} to={`#`}>
                             <AiIcons.AiFillDelete className="icon" />
-                        </Link> */}
+                        </Link>
 
                         {/* <Link onClick={e => handleShowBlock(e, member.ID, member._BLOCK)} style={{ textDecoration: "none", fontSize: 16, marginRight: member._BLOCK == 0 ? 20 : 2, color: "#fd4f4f", fontWeight: 'bold' }} to={`#`}>
                             {member._BLOCK == 0 ? "Block" : "Unblock"}
@@ -179,7 +170,7 @@ export default function DetailOrderMember() {
                                                 <AiIcons.AiFillDelete  className="icon" />
                                             </Button> */}
 
-                    {/* </td> */}
+                    </td>
                 </tr>
 
             );
@@ -200,7 +191,7 @@ export default function DetailOrderMember() {
         var filterData = [];
         let count = 0;
         for (let i = 0; i < tempMembers.length; i++) {
-            if (tempMembers[i].USERNAME.toLowerCase().includes(searchTerm.toLowerCase())) {
+            if (tempMembers[i].CUSNAME.toLowerCase().includes(searchTerm.toLowerCase())) {
                 filterData[count++] = tempMembers[i];
             }
         }
@@ -261,33 +252,22 @@ export default function DetailOrderMember() {
         //         console.log(error);
         //     });
         // }
-        // handleSearch();
+
+
+        handleSearch();
 
         if (firstFetch) {
             axios({
                 method: 'get',
-                url: `http://localhost/dashboard/orderMember/detail/${id_obj.id}`,
+                url: 'http://localhost/dashboard/orderCustomerPrice',
             }).then(function (response) {
-                console.log("response: ", response.data );
+                console.log("response: ", response);
                 setMembers(response.data);
                 setTempMembers(response.data);
                 // this.initData = response.data;
             }).catch(function (error) {
                 console.log(error);
             });
-
-            axios({
-                method: 'get',
-                url: `http://localhost/dashboard/orderMember/total_price/${id_obj.id}`,
-            }).then(function (response) {
-                console.log("response for total price detail: ", response.data.TOTAL_PRICE_MEMBER );
-                setTotalPrice(response.data.TOTAL_PRICE_MEMBER)
-                console.log("bug: ", totalPrice);
-                // this.initData = response.data;
-            }).catch(function (error) {
-                console.log(error);
-            });
-
 
             setFirstFetch(false);
             // console.log("first fetch: ", firstFetch);
@@ -309,7 +289,7 @@ export default function DetailOrderMember() {
         // handleSearch();
 
 
-    }, [totalPrice]);
+    }, [searchTerm, showDelete, idDeleteOrBlock]);
     // , idDeleteOrBlock
 
 
@@ -317,27 +297,28 @@ export default function DetailOrderMember() {
     return (
         <div className="container" style={{ maxWidth: 2000, height: '100%' }}>
             <div className='path' style={pathStyle}>
-                <h1 style={{ color: '#1570EF', fontWeight: 'bold' }}>Detail Order Member {id_obj.id} </h1>
+                <h1 style={{ color: '#1570EF', fontWeight: 'bold' }}>Customer's Order Management</h1>
             </div>
             <div className="content" style={memberStyle}>
 
-                <div style={{  margin: '0 auto', marginTop: 40 }} className="input-group mb-3">
-
-
-                    <Link style={{ textDecoration: "none" }} to={`/dashboard/orderMember`}>
-                        <Button variant="warning">
-                                Go back
-                        </Button>
-                    </Link>
+                <div style={{ width: 400, margin: '0 auto', marginTop: 40 }} className="input-group mb-3">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search..."
+                        onChange={(event) => {
+                            setSearchTerm(event.target.value);
+                        }}
+                    />
                 </div>
 
                 <Table style={{ width: 1100, margin: '0 auto' }} responsive>
                     <thead>
                         <tr>
-                            <th>Product ID</th>
-                            <th>Product name</th>
-                            <th>Quantity</th>
-                            <th>Price per product (USD)</th>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            {/* <th>Created at</th> */}
+                            <th>Total (USD)</th>
 
                         </tr>
                     </thead>
@@ -346,18 +327,10 @@ export default function DetailOrderMember() {
                     </tbody>
                 </Table>
 
-                <div style={{    marginTop: '30px',
-    fontSize: '20px',
-    textAlign: 'right',
-    marginRight: '270px'}}>
-                    <span style={{fontWeight: 'bold', paddingRight: '20px'}}>Total: </span>
-                    {totalPrice}
-                </div>
-
 
                 {/* test pagination */}
                 {/* {displayUsers}*/}
-                {/* <div className="paginate">
+                <div className="paginate">
                     <ReactPaginate
                         nextLabel="Next"
                         onPageChange={changePage}
@@ -375,11 +348,11 @@ export default function DetailOrderMember() {
                         containerClassName="pagination"
                         activeClassName="active"
                     />
-                </div> */}
+                </div>
 
 
 
-                {/* <Modal show={showDelete} onHide={e => handleCloseDelete(e)}>
+                <Modal show={showDelete} onHide={e => handleCloseDelete(e)}>
                     <Modal.Header closeButton>
                         <Modal.Title>Delete order</Modal.Title>
                     </Modal.Header>
@@ -407,7 +380,7 @@ export default function DetailOrderMember() {
                             {blockOrNot == 0 ? "Block" : "Unblock"}
                         </Button>
                     </Modal.Footer>
-                </Modal> */}
+                </Modal>
 
 
 
@@ -415,78 +388,3 @@ export default function DetailOrderMember() {
         </div>
     );
 }
-
-
-
-
-
-
-// import './style.css';
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
-// import ReactPaginate from "react-paginate";
-// import Table from 'react-bootstrap/Table';
-// import * as AiIcons from "react-icons/ai";
-// import { Link } from "react-router-dom";
-// import JsonData from "../STATIC_DATA.json"
-
-// export default function DetailOrderMember() {
-//     const id_obj = useParams();
-//     // console.log("id object: ", id_obj);
-//     const spanStyle = {
-//         width:130,
-//         display: 'flex',
-//         justifyContent: 'center',
-//         fontWeight: 'bold',
-//     }
-//     const [member, setMember] = useState(JsonData[id_obj.id - 1]);
-
-//     useEffect( () => {
-//          axios({
-//             method: 'get',
-//             url: `http://localhost/dashboard/orderMember/detail/${id_obj.id}`,
-//         }).then(function (response) {
-//             console.log(response);
-//             // setMember(response.data);
-//         }).catch(function (error) {
-//             console.log(error);
-//         });
-//     }, [])
-
-//     return (
-//         <div className="container" style={{maxWidth: 2000, height: '100vh'}}>
-//             <div className="title" style={{paddingTop: 30}}>
-//                 <h1>Detailed information order {id_obj.id}</h1>
-//             </div>
-
-//             {/* <div className='input-content' style={{width: 800, margin: '0 auto', marginTop: 30}}>
-//                 <div className="input-group mb-3">
-//                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">ID</span>
-//                     <input defaultValue={member.ID} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
-//                 </div>
-
-//                 <div className="input-group mb-3">
-//                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Fullname</span>
-//                     <input defaultValue={member.USERNAME} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
-//                 </div>
-
-//                 <div className="input-group mb-3">
-//                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Phone number</span>
-//                     <input defaultValue={member.EMAIL} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
-//                 </div>
-
-//                 <div className="input-group mb-3">
-//                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Email</span>
-//                     <input defaultValue={member.PHONENUMBER} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/> <br/>
-//                 </div>
-//             </div>
-            
-//             <div className='groupButton' style={{marginTop: 50}}>
-//                 <Link style={{textDecoration: "none", marginRight:80}} to={`/dashboard/membership/`}>
-//                     <button style={{width:100}} type="button" className="btn btn-primary">Done</button>
-//                 </Link>   
-//             </div> */}
-//       </div>
-//     );
-// }

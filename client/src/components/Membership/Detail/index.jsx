@@ -2,15 +2,12 @@ import './style.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
-import ReactPaginate from "react-paginate";
-import Table from 'react-bootstrap/Table';
-import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import JsonData from "../STATIC_DATA.json"
 
 export default function DetailMembership() {
     const id_obj = useParams();
-    // console.log("params: ", id_obj)
+
     const spanStyle = {
         width:130,
         display: 'flex',
