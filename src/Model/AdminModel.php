@@ -119,7 +119,7 @@ class AdminModel {
 
     function create_one_image($url_img, $position, $id_admin) {
         $connection = $this->connectDB();
-        $query = "INSERT INTO image_storage(URL_IMG, POSITION, ID_ADMIN) VALUE('" . $url_img . "','" . $position . "'," . $id_admin . ")";
+        $query = "INSERT INTO image_storage(URL_IMG, POSITION, ID_ADMIN) VALUES('" . $url_img . "','" . $position . "'," . $id_admin . ")";
         $result = mysqli_query($connection, $query);
     }
 

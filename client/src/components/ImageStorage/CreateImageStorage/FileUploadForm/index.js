@@ -17,7 +17,7 @@ class FileUploadForm extends React.Component {
     async onSubmit(e){
         e.preventDefault() 
         let res = await this.uploadFile(this.state.file);
-        // this.props.setAvatar(res.data);
+        this.props.setUrl(res.data);
         console.log(res.data);
     }
     onChange(e) {

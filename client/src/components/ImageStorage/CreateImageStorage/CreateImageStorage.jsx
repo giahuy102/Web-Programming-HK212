@@ -40,14 +40,16 @@ export default function CreateImageStorage() {
 
     const [file, setFile] = useState(null);
     const [url, setUrl] = useState("");
-    const [position, setPosition] = useState("");
+    const [position, setPosition] = useState("Home");
+    // const [imageSource, setImageSource] = useState("");
 
     const handleChangeFile = (file) => {
         setFile(file);
     }
 
-    const handleClickDone = () => {
-        axios({
+    const handleClickDone = async() => {
+        console.log(url, position, id_admin);
+        await axios({
             method: 'post',
             url: "http://localhost/dashboard/image-storage/create",
             data: {
@@ -80,7 +82,7 @@ export default function CreateImageStorage() {
                         type="file" accept='image/*' className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
                         onChange={ (event) => handleChangeFile(event.target.files[0])}
                     /> */}
-                    <FileUploadForm/>
+                    <FileUploadForm setUrl={setUrl}/>
                     <br />
                 </div>
                 <div className="input-group mb-3">
@@ -89,7 +91,7 @@ export default function CreateImageStorage() {
                         className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
                         onChange={(event) => handleChangePosition(event.target.value)}
                     /> */}
-                    <select type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <select type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onChange={(e) => setPosition(e.target.value)}>
                         <option value="home">Home</option>
                         <option value="about">About</option>
                         <option value="menu">Menu</option>
@@ -104,7 +106,7 @@ export default function CreateImageStorage() {
                     <Link style={{ textDecoration: "none" }} to={`/dashboard/image-storage/`}>
                         <button 
                             style={{ width: 100 }} type="button" className="btn btn-primary"
-                            onClick={() => handleClickDone()}
+                            onClick={handleClickDone}
                         >
                             Done
                         </button>

@@ -468,12 +468,7 @@ class AdminController
                 $upload_name = preg_replace('/\s+/', '-', $upload_name);
 
                 if(move_uploaded_file($avatar_tmp_name , $upload_name)) {
-                    $response = array(
-                        "status" => "success",
-                        "error" => false,
-                        "message" => "File uploaded successfully",
-                        "url" => $server_url."/".$upload_name
-                    );
+                    $response = $random_name;
                 }else
                 {
                     $response = array(
