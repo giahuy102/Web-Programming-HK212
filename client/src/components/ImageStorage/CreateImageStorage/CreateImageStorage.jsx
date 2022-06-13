@@ -7,6 +7,7 @@ import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 import JsonData from "../IMAGE_STORAGE.json";
+import FileUploadForm from './FileUploadForm';
 
 export default function CreateImageStorage() {
     const spanStyle = {
@@ -75,10 +76,11 @@ export default function CreateImageStorage() {
             <div className='input-content' style={{ width: 800, margin: '0 auto', marginTop: 30 }}>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Url</span>
-                    <input 
+                    {/* <input 
                         type="file" accept='image/*' className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
                         onChange={ (event) => handleChangeFile(event.target.files[0])}
-                    />
+                    /> */}
+                    <FileUploadForm/>
                     <br />
                 </div>
                 <div className="input-group mb-3">
