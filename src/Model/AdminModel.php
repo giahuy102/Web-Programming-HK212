@@ -142,7 +142,7 @@ class AdminModel {
 
     function get_comment_by_product_id($product_id){
         $connection = $this->connectDB();
-        $query = "SELECT _comment.ID, ID_MEMBER, CONTENT, AVATAR FROM manages_comment_product_user JOIN _comment ON ID_COMMENT = _comment.ID JOIN _user ON ID_MEMBER = _user.ID WHERE (manages_comment_product_user.ID_PRODUCT = ". $product_id. ") ORDER BY CREATED_AT";
+        $query = "SELECT _comment.ID, ID_MEMBER, CONTENT, AVATAR, _user._NAME FROM manages_comment_product_user JOIN _comment ON ID_COMMENT = _comment.ID JOIN _user ON ID_MEMBER = _user.ID WHERE (manages_comment_product_user.ID_PRODUCT = ". $product_id. ") ORDER BY CREATED_AT";
         $result = mysqli_query($connection, $query);
         $comment_list = array();
         while($member = mysqli_fetch_assoc($result)){

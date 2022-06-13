@@ -7,9 +7,10 @@ import avatar from '../../assets/images/images.jpg'
 import Single_comment from './Single_comment'
 
 const Comment = ({product_id}) => {
-  const this_member_id = 1
+  const this_member_id = 3
   const [comment_lst, setComment_lst] = useState([])
   const [new_comment, setNewComment] = useState([])
+  const [userAvatar, setUserAvatar] = useState("")
 
   useEffect( () => {
       axios({
@@ -18,6 +19,16 @@ const Comment = ({product_id}) => {
       }).then(function (response) {
           // console.log(response);
           setComment_lst(response.data);
+      }).catch(function (error) {
+          console.log(error);
+      });
+      axios({
+          method: 'get',
+          url: `http://localhost/home/user/${this_member_id}`,
+      }).then(function (response) {
+          let user = response.data;
+          setUserAvatar(user.AVATAR);
+
       }).catch(function (error) {
           console.log(error);
       });
@@ -46,7 +57,7 @@ const Comment = ({product_id}) => {
       ))}
       <div className='row py-md-4 py-sm-3'>
         <div className='d-none d-md-block col-md-2 '>
-          <img src={avatar} className='img-thumbnail my-image' ></img>
+          <img src={`http://localhost/uploads/image/${userAvatar}`} className='img-thumbnail my-image' ></img>
         </div>
         <div className='col-md'>
           <textarea 
@@ -59,7 +70,7 @@ const Comment = ({product_id}) => {
         </div>
       </div>
       <div className='row'>
-        <div className="mt-sm-4 mt-md-4 d-flex align-items-center justify-content-sm-center justify-content-md-end">
+        <div className="mt-sm-3 mt-md-3 d-flex align-items-center justify-content-sm-center justify-content-md-end">
           <button className='uploadbtn' onClick={addComment}> Upload</button>
         </div>
       </div>
