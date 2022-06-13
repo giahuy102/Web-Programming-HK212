@@ -80,7 +80,7 @@ export default function EditNews() {
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Content</span>
-                    <textarea id='news_edit_content' defaultValue={news.CONTENT} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <textarea id='news_edit_content' defaultValue={news.CONTENT_NEWS} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">

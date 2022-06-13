@@ -67,7 +67,7 @@ export default function DetailNews() {
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Content</span>
-                    <textarea defaultValue={news.CONTENT} disabled className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <textarea defaultValue={news.CONTENT_NEWS} disabled className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
