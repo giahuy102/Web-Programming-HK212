@@ -305,4 +305,17 @@ class AdminModel {
         $result = mysqli_query($connection, $query);
         return mysqli_fetch_assoc($result);
     }
+
+    function edit_one_product($id, $name, $price, $description, $image, $category_id) {
+        $connection = $this->connectDB();
+        $query = "UPDATE PRODUCT SET NAME = '" . $name . "', PRICE = " . $price . ", IMAGE = '" . $image . "', _DESCRIPTION = '" . $description . "', ID_CATEGORY = " . $category_id . " WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+    }
+
+    function delete_one_product ($id) {
+        $connection = $this->connectDB();
+        $query = "DELETE FROM PRODUCT WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+        return $result;
+    }
 }

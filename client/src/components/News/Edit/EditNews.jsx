@@ -31,7 +31,7 @@ export default function EditNews() {
             method: 'get',
             url: `http://localhost/dashboard/news/detail/${objId.id}`,
         }).then(function (response) {
-            console.log("News list: ", response.data);
+            console.log("News: ", response.data);
             setNews(response.data);
         }).catch(function (error) {
             console.log(error);

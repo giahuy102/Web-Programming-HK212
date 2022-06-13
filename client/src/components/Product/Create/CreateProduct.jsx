@@ -19,7 +19,7 @@ export default function CreateProduct() {
     };
 
     const [categoryList, setCategoryList] = useState([]);
-    const [firstFetch, setFirstFetch] = useState(true);
+    // const [firstFetch, setFirstFetch] = useState(true);
 
     useEffect( () => {
         // if (firstFetch) {
@@ -36,7 +36,7 @@ export default function CreateProduct() {
             });
             // setFirstFetch(false);
         // }       
-    }, [])
+    }, []);
 
     const handleClickDone = async () => {
         let name = document.getElementById('product_name').value; 

@@ -269,4 +269,24 @@ class AdminController
         $result = $this->modelAdmin->get_one_product($id);
         echo json_encode($result);
     }
+
+    function edit_one_product($request) {
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $id = $_POST['id'];
+        $newName = $_POST['name'];
+        $newPrice = (int) $_POST['price'];
+        $newDescription = $_POST['description'];
+        $newImage = $_POST['image'];
+        $newCategory = (int) $_POST['category'];
+
+        $result = $this->modelAdmin->edit_one_product($id, $newName, $newPrice, $newDescription, $newImage, $newCategory);
+        echo json_encode($result);
+    }
+
+    function delete_one_product ($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->delete_one_product($id);
+    }
 }

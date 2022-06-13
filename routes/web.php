@@ -49,7 +49,8 @@ $router->post("/^\/dashboard\/category\/edit$/", array($adminController, 'edit_o
 $router->get("/^\/dashboard\/product$/", array($adminController, 'get_all_product_join_category'));
 $router->post("/^\/dashboard\/product\/create$/", array($adminController, 'create_one_product'));
 $router->get("/^\/dashboard\/product\/detail\/[0-9]+$/", array($adminController, 'get_one_product'));
-
+$router->post("/^\/dashboard\/product\/edit$/", array($adminController, 'edit_one_product'));
+$router->post("/^\/dashboard\/product\/delete\/[0-9]+$/", array($adminController, 'delete_one_product'));
 
 $router->get("/^\/dashboard\/publicInfo$/", array($adminController, 'get_public_info'));
 $router->post("/^\/dashboard\/publicInfoEdit$/", array($adminController, 'edit_public_info'));
