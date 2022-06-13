@@ -25,9 +25,19 @@ export default function DetailNews() {
     const objId = useParams();
 
     useEffect(() => {
-        let news = JsonData.filter((news) => news.id == objId.id)[0];
-        setNews(news);
-    });
+        // let news = JsonData.filter((news) => news.id == objId.id)[0];
+        // setNews(news);
+
+        axios({
+            method: 'get',
+            url: `http://localhost/dashboard/news/detail/${objId.id}`,
+        }).then(function (response) {
+            console.log("News: ", response.data);
+            setNews(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }, []);
 
     // function displayTimestamp (time) {  console.log("Time: ", time)  //  time -> YYYYMMDDHHMMSS
     //     if (time === "")
@@ -47,30 +57,30 @@ export default function DetailNews() {
             <div className='input-content' style={{ width: 800, margin: '0 auto', marginTop: 30 }}>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">ID</span>
-                    <input defaultValue={news.id} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={news.ID} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Title</span>
-                    <input defaultValue={news.title} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={news.TITLE} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Content</span>
-                    <textarea defaultValue={news.content} disabled className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <textarea defaultValue={news.CONTENT_NEWS} disabled className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Created at</span>
                     <input
-                        defaultValue={news.created_at}
+                        defaultValue={news.CREATED_AT}
                         disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                     />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">ID Admin</span>
-                    <input defaultValue={news.id_admin} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={news.ID_ADMIN} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
             </div>

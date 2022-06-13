@@ -29,6 +29,7 @@ import OrderMember from "../../components/OrderMember";
 import DetailOrderMember from "../../components/OrderMember/Detail";
 import OrderCustomer from "../../components/OrderCustomer";
 import DetailOrderCustomer from "../../components/OrderCustomer/Detail";
+import Category from "../../components/Category/Category";
 
 export default class Dashboard extends React.Component {
 
@@ -207,7 +208,7 @@ export default class Dashboard extends React.Component {
             }
           />
           <Route
-            path="/dashboard/news/create"
+            path="/dashboard/news/:id_admin/create"
             element={
               <CreateNews 
               />
@@ -232,6 +233,14 @@ export default class Dashboard extends React.Component {
             path="/dashboard/image-storage/:id_admin/create"
             element={
               <CreateImageStorage 
+              />
+            }
+          />
+
+          <Route
+            path="/dashboard/category"
+            element={
+              <Category 
               />
             }
           />

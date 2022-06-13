@@ -122,7 +122,7 @@ class AdminModel {
         $query = "INSERT INTO image_storage(URL_IMG, POSITION, ID_ADMIN) VALUE('" . $url_img . "','" . $position . "'," . $id_admin . ")";
         $result = mysqli_query($connection, $query);
     }
-    
+
     function get_public_info() {
         $connection = $this->connectDB();
         $query = "SELECT * FROM public_information";
@@ -300,12 +300,115 @@ class AdminModel {
         $result = mysqli_query($connection, $query);
         return mysqli_fetch_assoc($result);
     }
+    
+    function get_all_news() {
+        $connection = $this->connectDB();
+        $query = "SELECT * FROM NEWS";
+        $result = mysqli_query($connection, $query);
+        $news_list = array();
+        while($news = mysqli_fetch_assoc($result)) {
+            $news_list[] = $news;
+        }
+        return $news_list;
+    }
+
+    function get_one_news($id) {
+        $connection = $this->connectDB();
+        $query = "SELECT * FROM NEWS WHERE ID=$id";
+        $result = mysqli_query($connection, $query);
+        return mysqli_fetch_assoc($result);
+    }
 
     function update_user_db_by_id($user_id, $name, $email, $phone, $address){
         $connection = $this->connectDB();
         $query = "UPDATE _user SET _NAME = '". $name ."',EMAIL = '". $email ."', PHONENUMBER = '". $phone."', _ADDRESS = '". $address."' WHERE ID = ". $user_id;
         $result = mysqli_query($connection, $query);
-        return $this->get_user_db_by_id($user_id);
+    }
+    
+    function create_one_news($title, $content, $id_admin) {
+        $connection = $this->connectDB();
+        $query = "INSERT INTO NEWS(TITLE, CONTENT_NEWS, CREATED_AT, ID_ADMIN) VALUE('" . $title . "', '" . $content . "', NOW(), '" . $id_admin . "')";
+        $result = mysqli_query($connection, $query);
+    }
+
+    function edit_one_news($id, $title, $content) {
+        $connection = $this->connectDB();
+        $query = "UPDATE NEWS SET TITLE = '" . $title . "', CONTENT_NEWS = '" . $content . "' WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+    }
+
+    function delete_one_news ($id) {
+        $connection = $this->connectDB();
+        $query = "DELETE FROM NEWS WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+        return $result;
+    }
+
+    function get_all_category() {
+        $connection = $this->connectDB();
+        $query = "SELECT * FROM CATEGORY ORDER BY ID";
+        $result = mysqli_query($connection, $query);
+        $category_list = array();
+        while($category = mysqli_fetch_assoc($result)) {
+            $category_list[] = $category;
+        }
+        return $category_list;
+    }
+
+    function delete_one_category ($id) {
+        $connection = $this->connectDB();
+        $query = "DELETE FROM CATEGORY WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+        return $result;
+    }
+
+    function create_one_category($name) {
+        $connection = $this->connectDB();
+        $query = "INSERT INTO CATEGORY(NAME) VALUE('" . $name . "')";
+        $result = mysqli_query($connection, $query);
+    }
+
+    function edit_one_category($id, $name) {
+        $connection = $this->connectDB();
+        $query = "UPDATE CATEGORY SET NAME = '" . $name . "' WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+    }
+
+    function get_all_product_join_category() {
+        $connection = $this->connectDB();
+        $query = "SELECT PRODUCT.ID, PRODUCT.NAME, PRICE, IMAGE, _DESCRIPTION, TOTAL_LIKES_PRODUCT, CREATE_AT, ID_CATEGORY, CATEGORY.NAME AS NAME_CATEGORY FROM PRODUCT , CATEGORY WHERE PRODUCT.ID_CATEGORY = CATEGORY.ID ORDER BY PRODUCT.ID";
+        $result = mysqli_query($connection, $query);
+        $category_list = array();
+        while($category = mysqli_fetch_assoc($result)) {
+            $category_list[] = $category;
+        }
+        return $category_list;
+    }
+
+    function create_one_product($name, $price, $description, $image, $category_id) {
+        $connection = $this->connectDB();
+        $query = "INSERT INTO PRODUCT(NAME, PRICE, IMAGE, _DESCRIPTION, CREATE_AT, ID_CATEGORY) VALUE('" . $name . "', " . $price . ", '" . $image . "', '" . $description . "', NOW(), " . $category_id . ")";
+        $result = mysqli_query($connection, $query);
+    }
+
+    function get_one_product($id) {
+        $connection = $this->connectDB();
+        $query = "SELECT PRODUCT.ID, PRODUCT.NAME, PRICE, IMAGE, _DESCRIPTION, TOTAL_LIKES_PRODUCT, CREATE_AT, ID_CATEGORY, CATEGORY.NAME AS NAME_CATEGORY FROM PRODUCT , CATEGORY WHERE PRODUCT.ID_CATEGORY = CATEGORY.ID AND PRODUCT.ID = " . $id;
+        $result = mysqli_query($connection, $query);
+        return mysqli_fetch_assoc($result);
+    }
+
+    function edit_one_product($id, $name, $price, $description, $image, $category_id) {
+        $connection = $this->connectDB();
+        $query = "UPDATE PRODUCT SET NAME = '" . $name . "', PRICE = " . $price . ", IMAGE = '" . $image . "', _DESCRIPTION = '" . $description . "', ID_CATEGORY = " . $category_id . " WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+    }
+
+    function delete_one_product ($id) {
+        $connection = $this->connectDB();
+        $query = "DELETE FROM PRODUCT WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+        return $result;
     }
 
     function update_avatar_source($user_id, $avatar){
