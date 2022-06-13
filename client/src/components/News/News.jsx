@@ -85,7 +85,7 @@ export default function News() {
     const handleDelete = async (e) => {
         await axios({
             method: 'post',
-            url: `http://localhost/dashboard/news/delete/${idDelete}`,
+            url: `http://localhost/dashboard/image-storage/delete/${idDelete}`,
         })
             .then(function (response) {
                 console.log("Delete news: ", response);

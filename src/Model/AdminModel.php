@@ -123,6 +123,13 @@ class AdminModel {
         $result = mysqli_query($connection, $query);
     }
 
+    function delete_one_image ($id) {
+        $connection = $this->connectDB();
+        $query = "DELETE FROM IMAGE_STORAGE WHERE ID = " . $id;
+        $result = mysqli_query($connection, $query);
+        return $result;
+    }
+
     function get_public_info() {
         $connection = $this->connectDB();
         $query = "SELECT * FROM public_information";

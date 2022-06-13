@@ -61,6 +61,7 @@ $router->get("/^\/dashboard\/contact$/", array($adminController, 'get_all_contac
 
 $router->get("/^\/dashboard\/image-storage\/[0-9]+$/", array($adminController, 'get_image_of_admin'));
 $router->post("/^\/dashboard\/image-storage\/create$/", array($adminController, 'create_one_image'));
+$router->post("/^\/dashboard\/image-storage\/delete\/[0-9]+$/", array($adminController, 'delete_one_image'));
 
 $router->get("/^\/dashboard\/news$/", array($adminController, 'get_all_news'));
 $router->get("/^\/dashboard\/news\/detail\/[0-9]+$/", array($adminController, 'get_one_news'));
