@@ -11,6 +11,17 @@ import CommentProduct from "../../components/CommentProduct";
 import Contact from "../../components/Contact";
 import PublicInfo from "../../components/PublicInfo";
 import EditPublicInfo from "../../components/PublicInfo/Edit";
+import Product from "../../components/Product/Product";
+import DetailProduct from "../../components/Product/Detail/DetailProduct";
+import EditProduct from "../../components/Product/Edit/EditProduct";
+import CreateProduct from "../../components/Product/Create/CreateProduct";
+import News from "../../components/News/News.jsx";
+import DetailNews from "../../components/News/Detail/DetailNews";
+import EditNews from "../../components/News/Edit/EditNews";
+import CreateNews from "../../components/News/Create/CreateNews";
+import ImageStorage from "../../components/ImageStorage/ImageStorage";
+import EditImageStorage from "../../components/ImageStorage/EditImageStorage/EditImageStorage";
+import CreateImageStorage from "../../components/ImageStorage/CreateImageStorage/CreateImageStorage";
 
 export default class Dashboard extends React.Component {
 
@@ -90,6 +101,85 @@ export default class Dashboard extends React.Component {
             }
           />
 
+          <Route
+            path="/dashboard/product"
+            element={
+              <Product 
+              />
+            }
+          />
+          <Route
+            path="/dashboard/product/detail/:id"
+            element={
+              <DetailProduct 
+              />
+            }
+          />
+          <Route
+            path="/dashboard/product/edit/:id"
+            element={
+              <EditProduct 
+              />
+            }
+          />
+          <Route
+            path="/dashboard/product/create"
+            element={
+              <CreateProduct 
+              />
+            }
+          />
+
+          <Route
+            path="/dashboard/news"
+            element={
+              <News 
+              />
+            }
+          />
+          <Route
+            path="/dashboard/news/detail/:id"
+            element={
+              <DetailNews 
+              />
+            }
+          />
+          <Route
+            path="/dashboard/news/edit/:id"
+            element={
+              <EditNews 
+              />
+            }
+          />
+          <Route
+            path="/dashboard/news/create"
+            element={
+              <CreateNews 
+              />
+            }
+          />
+
+          <Route
+            path="/dashboard/image-storage"
+            element={
+              <ImageStorage 
+              />
+            }
+          />
+          <Route
+            path="/dashboard/image-storage/edit/:id"
+            element={
+              <EditImageStorage 
+              />
+            }
+          />
+          <Route
+            path="/dashboard/image-storage/:id_admin/create"
+            element={
+              <CreateImageStorage 
+              />
+            }
+          />
         </Routes>
       </div>
     </div>

@@ -66,11 +66,15 @@ export default function CommentNews() {
                                 
                                         <td style={lastTd}>
 
+                                            {/* <Link style={{textDecoration: "none", color:'none'}} to={`#`}>
+                                                <AiIcons.AiFillEye style={showComment? openComment : closeComment} onClick={handleComment} className="icon" />
+                                                <AiIcons.AiFillEyeInvisible style={!showComment? openComment : closeComment} onClick={handleComment} className="icon" />
+                                            </Link> */}
+                                            
                                             <Link style={{textDecoration: "none", color:'none'}} to={`#`}>
                                                 <AiIcons.AiFillEye style={showComment? openComment : closeComment} onClick={handleComment} className="icon" />
                                                 <AiIcons.AiFillEyeInvisible style={!showComment? openComment : closeComment} onClick={handleComment} className="icon" />
                                             </Link>
-
                                         </td>
                                     </tr>
                                 

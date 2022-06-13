@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "name": "Banh mi",
+        "price": 30000,
+        "description": "Banh mi is so yummy!!!Banh mi is so yummy!!!Banh mi is so yummy!!!Banh mi is so yummy!!!Banh mi is so yummy!!!Banh mi is so yummy!!!Banh mi is so yummy!!!",
+        "image": "https://www.thethaothientruong.vn/uploads/2020/1-o-banh-my-bao-nhieu-calo.jpg",
+        "create_at": "20220606120000",
+        "total_like": 200,
+        "id_category": 1,
+        "name_category": "Breakfast"
+    },
+    {
+        "id": 2,
+        "name": "Pho",
+        "price": 30000,
+        "description": "Banh mi is so yummy!!!",
+        "image": "https://www.thethaothientruong.vn/uploads/2020/1-o-banh-my-bao-nhieu-calo.jpg",
+        "create_at": "20220606120000",
+        "total_like": 200,
+        "id_category": 2,
+        "name_category": "Soups"
+    },
+    {
+        "id": 3,
+        "name": "Tra dao",
+        "price": 30000,
+        "description": "Banh mi is so yummy!!!",
+        "image": "https://www.thethaothientruong.vn/uploads/2020/1-o-banh-my-bao-nhieu-calo.jpg",
+        "create_at": "20220606120000",
+        "total_like": 200,
+        "id_category": 3,
+        "name_category": "Drinks"
+    },
+    {
+        "id": 4,
+        "name": "Rau cau",
+        "price": 30000,
+        "description": "Banh mi is so yummy!!!",
+        "image": "https://www.thethaothientruong.vn/uploads/2020/1-o-banh-my-bao-nhieu-calo.jpg",
+        "create_at": "20220606120000",
+        "total_like": 200,
+        "id_category": 4,
+        "name_category": "Desserts"
+    }
+]

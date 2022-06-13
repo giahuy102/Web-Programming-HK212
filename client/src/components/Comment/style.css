@@ -1,0 +1,15 @@
+.my-image{
+    width: 100px;
+}
+
+.uploadbtn{
+    border-radius: 50px;
+    border-style: none;
+    border-color: #b38f25;
+    border-style: solid;
+    padding: 5px 30px;
+    background-color: #E0B531;
+    color: white;
+    font-size:medium;
+    font-weight: bold;
+}

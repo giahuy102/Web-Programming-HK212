@@ -16,11 +16,12 @@ export default function Contact() {
     }
     const contactStyle = {
         backgroundColor: '#F7F8FC',
+        height: '100vh'
     }
     const lastTd = {
         backgroundColor: 'white',
         fontSize: 20,
-        width: 220,
+        width: 230,
     }
 
     const each_td = {
@@ -36,15 +37,15 @@ export default function Contact() {
     const [membersVisited, setMembersVisited] = useState(pageNumber * membersPerPage);
     const displayMembers = (membersList) => membersList.
                         slice(membersVisited, membersVisited + membersPerPage).
-                        map( (member) => {
+                        map( (member, idx) => {
                             return (
                                 
-                                    <tr key={member.id}>
-                                        <td style={each_td}> {member.id} </td>
-                                        <td style={each_td}> {member.name} </td>
-                                        <td style={each_td}> {member.email} </td>
-                                        <td style={each_td}> {member.phone_number} </td>
-                                        <td style={each_td}> {member.address} </td>
+                                    <tr key={idx}>
+                                        <td style={each_td}> {member.ID} </td>
+                                        <td style={each_td}> {member.USERNAME} </td>
+                                        <td style={each_td}> {member.EMAIL} </td>
+                                        <td style={each_td}> {member.PHONENUMBER} </td>
+                                        <td style={each_td}> {member._ADDRESS} </td>
                                     </tr>
                                 
                             );
@@ -89,8 +90,17 @@ export default function Contact() {
 
     const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
+    useEffect (() => {
         handleSearch();
+        axios({
+            method: 'get',
+            url: 'http://localhost/dashboard/membership',
+        }).then(function (response) {
+            console.log(response);
+            setMembers(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
     }, [searchTerm]);
 
     return (
