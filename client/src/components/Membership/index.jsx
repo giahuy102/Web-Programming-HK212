@@ -209,39 +209,6 @@ export default function Membership() {
                 </div>
 
 
-
-            <Modal show={showDelete} onHide={handleCloseDelete}>
-                <Modal.Header closeButton>
-                <Modal.Title>Delete member</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure to delete this member?</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseDelete}>
-                    Cancel
-                </Button>
-                <Button variant="primary" onClick={handleCloseDelete}>
-                    Delete
-                </Button>
-                </Modal.Footer>
-            </Modal>
-            
-            <Modal show={showBlock} onHide={handleCloseBlock}>
-                <Modal.Header closeButton>
-                <Modal.Title>Block member</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure to block this member?</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseBlock}>
-                    Cancel
-                </Button>
-                <Button variant="primary" onClick={handleCloseBlock}>
-                    Block
-                </Button>
-                </Modal.Footer>
-            </Modal>
-
-
-
             </div>
       </div>
     );

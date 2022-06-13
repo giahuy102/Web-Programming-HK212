@@ -26,9 +26,12 @@ export default function Cart(props) {
 
     const calculateTotalPrice = () => {
         let count = 0;
-        for (let item of JSON.parse(localStorage.getItem('cart_list'))) {
-            count += item.price;
+        if (localStorage.getItem('cart_list')) {
+            for (let item of JSON.parse(localStorage.getItem('cart_list'))) {
+                count += item.price * item.amount;
+            }
         }
+
         return count;
     }
 
@@ -37,7 +40,8 @@ export default function Cart(props) {
         <div>
             <h2>Your cart</h2>
             <div className='cart_list'>
-                {
+                {   
+                    JSON.parse(localStorage.getItem('cart_list')) && 
                     JSON.parse(localStorage.getItem('cart_list')).map((item, index) => {
                         return (
 
@@ -69,7 +73,7 @@ export default function Cart(props) {
                 <span>Subtotal</span>
                 <span>
                     {
-                        
+                        calculateTotalPrice()
                     }
                 </span>
                 <button
@@ -83,6 +87,10 @@ export default function Cart(props) {
                 </button>
 
             </div>
+
+
+
+
 
             <button onClick={
                 () => props.addToCart('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShB1xsEzzOpt0YpIyMpddte2msyOIf3vBb1b_FmyWX&s=36', 'Test', 1, 300)
