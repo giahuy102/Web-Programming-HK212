@@ -123,6 +123,27 @@ export default function SideNavBar() {
             </Link>
           </li>
 
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/publicInfo">
+              <AiIcons.AiOutlineInfoCircle className="icon" />
+              <span>Information</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/orderMember">
+              <AiIcons.AiOutlineDollarCircle className="icon" />
+              <span>Order Member</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/orderCustomer">
+              <AiIcons.AiOutlineDollarCircle className="icon" />
+              <span>Order Customer</span>
+            </Link>
+          </li>
+
             {/* <li>
                 <Link style={{textDecoration: "none"}} to="/dashboard/publicInfo">
                     <AiIcons.AiOutlineInfoCircle className="icon" />
@@ -150,26 +171,7 @@ export default function SideNavBar() {
                     <span>Image Storage</span>
                 </Link>
             </li>
-          <li>
-            <Link style={{ textDecoration: "none" }} to="/dashboard/publicInfo">
-              <AiIcons.AiOutlineInfoCircle className="icon" />
-              <span>Information</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link style={{ textDecoration: "none" }} to="/dashboard/orderMember">
-              <AiIcons.AiOutlineDollarCircle className="icon" />
-              <span>Order Member</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link style={{ textDecoration: "none" }} to="/dashboard/orderCustomer">
-              <AiIcons.AiOutlineDollarCircle className="icon" />
-              <span>Order Customer</span>
-            </Link>
-          </li>
+          
         </ul>
       </nav>
     </IconContext.Provider>
