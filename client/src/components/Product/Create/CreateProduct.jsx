@@ -5,6 +5,7 @@ import ReactPaginate from "react-paginate";
 import Table from 'react-bootstrap/Table';
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
+import FileUploadForm from './FileUploadForm';
 
 export default function CreateProduct() {
     const spanStyle = {
@@ -19,6 +20,7 @@ export default function CreateProduct() {
     };
 
     const [categoryList, setCategoryList] = useState([]);
+    const [url, setUrl] = useState([]);
     // const [firstFetch, setFirstFetch] = useState(true);
 
     useEffect( () => {
@@ -42,9 +44,10 @@ export default function CreateProduct() {
         let name = document.getElementById('product_name').value; 
         let price = document.getElementById('product_price').value;
         let description = document.getElementById('product_description').value;
-        let image = document.getElementById('product_image').value;
+        // let image = document.getElementById('product_image').value;
         let c = document.getElementById('product_category');
-        let category = c.options[c.selectedIndex].value; console.log("Selected category id: ", category);
+        let category = c.options[c.selectedIndex].value; 
+        console.log("Selected category id: ", category);
         await axios({
             method: 'post',
             url: `http://localhost/dashboard/product/create`,
@@ -52,7 +55,7 @@ export default function CreateProduct() {
                 name: name,
                 price: price,
                 description: description,
-                image: image,
+                image: url,
                 category: category
             }
         })
@@ -90,7 +93,8 @@ export default function CreateProduct() {
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Image</span>
-                    <input id='product_image' type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    {/* <input id='product_image' type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" /> */}
+                    <FileUploadForm setUrl={setUrl}/>
                     <br />
                 </div>
                 <div className="input-group mb-3">

@@ -411,7 +411,7 @@ class AdminController
         $newDescription = $_POST['description'];
         $newImage = $_POST['image'];
         $newCategory = (int) $_POST['category'];
-
+        
         $result = $this->modelAdmin->create_one_product($newName, $newPrice, $newDescription, $newImage, $newCategory);
         echo json_encode($result);
     }
