@@ -45,11 +45,11 @@ export default function PublicInfo() {
     // const [newID, setNewID] = useState();
 
     const confirmEdit = async () => {
-        console.log("change: ", document.getElementById('tax_id').value)
-        console.log("change: ", document.getElementById('company_name').value)
-        console.log("change: ", document.getElementById('address').value)
-        console.log("change: ", document.getElementById('email').value)
-        console.log("change: ", document.getElementById('phone_number').value)
+        // console.log("change: ", document.getElementById('tax_id').value)
+        // console.log("change: ", document.getElementById('company_name').value)
+        // console.log("change: ", document.getElementById('address').value)
+        // console.log("change: ", document.getElementById('email').value)
+        // console.log("change: ", document.getElementById('phone_number').value)
         let tax_id = document.getElementById('tax_id').value;
         let newCompanyName = document.getElementById('company_name').value;
         let newAddress = document.getElementById('address').value;
@@ -132,9 +132,9 @@ export default function PublicInfo() {
 
             <Modal show={showBlock} onHide={e => handleCloseBlock(e)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Update sucessfully!</Modal.Title>
+                    <Modal.Title>Update successfully!</Modal.Title>
                 </Modal.Header>
-                {/* <Modal.Body>Are you sure to {blockOrNot == 0 ? "block" : "unblock"} this member?</Modal.Body> */}
+                <Modal.Body>You have updated public information successfully!</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={e => handleCloseBlock(e)}>
                         OK

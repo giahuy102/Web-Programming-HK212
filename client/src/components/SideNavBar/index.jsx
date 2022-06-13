@@ -24,6 +24,13 @@ export default function SideNavBar() {
   const [className, setClassName] = useState('');
 
 
+  const [imgStyle, setImgStyle] = useState({
+    width: '170px',
+    margin: 0,
+    height: '50px',
+    marginTop: '15px',
+    marginRight: '25px',
+  })
   const updateSize = () => {
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -34,7 +41,7 @@ export default function SideNavBar() {
     if (width < breakpoint_lg) {
       setActive(false);
     }
-    setStyle({minHeight: height});
+    setStyle({ minHeight: height });
   }
 
   useEffect(() => {
@@ -67,13 +74,12 @@ export default function SideNavBar() {
   useEffect(() => {
     
   });
-  
+
   return (
     <IconContext.Provider value={{ color: "#fff" }}>
-      {/* <nav style={myStyle} className={active ? "nav-bar inactive-small-screen" : "nav-bar inactive-small-screen nav-bar-inactive"}> */}
-      <nav style={myStyle} className={className}>
-        
-        <img style={{marginLeft: 0, marginRight: 20}} src={require("../../assets/images/logo.png")}></img>
+      <nav style={myStyle} className={active ? "nav-bar" : "nav-bar nav-bar-inactive"}>
+        {/* marginLeft: 0, marginRight: 20 */}
+        <img style={imgStyle} src={require("../../assets/images/newlogo.png")}></img>
         <Link
           className="transition-button"
           to="#"
@@ -82,47 +88,47 @@ export default function SideNavBar() {
           <FaIcons.FaBars className="fabar-icon" />
         </Link>
         <ul>
-            <li>
-                <Link style={{textDecoration: "none"}} to="/dashboard/overview">
-                    <AiIcons.AiOutlineHome className="icon" />
-                    <span  >Overview</span>
-                </Link>
-            </li>
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/overview">
+              <AiIcons.AiOutlineHome className="icon" />
+              <span  >Overview</span>
+            </Link>
+          </li>
 
-            <li>
-                <Link style={{textDecoration: "none"}} to="/dashboard/membership">
-                    <BSIcons.BsPersonCheck className="icon" />
-                    <span>Membership</span>
-                </Link>
-            </li>
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/membership">
+              <BSIcons.BsPersonCheck className="icon" />
+              <span>Membership</span>
+            </Link>
+          </li>
 
-            <li>
-                <Link style={{textDecoration: "none"}} to="/dashboard/commentNews">
-                    <BSIcons.BsNewspaper className="icon" />
-                    <span>News Comment</span>
-                </Link>
-            </li>
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/commentNews">
+              <BSIcons.BsNewspaper className="icon" />
+              <span>News Comment</span>
+            </Link>
+          </li>
 
-            <li>
-                <Link style={{textDecoration: "none"}} to="/dashboard/commentProduct">
-                    <AiIcons.AiOutlineComment className="icon" />
-                    <span>Product Comment</span>
-                </Link>
-            </li>
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/commentProduct">
+              <AiIcons.AiOutlineComment className="icon" />
+              <span>Product Comment</span>
+            </Link>
+          </li>
 
-            <li>
-                <Link style={{textDecoration: "none"}} to="/dashboard/contact">
-                    <AiIcons.AiOutlineContacts className="icon" />
-                    <span>Contact</span>
-                </Link>
-            </li>
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/contact">
+              <AiIcons.AiOutlineContacts className="icon" />
+              <span>Contact</span>
+            </Link>
+          </li>
 
-            <li>
+            {/* <li>
                 <Link style={{textDecoration: "none"}} to="/dashboard/publicInfo">
                     <AiIcons.AiOutlineInfoCircle className="icon" />
                     <span>Information</span>
                 </Link>
-            </li>
+            </li> */}
 
             <li>
                 <Link style={{textDecoration: "none"}} to="/dashboard/product">
@@ -144,6 +150,26 @@ export default function SideNavBar() {
                     <span>Image Storage</span>
                 </Link>
             </li>
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/publicInfo">
+              <AiIcons.AiOutlineInfoCircle className="icon" />
+              <span>Information</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/orderMember">
+              <AiIcons.AiOutlineDollarCircle className="icon" />
+              <span>Order Member</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/dashboard/orderCustomer">
+              <AiIcons.AiOutlineDollarCircle className="icon" />
+              <span>Order Customer</span>
+            </Link>
+          </li>
         </ul>
       </nav>
     </IconContext.Provider>

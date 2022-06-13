@@ -101,6 +101,114 @@ class AdminController
         echo json_encode($result);
     }
 
+    function get_all_product_comment($request) {
+        $result = $this->modelAdmin->get_all_product_comment();
+        echo json_encode($result);
+    }
+
+    function block_news_comment($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id_comment = (int) $split_uri[count($split_uri) - 2];
+        $id_news = (int) $split_uri[count($split_uri) - 1];
+        $result = $this->modelAdmin->block_news_comment($id_comment, $id_news);
+        echo json_encode($result);
+    }
+
+    function unblock_news_comment($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id_comment = (int) $split_uri[count($split_uri) - 2];
+        $id_news = (int) $split_uri[count($split_uri) - 1];
+        $result = $this->modelAdmin->unblock_news_comment($id_comment, $id_news);
+        echo json_encode($result);
+    }
+
+    function block_product_comment($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id_comment = (int) $split_uri[count($split_uri) - 2];
+        $id_product = (int) $split_uri[count($split_uri) - 1];
+        $result = $this->modelAdmin->block_product_comment($id_comment, $id_product);
+        echo json_encode($result);
+    }
+
+    function unblock_product_comment($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id_comment = (int) $split_uri[count($split_uri) - 2];
+        $id_product = (int) $split_uri[count($split_uri) - 1];
+        $result = $this->modelAdmin->unblock_product_comment($id_comment, $id_product);
+        echo json_encode($result);
+    }
+
+    function get_all_order_member($request) {
+        
+        $result = $this->modelAdmin->get_all_order_member();
+        echo json_encode($result);
+    }
+
+    function get_all_order_member_total_price($request) {
+        
+        $result = $this->modelAdmin->get_all_order_member_total_price();
+        echo json_encode($result);
+    }
+
+    function delete_one_order_member($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->delete_one_order_member($id);
+        echo json_encode($result);
+    }
+
+    
+    function get_one_order_member($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_order_member($id);
+        echo json_encode($result);
+    }
+    
+    function get_one_order_member_total_price($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_order_member_total_price($id);
+        echo json_encode($result);
+    }
+
+    function get_all_order_customer_total_price($request) {
+        
+        $result = $this->modelAdmin->get_all_order_customer_total_price();
+        echo json_encode($result);
+    }
+
+    function delete_one_order_customer($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->delete_one_order_customer($id);
+        echo json_encode($result);
+    }
+
+    function get_one_order_customer($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_order_customer($id);
+        echo json_encode($result);
+    }
+
+    function get_one_order_customer_total_price($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_order_customer_total_price($id);
+        echo json_encode($result);
+    }
+
     function create($request) {
         // $arr = array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5);
         // header('Content-type: application/json');

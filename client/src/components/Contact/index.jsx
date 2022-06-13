@@ -28,7 +28,8 @@ export default function Contact() {
         lineHeight: 2,
     }
 
-    const initData = JsonData.slice(0,30);
+    // const initData = JsonData.slice(0,30);
+    const initData = [];
     const [members, setMembers] = useState(initData);
     const [pageNumber, setPageNumber] = useState(0);
     // let membersPerPage = 10;
@@ -36,92 +37,136 @@ export default function Contact() {
     // let membersVisited = pageNumber * membersPerPage;
     const [membersVisited, setMembersVisited] = useState(pageNumber * membersPerPage);
     const displayMembers = (membersList) => membersList.
-                        slice(membersVisited, membersVisited + membersPerPage).
-                        map( (member, idx) => {
-                            return (
-                                
-                                    <tr key={idx}>
-                                        <td style={each_td}> {member.ID} </td>
-                                        <td style={each_td}> {member.USERNAME} </td>
-                                        <td style={each_td}> {member.EMAIL} </td>
-                                        <td style={each_td}> {member.PHONENUMBER} </td>
-                                        <td style={each_td}> {member._ADDRESS} </td>
-                                    </tr>
-                                
-                            );
-                        });
-                    
-                        
+        slice(membersVisited, membersVisited + membersPerPage).
+        map((member, idx) => {
+            return (
+
+                <tr key={idx}>
+                    <td style={each_td}> {member.ID} </td>
+                    <td style={each_td}> {member.USERNAME} </td>
+                    <td style={each_td}> {member.EMAIL} </td>
+                    <td style={each_td}> {member.PHONENUMBER} </td>
+                    <td style={each_td}> {member._ADDRESS} </td>
+                </tr>
+
+            );
+        });
+
+
     const pageCount = Math.ceil(members.length / membersPerPage);
     const changePage = ({ selected }) => {
-        console.log("selected: ", selected);
+        // console.log("selected: ", selected);
         setPageNumber(selected);
         setMembersVisited(selected * membersPerPage);   // myself
     };
 
+    const [tempMembers, setTempMembers] = useState([]);
+
     const handleSearch = () => {
+        // console.log("search term: ", searchTerm);
         var filterData = [];
         let count = 0;
-        for (let i = 0; i < initData.length; i++) {
-            if (initData[i].name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                filterData[count++] = initData[i];
+        for (let i = 0; i < tempMembers.length; i++) {
+            if (tempMembers[i].USERNAME.toLowerCase().includes(searchTerm.toLowerCase())) {
+                filterData[count++] = tempMembers[i];
             }
         }
-        filterData.sort(function comp (a, b) {if (a.id < b.id) {return -1;}} );
-        console.log(filterData);
-        console.log("page selected: ", pageNumber);
+        // filterData.sort(function comp(a, b) { if (a.ID < b.ID) { return 1; } });
+        // console.log('filter data: ', filterData);
+        // console.log("page selected: ", pageNumber);
 
+        // setMembers(filterData.slice(0, count));
         if (searchTerm.length > 0) {
-            if (pageNumber ==  0) {
+            if (pageNumber == 0) {
                 setMembers(filterData.slice(0, count));
             }
             else {
-                console.log("page number != 0");
+                // console.log("page number != 0");
                 setMembersVisited(0);
                 setMembers(filterData.slice(0, count));
+                // setMembersVisited(10);
             }
+            // setMembers(filterData.slice(0, count));
         }
         else {
-            console.log("searchTerm.length != 0: ", pageNumber); 
+            // console.log("searchTerm.length != 0: ", pageNumber);
+            // setMembers(initData.slice(pageNumber*membersPerPage, pageNumber*membersPerPage + membersPerPage));
+            setMembersVisited(0);
             setMembersPerPage(10);
-            setMembers(initData);
+            setMembers(tempMembers);
         }
+
+
+
+
+
+        // var filterData = [];
+        // let count = 0;
+        // for (let i = 0; i < initData.length; i++) {
+        //     if (initData[i].name.toLowerCase().includes(searchTerm.toLowerCase())) {
+        //         filterData[count++] = initData[i];
+        //     }
+        // }
+        // filterData.sort(function comp (a, b) {if (a.id < b.id) {return -1;}} );
+        // console.log(filterData);
+        // console.log("page selected: ", pageNumber);
+
+        // if (searchTerm.length > 0) {
+        //     if (pageNumber ==  0) {
+        //         setMembers(filterData.slice(0, count));
+        //     }
+        //     else {
+        //         console.log("page number != 0");
+        //         setMembersVisited(0);
+        //         setMembers(filterData.slice(0, count));
+        //     }
+        // }
+        // else {
+        //     console.log("searchTerm.length != 0: ", pageNumber); 
+        //     setMembersPerPage(10);
+        //     setMembers(initData);
+        // }
     };
 
     const [searchTerm, setSearchTerm] = useState("");
-
-    useEffect (() => {
+    const [firstFetch, setFirstFetch] = useState(true);
+    useEffect(() => {
         handleSearch();
-        axios({
-            method: 'get',
-            url: 'http://localhost/dashboard/membership',
-        }).then(function (response) {
-            console.log(response);
-            setMembers(response.data);
-        }).catch(function (error) {
-            console.log(error);
-        });
+
+        if (firstFetch) {
+            axios({
+                method: 'get',
+                url: 'http://localhost/dashboard/membership',
+            }).then(function (response) {
+                console.log(response);
+                setMembers(response.data);
+                setTempMembers(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+            setFirstFetch(false);
+        }
     }, [searchTerm]);
 
     return (
-        <div className="container" style={{maxWidth: 2000, height: '100%'}}>
+        <div className="container" style={{ maxWidth: 2000, height: '100%' }}>
             <div className='path' style={pathStyle}>
-                <h1 style={{color: '#1570EF', fontWeight:'bold'}}>Contact Management</h1>
+                <h1 style={{ color: '#1570EF', fontWeight: 'bold' }}>Contact Management</h1>
             </div>
             <div className="content" style={contactStyle}>
 
-                <div style={{width:400, margin:'0 auto', marginTop:40}} className="input-group mb-3">
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        placeholder="Search..." 
+                <div style={{ width: 400, margin: '0 auto', marginTop: 40 }} className="input-group mb-3">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search..."
                         onChange={(event) => {
                             setSearchTerm(event.target.value);
                         }}
                     />
                 </div>
 
-                <Table style={{width:1100, margin:'0 auto'}} responsive>
+                <Table style={{ width: 1100, margin: '0 auto' }} responsive>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -129,7 +174,7 @@ export default function Contact() {
                             <th>Email</th>
                             <th>Phone number</th>
                             <th>Address</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -154,9 +199,9 @@ export default function Contact() {
                         breakLinkClassName="page-link"
                         containerClassName="pagination"
                         activeClassName="active"
-                    /> 
+                    />
                 </div>
             </div>
-      </div>
+        </div>
     );
 }

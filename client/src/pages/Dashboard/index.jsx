@@ -22,6 +22,13 @@ import CreateNews from "../../components/News/Create/CreateNews";
 import ImageStorage from "../../components/ImageStorage/ImageStorage";
 import EditImageStorage from "../../components/ImageStorage/EditImageStorage/EditImageStorage";
 import CreateImageStorage from "../../components/ImageStorage/CreateImageStorage/CreateImageStorage";
+import * as AiIcons from "react-icons/ai";
+import * as BiIcons from "react-icons/bi";
+import Dropdown from 'react-bootstrap/Dropdown'
+import OrderMember from "../../components/OrderMember";
+import DetailOrderMember from "../../components/OrderMember/Detail";
+import OrderCustomer from "../../components/OrderCustomer";
+import DetailOrderCustomer from "../../components/OrderCustomer/Detail";
 
 export default class Dashboard extends React.Component {
 
@@ -31,44 +38,64 @@ export default class Dashboard extends React.Component {
       {/* <div className="col-lg-2">
         <SideNavBar />
       </div> */}
-      <div className="col" style={{height: '100%'}}>
-        <div className="top-nav" style={{height: 60}}>
-          <h2 style={{marginBottom: 0}}>Top nav</h2>
-          <div className="line" style={{height: 1, backgroundColor: '#D2D4DD', marginTop: 20}}></div>
+      <div className="col" style={{ height: '100%' }}>
+
+        <div className="top-nav" style={{ height: 60, textAlign: 'right' }}>
+          {/* <h2 style={{marginBottom: 0}}>Top nav</h2> */}
+          {/* <BiIcons.BiUserCircle style={{ fontSize: 35, marginTop: 10, marginRight: 10 }} className="icon" /> */}
+          {/* background: 'transparent', border: '0px transparent' */}
+          <Dropdown>
+            <Dropdown.Toggle style={{ background: 'transparent', border: '0px transparent' }} variant="success" id="dropdown-basic" className="btn-primary">
+              <BiIcons.BiUserCircle style={{ color: 'black', fontSize: 35, marginTop: 10 }} className="icon" />
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="http://localhost:3000/">Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <div className="line" style={{ height: 1, backgroundColor: '#D2D4DD', marginTop: 0 }}></div>
         </div>
+
         <Routes>
+          <Route
+            path="/dashboard"
+            element={
+              <Overview
+              />
+            }
+          />
           <Route
             path="/dashboard/overview"
             element={
-              <Overview 
+              <Overview
               />
             }
           />
           <Route
             path="/dashboard/membership"
             element={
-              <Membership 
+              <Membership
               />
             }
           />
           <Route
             path="/dashboard/membership/edit/:id"
             element={
-              <EditMembership 
+              <EditMembership
               />
             }
           />
           <Route
             path="/dashboard/membership/detail/:id"
             element={
-              <DetailMembership 
+              <DetailMembership
               />
             }
           />
           <Route
             path="/dashboard/commentNews"
             element={
-              <CommentNews 
+              <CommentNews
               />
             }
           />
@@ -82,21 +109,49 @@ export default class Dashboard extends React.Component {
           <Route
             path="/dashboard/contact"
             element={
-              <Contact 
+              <Contact
               />
             }
           />
           <Route
             path="/dashboard/publicInfo"
             element={
-              <PublicInfo 
+              <PublicInfo
               />
             }
           />
           <Route
             path="/dashboard/publicInfo/edit/:id"
             element={
-              <EditPublicInfo 
+              <EditPublicInfo
+              />
+            }
+          />
+          <Route
+            path="/dashboard/orderMember"
+            element={
+              <OrderMember
+              />
+            }
+          />
+          <Route
+            path="/dashboard/orderMember/detail/:id"
+            element={
+              <DetailOrderMember
+              />
+            }
+          />
+          <Route
+            path="/dashboard/orderCustomer"
+            element={
+              <OrderCustomer
+              />
+            }
+          />
+          <Route
+            path="/dashboard/orderCustomer/detail/:id"
+            element={
+              <DetailOrderCustomer
               />
             }
           />

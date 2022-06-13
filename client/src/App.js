@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Overview from './components/Overview';
 
 
 function App() {

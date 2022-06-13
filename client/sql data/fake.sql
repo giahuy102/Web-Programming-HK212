@@ -112,8 +112,7 @@ DROP TABLE IF EXISTS CONTAINS_CUSTOMER_PRODUCT;
 CREATE TABLE CONTAINS_CUSTOMER_PRODUCT (
     ID_ORDER_CUSTOMER INT NOT NULL,
     ID_PRODUCT INT NOT NULL,
-    QUANTITY                    INT,
-    TOTAL_PRICE_CUSTOMER          INT     DEFAULT 0,
+    QUANTITY  INT,
     PRIMARY KEY(ID_ORDER_CUSTOMER, ID_PRODUCT),
     FOREIGN KEY(ID_ORDER_CUSTOMER) REFERENCES ORDER_CUSTOMER(ID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(ID_PRODUCT) REFERENCES PRODUCT(ID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -169,11 +168,22 @@ END//
 DELIMITER ;
 
 
-DELIMITER //
-CREATE TRIGGER update_total_price_customer BEFORE INSERT ON contains_customer_product
- FOR EACH ROW BEGIN
+
+
+
+
+-- old version
+
+CREATE TRIGGER `update_total_price_member` BEFORE INSERT ON `contains_member_product`
+ FOR EACH ROW 
+ BEGIN
+	-- set @tempprice = 0;
+    
+	-- select DISTINCT price into @tempprice from contains_member_product, product where NEW.ID_PRODUCT = product.ID;
+    
+    -- set NEW.TOTAL_PRICE_MEMBER = (select @tempprice) * NEW.QUANTITY;
+    
     set @tempprice = 0;
     select DISTINCT price into @tempprice from product where PRODUCT.ID = NEW.ID_PRODUCT ;
-    set NEW.TOTAL_PRICE_CUSTOMER = (select @tempprice) * NEW.QUANTITY;
-END//
-DELIMITER ;
+    set NEW.TOTAL_PRICE_MEMBER = (select @tempprice) * NEW.QUANTITY;
+END
