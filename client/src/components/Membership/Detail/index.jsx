@@ -30,7 +30,7 @@ export default function DetailMembership() {
 
     return (
         <div className="container" style={{maxWidth: 2000, height: '100vh'}}>
-            <div className="title" style={{paddingTop: 30}}>
+            <div className="title" style={{paddingTop: 30, width:'fit-content', margin: '0 auto'}}>
                 <h1>Detailed information member {id_obj.id}</h1>
             </div>
 
@@ -56,7 +56,7 @@ export default function DetailMembership() {
                 </div>
             </div>
             
-            <div className='groupButton' style={{marginTop: 50}}>
+            <div className='groupButton' style={{marginTop: 50, width:'fit-content', margin: '0 auto'}}>
                 <Link style={{textDecoration: "none", marginRight:80}} to={`/dashboard/membership/`}>
                     <button style={{width:100}} type="button" className="btn btn-primary">Done</button>
                 </Link>   

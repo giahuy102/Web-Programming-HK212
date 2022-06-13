@@ -30,6 +30,7 @@ export default function SideNavBar() {
     height: '50px',
     marginTop: '15px',
     marginRight: '25px',
+    marginLeft: '25px'
   })
   const updateSize = () => {
     const width = window.innerWidth;

@@ -12,7 +12,7 @@ export default function Overview() {
   }
   return (
     <div className="container" style={{ maxWidth: 2000, height: '100vh' }}>
-      <h1 style={{ paddingTop: 60, color: '#1570EF', fontWeight: 'bold' }} className="title">Welcome to BKRestaurant</h1>
+      <h1 style={{ paddingTop: 60, color: '#1570EF', fontWeight: 'bold', width: 'fit-content', margin:' 0 auto' }} className="title">Welcome to BKRestaurant</h1>
       <div className="content" style={contentStyle}>
         <p>
           BKRestaurant has been successfully owned and operated since 1984 and welcomes you to drop by and join the locals in our fun and friendly atmosphere. We are located close to the beach in Santa Barbara, California.

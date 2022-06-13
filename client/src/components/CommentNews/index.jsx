@@ -29,6 +29,7 @@ export default function CommentNews() {
         backgroundColor: 'white',
         fontSize: 20,
         width: '10%',
+        paddingLeft : '3%'
     }
 
     const each_td = {

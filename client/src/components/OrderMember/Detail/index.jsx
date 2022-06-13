@@ -152,7 +152,7 @@ export default function DetailOrderMember() {
 
                 <tr key={idx}>
                     <td style={each_td}> {member.ID_PRODUCT} </td>
-                    <td style={each_td}> {member.NAME_PRODUCT} </td>
+                    <td style={each_td}> {member.NAME} </td>
                     <td style={each_td}> {member.QUANTITY} </td>
                     <td style={each_td}> {member.PRICE} </td>
 
