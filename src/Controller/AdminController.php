@@ -249,4 +249,24 @@ class AdminController
         $result = $this->modelAdmin->get_all_product_join_category();
         echo json_encode($result);
     }
+
+    function create_one_product($request) {
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $newName = $_POST['name'];
+        $newPrice = (int) $_POST['price'];
+        $newDescription = $_POST['description'];
+        $newImage = $_POST['image'];
+        $newCategory = (int) $_POST['category'];
+
+        $result = $this->modelAdmin->create_one_product($newName, $newPrice, $newDescription, $newImage, $newCategory);
+        echo json_encode($result);
+    }
+
+    function get_one_product($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_product($id);
+        echo json_encode($result);
+    }
 }

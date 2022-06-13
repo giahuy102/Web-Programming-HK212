@@ -284,12 +284,25 @@ class AdminModel {
 
     function get_all_product_join_category() {
         $connection = $this->connectDB();
-        $query = "SELECT PRODUCT.ID, PRODUCT.NAME, PRICE, IMAGE, _DESCRIPTION, TOTAL_LIKES_PRODUCT, CREATE_AT, ID_CATEGORY, CATEGORY.NAME AS NAME_CATEGORY FROM PRODUCT LEFT JOIN CATEGORY ORDER BY ID";
+        $query = "SELECT PRODUCT.ID, PRODUCT.NAME, PRICE, IMAGE, _DESCRIPTION, TOTAL_LIKES_PRODUCT, CREATE_AT, ID_CATEGORY, CATEGORY.NAME AS NAME_CATEGORY FROM PRODUCT , CATEGORY WHERE PRODUCT.ID_CATEGORY = CATEGORY.ID ORDER BY PRODUCT.ID";
         $result = mysqli_query($connection, $query);
         $category_list = array();
         while($category = mysqli_fetch_assoc($result)) {
             $category_list[] = $category;
         }
         return $category_list;
+    }
+
+    function create_one_product($name, $price, $description, $image, $category_id) {
+        $connection = $this->connectDB();
+        $query = "INSERT INTO PRODUCT(NAME, PRICE, IMAGE, _DESCRIPTION, CREATE_AT, ID_CATEGORY) VALUE('" . $name . "', " . $price . ", '" . $image . "', '" . $description . "', NOW(), " . $category_id . ")";
+        $result = mysqli_query($connection, $query);
+    }
+
+    function get_one_product($id) {
+        $connection = $this->connectDB();
+        $query = "SELECT PRODUCT.ID, PRODUCT.NAME, PRICE, IMAGE, _DESCRIPTION, TOTAL_LIKES_PRODUCT, CREATE_AT, ID_CATEGORY, CATEGORY.NAME AS NAME_CATEGORY FROM PRODUCT , CATEGORY WHERE PRODUCT.ID_CATEGORY = CATEGORY.ID AND PRODUCT.ID = " . $id;
+        $result = mysqli_query($connection, $query);
+        return mysqli_fetch_assoc($result);
     }
 }

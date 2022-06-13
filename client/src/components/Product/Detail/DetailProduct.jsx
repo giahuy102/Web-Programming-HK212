@@ -25,9 +25,18 @@ export default function DetailProduct() {
     const objId = useParams();
 
     useEffect(() => {
-        let product = JsonData.filter((product) => product.id == objId.id)[0];
-        setProduct(product);
-    });
+        // let product = JsonData.filter((product) => product.id == objId.id)[0];
+        // setProduct(product);
+        axios({
+            method: 'get',
+            url: `http://localhost/dashboard/product/detail/${objId.id}`,
+        }).then(function (response) {
+            console.log("Product: ", response.data);
+            setProduct(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }, []);
 
     // function displayTimestamp (time) {  console.log("Time: ", time)  //  time -> YYYYMMDDHHMMSS
     //     if (time === "")
@@ -47,45 +56,45 @@ export default function DetailProduct() {
             <div className='input-content' style={{ width: 800, margin: '0 auto', marginTop: 30 }}>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">ID</span>
-                    <input defaultValue={product.id} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={product.ID} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Name</span>
-                    <input defaultValue={product.name} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={product.NAME} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Price</span>
-                    <input defaultValue={product.price} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={product.PRICE} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Description</span>
-                    <textarea defaultValue={product.description} disabled className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <textarea defaultValue={product._DESCRIPTION} disabled className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Image</span>
-                    <input defaultValue={product.image} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={product.IMAGE} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Created at</span>
                     <input
-                        defaultValue={product.create_at}
+                        defaultValue={product.CREATE_AT}
                         disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                     />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Total like</span>
-                    <input defaultValue={product.total_like} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={product.TOTAL_LIKES_PRODUCT} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
                 <div className="input-group mb-3">
                     <span style={spanStyle} className="input-group-text" id="inputGroup-sizing-default">Category</span>
-                    <input defaultValue={product.name_category} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <input defaultValue={product.NAME_CATEGORY} disabled type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <br />
                 </div>
             </div>
