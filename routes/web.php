@@ -100,6 +100,8 @@ $router->get("/^\/dashboard\/orderCustomerPrice$/", array($adminController, 'get
 $router->post("/^\/dashboard\/orderCustomer\/delete\/[0-9]+$/", array($adminController, 'delete_one_order_customer'));
 $router->get("/^\/dashboard\/orderCustomer\/detail\/[0-9]+$/", array($adminController, 'get_one_order_customer'));
 $router->get("/^\/dashboard\/orderCustomer\/total_price\/[0-9]+$/", array($adminController, 'get_one_order_customer_total_price'));
+$router->post("/^\/dashboard\/uploadImg$/", array($adminController, 'upload_image_to_storage'));
+
 $router->run();
 
 
