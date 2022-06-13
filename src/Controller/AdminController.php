@@ -242,31 +242,37 @@ class AdminController
         echo json_encode($result);
     }
 
-    function get_product_comment($request){
-        $uri = $_SERVER['REQUEST_URI'];
-        $split_uri = explode("/", $uri);
-        $product_id = (int)($split_uri[count($split_uri) - 2]);
-        $result = $this->modelAdmin->get_comment_by_product_id($product_id);
+    function get_all_news($request) {
+        $result = $this->modelAdmin->get_all_news();
         echo json_encode($result);
     }
 
-    function add_product_comment($request){
+    function get_one_news($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_news($id);
+        echo json_encode($result);
+    }
+
+    function create_one_news($request) {
         $_POST = json_decode(file_get_contents("php://input"), true);
-        $member_id = $_POST['member_id'];
-        $content = $_POST['content'];
+        $newTitle = $_POST['title'];
+        $newContent = $_POST['content'];
+        $newId_Admin = $_POST['id_admin'];
 
-        $uri = $_SERVER['REQUEST_URI'];
-        $split_uri = explode("/", $uri);
-        $product_id = (int)($split_uri[count($split_uri) - 2]);
-        $result = $this->modelAdmin->add_comment($product_id, $member_id, $content);
+        $result = $this->modelAdmin->create_one_news($newTitle, $newContent, (int) $newId_Admin);
         echo json_encode($result);
     }
 
-    function get_user_by_id($request){
-        $uri = $_SERVER['REQUEST_URI'];
-        $split_uri = explode("/", $uri);
-        $user_id = (int)($split_uri[count($split_uri) - 1]);
-        $result = $this->modelAdmin->get_user_db_by_id($user_id);
+    function edit_one_news($request) {
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $id = $_POST['id'];
+        $newTitle = $_POST['title'];
+        $newContent = $_POST['content'];
+        // $newId_Admin = $_POST['id_admin'];
+
+        $result = $this->modelAdmin->edit_one_news($id, $newTitle, $newContent);
         echo json_encode($result);
     }
 
@@ -355,5 +361,86 @@ class AdminController
                 echo "Success!";
             }
         }
+    }
+
+    function delete_one_news ($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->delete_one_news($id);
+    }
+
+    function get_all_category($request) {
+        $result = $this->modelAdmin->get_all_category();
+        echo json_encode($result);
+    }
+
+    function delete_one_category ($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->delete_one_category($id);
+    }
+
+    function create_one_category($request) {
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $newName = $_POST['name'];
+
+        $result = $this->modelAdmin->create_one_category($newName);
+        echo json_encode($result);
+    }
+
+    function edit_one_category($request) {
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $id = $_POST['id'];
+        $newName = $_POST['name'];
+
+        $result = $this->modelAdmin->edit_one_category($id, $newName);
+        echo json_encode($result);
+    }
+
+    function get_all_product_join_category($request) {
+        $result = $this->modelAdmin->get_all_product_join_category();
+        echo json_encode($result);
+    }
+
+    function create_one_product($request) {
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $newName = $_POST['name'];
+        $newPrice = (int) $_POST['price'];
+        $newDescription = $_POST['description'];
+        $newImage = $_POST['image'];
+        $newCategory = (int) $_POST['category'];
+
+        $result = $this->modelAdmin->create_one_product($newName, $newPrice, $newDescription, $newImage, $newCategory);
+        echo json_encode($result);
+    }
+
+    function get_one_product($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_one_product($id);
+        echo json_encode($result);
+    }
+
+    function edit_one_product($request) {
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $id = $_POST['id'];
+        $newName = $_POST['name'];
+        $newPrice = (int) $_POST['price'];
+        $newDescription = $_POST['description'];
+        $newImage = $_POST['image'];
+        $newCategory = (int) $_POST['category'];
+
+        $result = $this->modelAdmin->edit_one_product($id, $newName, $newPrice, $newDescription, $newImage, $newCategory);
+        echo json_encode($result);
+    }
+
+    function delete_one_product ($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->delete_one_product($id);
     }
 }

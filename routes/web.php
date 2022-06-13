@@ -62,6 +62,23 @@ $router->get("/^\/dashboard\/contact$/", array($adminController, 'get_all_contac
 $router->get("/^\/dashboard\/image-storage\/[0-9]+$/", array($adminController, 'get_image_of_admin'));
 $router->post("/^\/dashboard\/image-storage\/create$/", array($adminController, 'create_one_image'));
 
+$router->get("/^\/dashboard\/news$/", array($adminController, 'get_all_news'));
+$router->get("/^\/dashboard\/news\/detail\/[0-9]+$/", array($adminController, 'get_one_news'));
+$router->post("/^\/dashboard\/news\/create$/", array($adminController, 'create_one_news'));
+$router->post("/^\/dashboard\/news\/edit$/", array($adminController, 'edit_one_news'));
+$router->post("/^\/dashboard\/news\/delete\/[0-9]+$/", array($adminController, 'delete_one_news'));
+
+$router->get("/^\/dashboard\/category$/", array($adminController, 'get_all_category'));
+$router->post("/^\/dashboard\/category\/delete\/[0-9]+$/", array($adminController, 'delete_one_category'));
+$router->post("/^\/dashboard\/category\/create$/", array($adminController, 'create_one_category'));
+$router->post("/^\/dashboard\/category\/edit$/", array($adminController, 'edit_one_category'));
+
+$router->get("/^\/dashboard\/product$/", array($adminController, 'get_all_product_join_category'));
+$router->post("/^\/dashboard\/product\/create$/", array($adminController, 'create_one_product'));
+$router->get("/^\/dashboard\/product\/detail\/[0-9]+$/", array($adminController, 'get_one_product'));
+$router->post("/^\/dashboard\/product\/edit$/", array($adminController, 'edit_one_product'));
+$router->post("/^\/dashboard\/product\/delete\/[0-9]+$/", array($adminController, 'delete_one_product'));
+
 $router->get("/^\/dashboard\/publicInfo$/", array($adminController, 'get_public_info'));
 $router->post("/^\/dashboard\/publicInfoEdit$/", array($adminController, 'edit_public_info'));
 
