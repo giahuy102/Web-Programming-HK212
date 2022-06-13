@@ -31,43 +31,70 @@ export default function ImageStorage() {
     }
     const pagination = {
         marginLeft: "auto",
-        marginRight: "auto",
+        marginRight: "0",
         marginTop: "40px",
         width: "fit-content",
     }
 
     // modal pop up when delete
     const [showDelete, setShowDelete] = useState(false);
+    const [idDelete, setIdDelete] = useState();
 
     const id_admin = 1;                                                                  // get admin id ???????
-    const initData = JsonData.filter( (image) => image.id_admin === id_admin).slice(0);
-    // const initData = JsonData.slice(0, 10);
+    const initData = useState([]);
     const [image, setImage] = useState(initData);
     const [pageNumber, setPageNumber] = useState(0);
     const [imagePerPage, setImagePerPage] = useState(10);
     const [imageVisited, setImageVisited] = useState(pageNumber * imagePerPage);
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [fisrtFetch, setFirstFetch] = useState(true);
+    const [tempImage, settempImage] = useState([]);
 
     useEffect( () => {
         handleSearch();
 
-        // axios({
-        //     method: 'get',
-        //     url: `http://localhost/dashboard/image-storage/${id_admin}`
-        // })
-        // .then(function(response) {
-        //     console.log("Image data: ", response.data);
-        //     // setInitData(response.data);
-        //     setImage(response.data);
-        // })
-        // .catch (function (err) {
-        //     console.log(err);
-        // })
-    }, [searchTerm]);
+        axios({
+            method: 'get',
+            url: `http://localhost/dashboard/image-storage/${id_admin}`,
+        })
+        .then(function (response) {
+            console.log("image list: ", response.data);
+            setImage(response.data);
+            if (fisrtFetch) {
+                settempImage(response.data);
+                setFirstFetch(false);
+            }
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    }, [searchTerm, showDelete, idDelete]);
 
-    const handleCloseDelete = () => setShowDelete(false);
-    const handleShowDelete = () => setShowDelete(true);
+    const handleCloseDelete = (e) => {
+        e.preventDefault();
+        setShowDelete(false);
+    }
+    const handleShowDelete = (e, id) => {
+        e.preventDefault();
+        setIdDelete(id);
+        setShowDelete(true);
+    }
+
+    const handleDelete = async (e) => { console.log("Enter delete");
+        await axios({
+            method: 'post',
+            url: `http://localhost/dashboard/image-storage/delete/${idDelete}`,
+        })
+            .then(function (response) {
+                console.log("Delete image: ", response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        setShowDelete(false)
+    }
 
     const pageCount = Math.ceil(image.length / imagePerPage);
     const changePage = ({ selected }) => {
@@ -78,8 +105,8 @@ export default function ImageStorage() {
     const handleSearch = () => {
         var filterData = [];
         let count = 0;
-        for (let i = 0; i < initData.length; i++) {
-            if (initData[i].position.toLowerCase().includes(searchTerm.toLowerCase())) {
+        for (let i = 0; i < tempImage.length; i++) {
+            if (tempImage[i].POSITION.toLowerCase().includes(searchTerm.toLowerCase())) {
                 filterData[count++] = initData[i];
             }
         }
@@ -102,23 +129,37 @@ export default function ImageStorage() {
             // setMembers(initData.slice(pageNumber*membersPerPage, pageNumber*membersPerPage + membersPerPage));
             // setMembersVisited(0);   
             setImagePerPage(10);
-            setImage(initData);
+            setImage(tempImage);
         }
     };
 
 
-    const displayImage = (imageList) => {
-        imageList
+    const displayImage = (imageList) => imageList
         .slice(imageVisited, imageVisited + imagePerPage)
-        .map((image, idx) => {  console.log("IMage: ", image)
+        .map((image, idx) => { 
             return (
+                <tr key={idx}>
+                    <td style={each_td}> {image.ID} </td>
+                    <td style={each_td}> {image.URL_IMG} </td>
+                    <td style={each_td}> {image.POSITION} </td>
+                    <td style={each_td}> {image.ID_ADMIN} </td>
+                    <td style={lastTd}>
+                        {/* <Link style={{ textDecoration: "none", color: 'none' }} to={`/dashboard/image-storage/edit/${image.ID}`} title='Edit'>
+                            <AiIcons.AiFillEdit className="icon" />
+                        </Link> */}
+                        <Link onClick={e => handleShowDelete(e, image.ID)} style={{ textDecoration: "none" }} to={`#`} title='Delete'>
+                            <AiIcons.AiFillDelete className="icon" />
+                        </Link>
+                    </td>
+                </tr>
+                
                 // <tr key={idx}>
-                //     <td style={each_td}> {image.ID} </td>
-                //     <td style={each_td}> {image.URL_IMG} </td>
-                //     <td style={each_td}> {image.POSITION} </td>
-                //     <td style={each_td}> {image.ID_ADMIN} </td>
+                //     <td style={each_td}> {image.id} </td>
+                //     <td style={each_td}> {image.url} </td>
+                //     <td style={each_td}> {image.position} </td>
+                //     <td style={each_td}> {image.id_admin} </td>
                 //     <td style={lastTd}>
-                //         <Link style={{ textDecoration: "none", color: 'none' }} to={`/dashboard/image-storage/edit/${image.ID}`} title='Edit'>
+                //         <Link style={{ textDecoration: "none", color: 'none' }} to={`/dashboard/image-storage/edit/${image.id}`} title='Edit'>
                 //             <AiIcons.AiFillEdit className="icon" />
                 //         </Link>
                 //         <Link onClick={handleShowDelete} style={{ textDecoration: "none" }} to={`#`} title='Delete'>
@@ -126,24 +167,8 @@ export default function ImageStorage() {
                 //         </Link>
                 //     </td>
                 // </tr>
-                
-                <tr key={idx}>
-                    <td style={each_td}> {image.id} </td>
-                    <td style={each_td}> {image.url} </td>
-                    <td style={each_td}> {image.position} </td>
-                    <td style={each_td}> {image.id_admin} </td>
-                    <td style={lastTd}>
-                        <Link style={{ textDecoration: "none", color: 'none' }} to={`/dashboard/image-storage/edit/${image.id}`} title='Edit'>
-                            <AiIcons.AiFillEdit className="icon" />
-                        </Link>
-                        <Link onClick={handleShowDelete} style={{ textDecoration: "none" }} to={`#`} title='Delete'>
-                            <AiIcons.AiFillDelete className="icon" />
-                        </Link>
-                    </td>
-                </tr>
             );
         });
-    }
 
     return (
         <div className="container" style={{ maxWidth: 2000, height: '100vh' }}>
@@ -186,8 +211,8 @@ export default function ImageStorage() {
 
                 {/* test pagination */}
                 {/* {displayUsers}*/}
-                {/* {pageCount > 1 && <div className="paginate" style={pagination}> */}
-                {pageCount > 1 && <div className="paginate">
+                {pageCount > 1 && <div className="paginate" style={pagination}>
+                {/* {pageCount > 1 && <div className="paginate"> */}
                     <ReactPaginate
                         nextLabel="Next"
                         onPageChange={changePage}
@@ -216,7 +241,7 @@ export default function ImageStorage() {
                         <Button variant="outline-secondary" onClick={handleCloseDelete}>
                             Cancel
                         </Button>
-                        <Button variant="danger" onClick={handleCloseDelete}>
+                        <Button variant="danger" onClick={handleDelete}>
                             Delete
                         </Button>
                     </Modal.Footer>

@@ -175,6 +175,13 @@ class AdminController
         echo json_encode($result);
     }
 
+    function delete_one_image ($request) {
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri, 10);
+        $id = (int)($split_uri[count($split_uri) - 1]); echo $id;
+        $result = $this->modelAdmin->delete_one_image($id);
+    }
+
     function get_all_news($request) {
         $result = $this->modelAdmin->get_all_news();
         echo json_encode($result);
