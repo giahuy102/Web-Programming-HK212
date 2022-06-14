@@ -334,13 +334,13 @@ class AdminModel {
     
     function create_one_news($title, $content, $id_admin) {
         $connection = $this->connectDB();
-        $query = "INSERT INTO NEWS(TITLE, CONTENT_NEWS, CREATED_AT, ID_ADMIN) VALUE('" . $title . "', '" . $content . "', NOW(), '" . $id_admin . "')";
+        $query = "INSERT INTO NEWS(TITLE, CONTENT, CREATED_AT, ID_ADMIN) VALUE('" . $title . "', '" . $content . "', NOW(), '" . $id_admin . "')";
         $result = mysqli_query($connection, $query);
     }
 
     function edit_one_news($id, $title, $content) {
         $connection = $this->connectDB();
-        $query = "UPDATE NEWS SET TITLE = '" . $title . "', CONTENT_NEWS = '" . $content . "' WHERE ID = " . $id;
+        $query = "UPDATE NEWS SET TITLE = '" . $title . "', CONTENT = '" . $content . "' WHERE ID = " . $id;
         $result = mysqli_query($connection, $query);
     }
 
