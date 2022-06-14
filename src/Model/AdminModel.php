@@ -157,7 +157,7 @@ class AdminModel {
 
     function get_comment_by_product_id($product_id){
         $connection = $this->connectDB();
-        $query = "SELECT _comment.ID, ID_MEMBER, CONTENT, AVATAR, _user._NAME FROM manages_comment_product_user JOIN _comment ON ID_COMMENT = _comment.ID JOIN _user ON ID_MEMBER = _user.ID WHERE (manages_comment_product_user.ID_PRODUCT = ". $product_id. ") ORDER BY CREATED_AT";
+        $query = "SELECT _COMMENT.ID, ID_MEMBER,  CONTENT_COMMENT, AVATAR, _USER._NAME FROM MANAGES_COMMENT_PRODUCT_USER JOIN _COMMENT ON ID_COMMENT = _COMMENT.ID JOIN _USER ON ID_MEMBER = _USER.ID WHERE (MANAGES_COMMENT_PRODUCT_USER.ID_PRODUCT = ". $product_id. ") ORDER BY CREATED_AT";
         $result = mysqli_query($connection, $query);
         $comment_list = array();
         while($member = mysqli_fetch_assoc($result)){
@@ -168,11 +168,11 @@ class AdminModel {
 
     function add_comment($product_id, $member_id, $content){
         $connection = $this->connectDB();
-        $query = "INSERT INTO _comment(CONTENT, TOTAL_LIKES) VALUES ('". $content. "', 0);";
+        $query = "INSERT INTO _COMMENT(CONTENT, TOTAL_LIKES) VALUES ('". $content. "', 0);";
         $result = mysqli_query($connection, $query);
         $last_comment_id = mysqli_insert_id($connection);
         $value = "" . $last_comment_id . "," . $product_id . ","  . $member_id;
-        $query = "INSERT INTO manages_comment_product_user VALUES (" . $value .");";
+        $query = "INSERT INTO MANAGES_COMMENT_PRODUCT_USER VALUES (" . $value .");";
         $result = mysqli_query($connection, $query);
         return $this->get_comment_by_product_id($product_id);
     }
