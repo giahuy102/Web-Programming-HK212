@@ -40,14 +40,21 @@ class FileUploadForm extends React.Component {
     
       render() {
         return (
-            <>
-            
-            <form >
-                <input type="file" onChange={ this.onChange } />
-            </form>
-            <button type="submit" onClick={this.onSubmit} className="small-updatebtn mt-3 mb-sm-0 mb-3">Upload Image</button>
-
-          </>
+        <>          
+            <input 
+                type="file" accept='image/*' className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
+                onChange={ (event) => this.onChange(event)}
+            />
+                {/* <form >
+                    <input type="file" onChange={this.onChange} />
+                </form> */}
+            <button 
+                style={{ width: 100 }} type="button" className="btn btn-primary"
+                onClick={this.onSubmit}
+            >
+                Upload
+            </button>
+        </>
        )
       }
         
