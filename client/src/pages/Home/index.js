@@ -18,6 +18,8 @@ import Cart from '../../components/Cart';
 
 import UserInfo from '../../components/UserInfo';
 
+import Footer from '../../components/Footer'
+
 export default function Home() {
 
     // useEffect(() => {
@@ -88,7 +90,8 @@ export default function Home() {
                 />
                 <Route path="/userinfo" element={<UserInfo />} />
             </Routes>
-
+            
+            <Footer />  
         </div>
     );
 }

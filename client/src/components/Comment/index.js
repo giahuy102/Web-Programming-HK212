@@ -7,7 +7,7 @@ import avatar from '../../assets/images/images.jpg'
 import Single_comment from './Single_comment'
 
 const Comment = ({product_id}) => {
-  const this_member_id = JSON.parse(localStorage.getItem('jwt_data')).id
+  const this_member_id = 1
 
 
   const [comment_lst, setComment_lst] = useState([])
