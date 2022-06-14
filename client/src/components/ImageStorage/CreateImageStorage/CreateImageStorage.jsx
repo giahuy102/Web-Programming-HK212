@@ -49,6 +49,9 @@ export default function CreateImageStorage() {
 
     const handleClickDone = async() => {
         console.log(url, position, id_admin);
+        let c = document.getElementById('position');
+        let pos = c.options[c.selectedIndex].value;
+        setPosition(pos);
         await axios({
             method: 'post',
             url: "http://localhost/dashboard/image-storage/create",
@@ -91,14 +94,14 @@ export default function CreateImageStorage() {
                         className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" 
                         onChange={(event) => handleChangePosition(event.target.value)}
                     /> */}
-                    <select type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onChange={(e) => setPosition(e.target.value)}>
-                        <option value="home">Home</option>
-                        <option value="about">About</option>
-                        <option value="menu">Menu</option>
-                        <option value="contact">Contact</option>
-                        <option value="news">News</option>
-                        <option value="cart">Cart</option>
-                        <option value="member">Member Information</option>
+                    <select id='position' type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onChange={(e) => setPosition(e.target.value)}>
+                        <option value="Home">Home</option>
+                        <option value="About">About</option>
+                        <option value="Menu">Menu</option>
+                        <option value="Contact">Contact</option>
+                        <option value="News">News</option>
+                        <option value="Cart">Cart</option>
+                        <option value="Member">Member Information</option>
                     </select>
                     <br />
                 </div>
