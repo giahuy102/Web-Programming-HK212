@@ -168,10 +168,10 @@ class AdminModel {
 
     function add_comment($product_id, $member_id, $content){
         $connection = $this->connectDB();
-        $query = "INSERT INTO _COMMENT(CONTENT, TOTAL_LIKES) VALUES ('". $content. "', 0);";
+        $query = "INSERT INTO _COMMENT(CONTENT_COMMENT, TOTAL_LIKES_COMMENT) VALUES ('". $content. "', 0);";
         $result = mysqli_query($connection, $query);
         $last_comment_id = mysqli_insert_id($connection);
-        $value = "" . $last_comment_id . "," . $product_id . ","  . $member_id;
+        $value = "" . $last_comment_id . "," . $product_id . ","  . $member_id . ",1" ;
         $query = "INSERT INTO MANAGES_COMMENT_PRODUCT_USER VALUES (" . $value .");";
         $result = mysqli_query($connection, $query);
         return $this->get_comment_by_product_id($product_id);

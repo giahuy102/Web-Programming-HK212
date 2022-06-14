@@ -12,7 +12,7 @@ const Single_comment = ({usercomment}) => {
             <div className='text-center'>{usercomment._NAME}</div>
         </div>
         <div className='col'>
-            {usercomment.CONTENT}
+            {usercomment.CONTENT_COMMENT}
         </div>
     </div>
   )

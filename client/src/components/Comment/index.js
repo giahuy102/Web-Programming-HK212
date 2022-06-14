@@ -7,7 +7,7 @@ import avatar from '../../assets/images/images.jpg'
 import Single_comment from './Single_comment'
 
 const Comment = ({}) => {
-  const this_member_id = 1
+  const this_member_id = 1;
   const product_id = 1;
   // console.log(product_id)
 
@@ -20,7 +20,7 @@ const Comment = ({}) => {
         method: 'get',
         url: `http://localhost/home/product/${product_id}/comment`,
       }).then(function (response) {
-          // console.log(response);
+          // console.log(response.data);
           setComment_lst(response.data);
       }).catch(function (error) {
           console.log(error);
@@ -46,6 +46,7 @@ const Comment = ({}) => {
             content: new_comment
         }
     }).then(function (response) {
+        console.log(response.data)
         setComment_lst(response.data)
     }).catch(function (error) {
         console.log(error);
@@ -55,7 +56,7 @@ const Comment = ({}) => {
   return (
     <div className='container'>
       {comment_lst.map((usercomment) => (
-        <Single_comment usercomment={usercomment}/>
+        <Single_comment key={usercomment.id} usercomment={usercomment}/>
         // <h3>{usercomment.CONTENT}</h3>
       ))}
       <div className='row py-md-4 py-sm-3'>
