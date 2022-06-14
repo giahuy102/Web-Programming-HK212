@@ -330,6 +330,7 @@ class AdminModel {
         $connection = $this->connectDB();
         $query = "UPDATE _user SET _NAME = '". $name ."',EMAIL = '". $email ."', PHONENUMBER = '". $phone."', _ADDRESS = '". $address."' WHERE ID = ". $user_id;
         $result = mysqli_query($connection, $query);
+        return $this->get_user_db_by_id($user_id);
     }
     
     function create_one_news($title, $content, $id_admin) {
