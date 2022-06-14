@@ -70,7 +70,12 @@ export default function NewsList() {
                 {
                     newsList?.map((item, index) => {
                         return (
-                            <div className='news_list_item d-flex flex-column' onClick={() => handleClick(item.ID)}>
+                            <div className='news_list_item d-flex flex-column' onClick={() => handleClick(item.ID)}
+                                style={{
+                                    cursor: 'pointer'
+                                }}
+                            
+                            >
                                 <img 
                                     src={require('../../assets/images/news.png')}
                             

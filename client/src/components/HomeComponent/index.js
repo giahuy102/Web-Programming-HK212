@@ -17,7 +17,7 @@ export default function Header() {
 
                     <h2>The best place to try Vietnamese food.</h2>
                     <p>BK Restaurant is one of the famous restaurants on Vietnamese cuisine. Let's order and enjoy our delicious dishes!</p>
-                    <Link to='/' className='home_section_1_link'>
+                    <Link to='/home/menu' className='home_section_1_link'>
                         Order now
                     </Link>
                 </div>
@@ -26,7 +26,7 @@ export default function Header() {
                 <div className='home_section_2_1 d-flex flex-column justify-content-center'>
                     <h3>Our restaurant was established in <span>2000</span></h3>
                     <p>
-                    Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.
+                    Lorem ipsum dolor sit amet. Sit ducimus officiis eum illo assumenda aut velit voluptatem sit perferendis atque et itaque reiciendis et assumenda quae hic explicabo voluptate.
                     </p>
                 </div>
                 <div className='home_section_2_2 d-flex justify-content-center align-items-center'>
@@ -41,7 +41,7 @@ export default function Header() {
                 <div className='home_section_3_2 d-flex flex-column justify-content-center'>
                     <h3>Spacius and typical Vietnamese space.</h3>
                     <p>
-                    Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.
+                    Lorem ipsum dolor sit amet. Sit ducimus officiis eum illo assumenda aut velit voluptatem sit perferendis atque et itaque reiciendis et assumenda quae hic explicabo voluptate.
                     </p>
                 </div>
 
@@ -54,7 +54,7 @@ export default function Header() {
                 <div className='home_section_3_2 d-flex flex-column justify-content-center'>
                     <h3>Open from 9 AM to 10 PM.</h3>
                     <p>
-                    Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.
+                    Lorem ipsum dolor sit amet. Sit ducimus officiis eum illo assumenda aut velit voluptatem sit perferendis atque et itaque reiciendis et assumenda quae hic explicabo voluptate.
                     </p>
                 </div>
                 <div className='home_section_3_1 d-flex justify-content-center align-items-center'>
