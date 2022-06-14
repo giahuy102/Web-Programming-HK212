@@ -16,7 +16,7 @@ const UserInfo = () => {
   const [address, setAddress] = useState("")
   const [avatar, setAvatar] = useState("no_avatar.png")
 
-  const this_member_id = 3;
+  const this_member_id = JSON.parse(localStorage.getItem('jwt_data')).id;
 
   useEffect( () => {
     axios({

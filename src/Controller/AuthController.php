@@ -29,7 +29,7 @@ class AuthController {
     }
 
     function login($request) {
- 
+
         $data = json_decode(file_get_contents("php://input"));
         $result = $this->userModel->findUserByPhone($data->phoneNumber);
 
@@ -64,7 +64,8 @@ class AuthController {
                         "jwt" => $jwt,
                         "id" => $result['ID'],
                         "email" => $result['EMAIL'],
-                        "username" => $result['USERNAME']
+                        "username" => $result['USERNAME'],
+                        "role" => $result['_ROLE']
                     )
 
                 )

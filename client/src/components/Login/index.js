@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { BiWindowAlt } from 'react-icons/bi';
 
 export default function Login() {
 
@@ -40,6 +41,9 @@ export default function Login() {
                 password: password
             }
         }).then(function (response) {
+            localStorage.setItem('jwt_data', JSON.stringify(response.data.jwt_data));
+            if (response.data.jwt_data.role == 'admin') window.location.href = '/dashboard/overview';
+            else window.location.href = '/home';
             console.log(response.data)
         }).catch(function (error) {
             console.log(error);

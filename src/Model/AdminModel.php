@@ -19,7 +19,7 @@ class AdminModel {
         if (!$connection){
             die('Could not connect: ' . mysqli_connect_error());
         }
-        $db_selected = mysqli_select_db($connection, 'restaurant_2022');
+        $db_selected = mysqli_select_db($connection, 'RESTAURANT_2022');
         if (!$db_selected){
             die('Cant use cars: '. mysqli_error($connection));
         }
@@ -108,7 +108,7 @@ class AdminModel {
 
     function get_image_of_admin($id_admin) {
         $connection = $this->connectDB();
-        $query = "SELECT * FROM image_storage WHERE ID_ADMIN = " . $id_admin;
+        $query = "SELECT * FROM IMAge_STORAGE WHERE ID_ADMIN = " . $id_admin;
         $result = mysqli_query($connection, $query);
         $image_list = array();
         while($image = mysqli_fetch_assoc($result)) {
@@ -119,7 +119,7 @@ class AdminModel {
 
     function create_one_image($url_img, $position, $id_admin) {
         $connection = $this->connectDB();
-        $query = "INSERT INTO image_storage(URL_IMG, POSITION, ID_ADMIN) VALUES('" . $url_img . "','" . $position . "'," . $id_admin . ")";
+        $query = "INSERT INTO IMAGE_STORAGE(URL_IMG, POSITION, ID_ADMIN) VALUES('" . $url_img . "','" . $position . "'," . $id_admin . ")";
         $result = mysqli_query($connection, $query);
     }
 

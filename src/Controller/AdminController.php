@@ -8,7 +8,7 @@ use App\Model\AdminModel;
 
 class AdminController
 {
-    public AdminModel $modelAdmin;
+    public $modelAdmin;
 
     function __construct() {
         $this->modelAdmin = new AdminModel();

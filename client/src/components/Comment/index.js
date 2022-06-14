@@ -7,7 +7,9 @@ import avatar from '../../assets/images/images.jpg'
 import Single_comment from './Single_comment'
 
 const Comment = ({product_id}) => {
-  const this_member_id = 3
+  const this_member_id = JSON.parse(localStorage.getItem('jwt_data')).id
+
+
   const [comment_lst, setComment_lst] = useState([])
   const [new_comment, setNewComment] = useState([])
   const [userAvatar, setUserAvatar] = useState("")
@@ -51,7 +53,7 @@ const Comment = ({product_id}) => {
 
   return (
     <div className='container'>
-      {comment_lst.map((usercomment) => (
+      {comment_lst?.map((usercomment) => (
         <Single_comment usercomment={usercomment}/>
         // <h3>{usercomment.CONTENT}</h3>
       ))}

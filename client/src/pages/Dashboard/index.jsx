@@ -51,7 +51,10 @@ export default class Dashboard extends React.Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item href="http://localhost:3000/">Logout</Dropdown.Item>
+              <Dropdown.Item onClick={() => {
+                localStorage.removeItem('jwt_data');
+                window.location.href = '/home';
+              }}>Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <div className="line" style={{ height: 1, backgroundColor: '#D2D4DD', marginTop: 0 }}></div>

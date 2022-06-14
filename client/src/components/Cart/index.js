@@ -26,8 +26,13 @@ export default function Cart(props) {
 
     const calculateTotalPrice = () => {
         let count = 0;
-        for (let item of JSON.parse(localStorage.getItem('cart_list'))) {
-            count += item.price;
+        // if (localStorage.getItem('cart_list')) {
+        //     for (let item of JSON.parse(localStorage.getItem('cart_list'))) {
+        //         count += item.price * item.amount;
+        //     }
+        // }
+        for (let item of props.cartList) {
+            count += item.price * item.amount;
         }
         return count;
     }
@@ -35,16 +40,33 @@ export default function Cart(props) {
 
     return (   
         <div>
-            <h2>Your cart</h2>
+            {/* <h2>Your cart</h2> */}
             <div className='cart_list'>
-                {
-                    JSON.parse(localStorage.getItem('cart_list')).map((item, index) => {
+                {   
+                    props.cartList?.map((item, index) => {
                         return (
 
-                            <div className='cart_item d-flex align-items-center justify-content-around' key={index}>
+                            <div className='cart_item d-flex align-items-center justify-content-around' key={index}
+                                style={{
+                                    marginTop: '40px'
+                                }}
+                            
+                            >
                                     <div className='cart_product_detail d-flex align-items-center justify-content-between'>
-                                        <img src={item.urlImage}/>
-                                        <div>
+                                        <img
+                                            style={{
+                                                width: '200px',
+                                                height: '200px',
+                                                display: 'inline-block',
+                                                borderRadius: '20px'
+                                            }}
+                                        
+                                        src={item.urlImage}/>
+                                        <div
+                                            style={{
+                                                marginLeft: '30px'
+                                            }}
+                                        >
                                             <h4>{item.productName}</h4>
                                             <button className='btn btn-warning' onClick={() => props.removeCartItem(index)}>Remove</button>
                                         </div>
@@ -55,7 +77,12 @@ export default function Cart(props) {
                                         <button className='btn btn-danger' onClick={() => props.changeCartAmount(index, '+')}>+</button>
 
                                     </div>
-                                    <span className='price'>{item.price}$</span>
+                                    <span
+                                        style={{
+                                            fontSize: '25px'
+                                        }}
+                                    
+                                    className='price'>{item.price}$</span>
                                 
                             </div>
 
@@ -65,12 +92,29 @@ export default function Cart(props) {
 
             </div>
 
-            <div>
-                <span>Subtotal</span>
-                <span>
+            <div
+                style={{
+                    width: '80%',
+                    margin: 'auto',
+                    marginTop: '50px'
+                }}
+                className='d-flex justify-content-around align-items-center'
+            >
+                <span
+                    style={{
+                        fontWeight: 'bold',
+                        fontSize: '40px'
+                    }}
+                >Subtotal</span>
+                <span
+                    style={{
+                        fontSize: '30px',
+                    
+                    }}
+                >
                     {
-                        
-                    }
+                        calculateTotalPrice()
+                    }$
                 </span>
                 <button
                     className='btn btn-primary'
@@ -78,18 +122,18 @@ export default function Cart(props) {
                         backgroundColor: '#E0B531',
                         color: 'white'
                     }}
+
+                    onClick={
+                        () => {
+                            localStorage.removeItem('cart_list');
+                            window.location.href = '/home'
+                        }
+                    }
                 >
                     Continue to checkout
                 </button>
 
             </div>
-
-            <button onClick={
-                () => props.addToCart('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShB1xsEzzOpt0YpIyMpddte2msyOIf3vBb1b_FmyWX&s=36', 'Test', 1, 300)
-                
-            }>Test</button>
-
-    
 
         </div>
     );

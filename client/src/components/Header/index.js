@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Link } from "react-router-dom";
 
+import Dropdown from 'react-bootstrap/Dropdown'
+import * as BiIcons from "react-icons/bi";
+
 export default function Header() {
 
     // useEffect(() => {
@@ -15,6 +18,18 @@ export default function Header() {
     //         console.log(error);
     //     }, []);
     // });
+    const calculateTotalAmount = () => {
+        let count = 0;
+        if (localStorage.getItem('cart_list')) {
+            for (let item of JSON.parse(localStorage.getItem('cart_list'))) {
+                count += item.amount;
+            }
+        }
+
+        return count;
+    }
+
+
     return (
         <div className='home_header_general align-items-center'>
             <div className='d-flex justify-content-between align-items-center' style={{
@@ -47,8 +62,8 @@ export default function Header() {
                     </li> 
 
                     <li>
-                        <Link to='/home/contact' className='home_header_link'>
-                            Contact
+                        <Link to='/home/news' className='home_header_link'>
+                            News
                         </Link>
                     </li> 
 
@@ -60,11 +75,28 @@ export default function Header() {
                                     color: '#E5B507'
                                 }}
                             
-                            >3</span>)
+                            >{calculateTotalAmount()}</span>)
                         </Link>
                     </li> 
                     
                 </ul>
+                {
+                    localStorage.getItem('jwt_data') ? 
+                    <Dropdown>
+                        <Dropdown.Toggle style={{ background: 'transparent', border: '0px transparent' }} variant="success" id="dropdown-basic" className="btn-primary">
+                            <BiIcons.BiUserCircle style={{ color: 'black', fontSize: 35, marginTop: 10 }} className="icon" />
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="http://localhost:3000/">{JSON.parse(localStorage.getItem('jwt_data')).username}</Dropdown.Item>
+                            <Dropdown.Item href="http://localhost:3000/home/userinfo">Info</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {
+                                localStorage.removeItem('jwt_data');
+                                window.location.href = '/home';
+                            }}>Logout</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    :
                 <div className='d-flex justify-content-between home_header_list_link_1'>
                     <Link to='/home/register' className='home_header_link_1'>
                         Sign up
@@ -74,6 +106,8 @@ export default function Header() {
                     </Link>
 
                 </div>
+                }
+
             </div>
         
 

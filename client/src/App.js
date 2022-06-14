@@ -32,7 +32,7 @@ function App() {
         <Routes>
           <Route path="/example" element={<Example />} />
           <Route path="/home/*" element={<Home />} />
-          <Route path="*" element={<Dashboard />} />
+          <Route path="*" element={localStorage.getItem('jwt_data') ? <Dashboard /> : <Home />} />
         </Routes>
       </Router>
     </div>

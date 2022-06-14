@@ -36,7 +36,7 @@ $router->post("/^\/user\/login$/", array($authController, 'login'));
 
 
 // $router->get("/^\/dashboard\/news$/", array($utilityControler, 'get_all_news'));
-// $router->get("/^\/dashboard\/news\/detail\/[0-9]+$/", array($utilityControler, 'get_one_news'));
+// $router->get("/^\/dashboard\/news\/detail\/[0-9]+$/", array($utilityControLler, 'get_one_news'));
 
 
 $router->post("/^\/admin\/create$/", array($adminController, 'create'));

@@ -16,6 +16,7 @@ import ProductDetail from '../../components/ProductDetail';
 import NewsDetail from '../../components/NewsDetail';
 import Cart from '../../components/Cart';
 
+import UserInfo from '../../components/UserInfo';
 
 export default function Home() {
 
@@ -29,7 +30,7 @@ export default function Home() {
     //         console.log(error);
     //     }, []);
     // });
-    const [cartList, setCartList] = useState([]);
+    const [cartList, setCartList] = useState(localStorage.getItem('cart_list') ? JSON.parse(localStorage.getItem('cart_list')) : []);
 
     const addToCart = (urlImage, productName, amount, price) => {
         const newCartList = [...cartList, {
@@ -60,14 +61,14 @@ export default function Home() {
     return (
         <div>
             <Header 
-                
+                cartList={cartList}
             />  
             {/* <HomeComponent /> */}
             {/* <Menu /> */}
             <Routes>
                 <Route path="/" element={<HomeComponent />} />
                 <Route path="/menu" element={<Menu />} />
-                <Route path="/menu/:menu_id" element={<ProductDetail />} />
+                <Route path="/menu/:menu_id" element={<ProductDetail addToCart={addToCart} />} />
                 <Route path="/news" element={<NewsList />} />
                 <Route path="/news/:news_id" element={<NewsDetail />} />
                 <Route path="/login" element={<Login />} />
@@ -85,6 +86,7 @@ export default function Home() {
                     } 
     
                 />
+                <Route path="/userinfo" element={<UserInfo />} />
             </Routes>
 
         </div>

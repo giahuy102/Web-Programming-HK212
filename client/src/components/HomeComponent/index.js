@@ -3,18 +3,11 @@ import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Link } from "react-router-dom";
 
+import axios from 'axios';
+
 export default function Header() {
 
-    // useEffect(() => {
-    //     axios.get(`http://localhost/example`)
-    //     .then(res => {
-    //         console.log(res.data);
-    //         setExampleData(JSON.stringify(res.data));
-    //     })
-    //     .catch(error => {
-    //         console.log(error);
-    //     }, []);
-    // });
+
     return (
         <div>
             <div className='home_section_1 d-flex justify-content-center'>

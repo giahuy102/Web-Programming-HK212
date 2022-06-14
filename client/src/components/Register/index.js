@@ -44,6 +44,7 @@ export default function Register() {
             }
         }).then(function (response) {
             console.log(response.data)
+            window.location.href = '/home/login';
         }).catch(function (error) {
             console.log(error);
         });
