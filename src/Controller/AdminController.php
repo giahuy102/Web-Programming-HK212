@@ -496,4 +496,29 @@ class AdminController
 
         echo json_encode($response);
     }
+    function get_product_comment($request){
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri);
+        $product_id = (int)($split_uri[count($split_uri) - 2]);
+        $result = $this->modelAdmin->get_comment_by_product_id($product_id);
+        echo json_encode($result);
+    }
+    function add_product_comment($request){
+        $_POST = json_decode(file_get_contents("php://input"), true);
+        $member_id = $_POST['member_id'];
+        $content = $_POST['content'];
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri);
+        $product_id = (int)($split_uri[count($split_uri) - 2]);
+        $result = $this->modelAdmin->add_comment($product_id, $member_id, $content);
+        echo json_encode($result);
+    }
+    function get_user_by_id($request){
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri);
+        $user_id = (int)($split_uri[count($split_uri) - 1]);
+        $result = $this->modelAdmin->get_user_db_by_id($user_id);
+        echo json_encode($result);
+    }
+
 }
