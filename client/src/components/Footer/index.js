@@ -26,9 +26,10 @@ export default function Footer() {
     return (
         <div
             style={{
-                height: '300px',
+                height: '250px',
                 backgroundColor: '#3B3232',
-                color: 'white'
+                color: 'white',
+                marginTop: '500px'
             }}
             className='d-flex flex-column justify-content-around'
         >

@@ -89,15 +89,17 @@ export default function NewsList(props) {
                         Add to cart
                     </button>
                 </div>
-                {
-                    localStorage.getItem('jwt_data') ?
-                    <Comment />
-                    : <span></span>
-                }
+
                 
             </div>
 
-    
+                {
+                    localStorage.getItem('jwt_data') ?
+                    <Comment product_id={product.ID} />
+
+                    : <span></span>
+                    
+                }
 
         </div>
     );
